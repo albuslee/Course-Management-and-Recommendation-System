@@ -1,27 +1,35 @@
-import React, { Component } from 'react';
+import React, { PropTypes, Component } from 'react';
 
 class LoginForm extends Component {
 
-    constructor(){
+    constructor(props){
       super();
-      this.state = {
-        username : "",
-        password : ""
-      };
+      this.submit = this.submit.bind(this);
+      // this.state = {
+      //   username : "",
+      //   password : ""
+      // };
     };
+
+    submit(e) {
+      e.preventDefault()
+      console.log('username', this.refs.username.value);
+      console.log('password', this.refs.password.value);
+    }
+
 
     render() {
       return (
         <div>
-          <form className="login100-form validate-form "  name="loginform" action = '/' method = "POST">
+          <form className="login100-form validate-form " onSubmit={this.submit} name="loginform" >
 
             <div className="wrap-input100 validate-input" data-validate = "Enter username">
-                <input className="input100" type="text" name="username" placeholder="User name"/>
+                <input className="input100" type="text" name="username" placeholder="User name" ref="username" required/>
                 <span className="focus-input100"></span>
             </div>
 
             <div className="wrap-input100 validate-input" data-validate="Enter password">
-                <input className="input100" type="password" name="password" placeholder="Password"/>
+                <input className="input100" type="password" name="password" placeholder="Password" ref="password" required/>
                 <span className="focus-input100"></span>
             </div>
             <div className="container-login100-form-btn">
@@ -34,5 +42,6 @@ class LoginForm extends Component {
       );
     }
   }
+
 
 export default LoginForm;
