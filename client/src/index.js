@@ -9,7 +9,9 @@ import StudentProfilePage from './Pages/studentProfilePage';
 import courseenrolmentPage from './Pages/courseenrolmentPage';
 import coursereviewPage from './Pages/coursereviewPage';
 import pendinglistpage from './Pages/pendinglistpage';
+import NotFound from './Pages/NotFound';
 
+//routers controller
 const AppRouter = () => 
     <BrowserRouter>
         <Switch>
@@ -18,6 +20,7 @@ const AppRouter = () =>
             <Route path="/pendinglist" component={pendinglistpage} />
             <Route path="/courseenrolment" component={courseenrolmentPage} />
             <Route path="/coursereview" component={coursereviewPage} />
+            <Route component= {NotFound} />
         </Switch>
     </BrowserRouter>
 

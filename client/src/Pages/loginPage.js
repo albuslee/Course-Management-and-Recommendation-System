@@ -1,9 +1,9 @@
 //Done
 
 import React, { Component } from 'react';
-import '../css/login.css';
 import LoginForm from '../components/LoginForm';
 import { Helmet } from "react-helmet";
+
 
 
 const Loginbackground = (props) => 
@@ -13,7 +13,7 @@ const Loginbackground = (props) =>
         <title>Course Enrollment System</title>
         <meta charset="UTF-8"/>
         <meta name="viewport" content="width=device-width, initial-scale=1"/>
-        <link rel="stylesheet" type="css" href="../css.login.css" />
+        <link rel="stylesheet" type="css/text" href="./css/login.css" />
     </Helmet>
     {/* Body html begin */}
       <div className="container-login100">
