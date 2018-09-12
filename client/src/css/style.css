@@ -355,6 +355,7 @@ html body{
 }
 
 .navigationbar {
+    height: 110px;
     width: 1170px;
 	padding-right: 15px;
 	padding-left: 15px;
