@@ -6,7 +6,7 @@ window.onload=function(){
         let aBstar=aSpan.getElementsByTagName("b");
         var arrBtxt=["Bad","Poor","Normal","Good","Perfect"];
         var num=0;
-        var onOff=true;for(var i= 0;i<aBstar.length;i++){
+        let onOff=true;for(var i= 0;i<aBstar.length;i++){
                 aBstar[i].index=i;
                 aBstar[i].onmouseover=function(){
                     if(onOff) {
