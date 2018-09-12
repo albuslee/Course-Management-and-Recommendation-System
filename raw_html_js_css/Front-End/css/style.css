@@ -492,6 +492,8 @@ h2 {
 .Student_img {
     text-align: center;
     border-radius: 200px;
+    height: 200px;
+    width: 200px;
 }
 /* Pending List */
 .pending_list{
