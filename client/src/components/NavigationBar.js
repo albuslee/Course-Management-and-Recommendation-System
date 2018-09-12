@@ -1,6 +1,7 @@
 import React, { PropTypes, Component } from 'react';
 import { Helmet } from "react-helmet";
 
+
 class NavigationBar extends Component {
     constructor(props){
         super(props);
@@ -26,7 +27,7 @@ class NavigationBar extends Component {
                     {/* <!-- Logo --> */}
                     <div className="navbar-brand">
                         <a className="logo" href="StudentProfile.html" target="_parent">
-                            <img src="src/img/unsw.png" alt="logo"/>
+                            <img src={require("../img/unsw.png")} alt="logo"/>
                         </a>
                     </div>
                      {/* <!-- /Logo --> */}
