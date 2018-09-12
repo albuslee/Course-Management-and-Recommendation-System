@@ -489,6 +489,10 @@ h2 {
     background: #eeeeee;
     color:#000;   
 }
+.Student_img {
+    text-align: center;
+    border-radius: 200px;
+}
 /* Pending List */
 .pending_list{
     width: 100%;
