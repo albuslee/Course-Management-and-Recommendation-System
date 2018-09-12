@@ -9,18 +9,19 @@ import StudentProfilePage from './Pages/studentProfilePage';
 import courseenrolmentPage from './Pages/courseenrolmentPage';
 import coursereviewPage from './Pages/coursereviewPage';
 import pendinglistpage from './Pages/pendinglistpage';
-import NotFound from './Pages/NotFound';
+import NotFound from './Pages/NotFound';    //TODO : 404 bug need to fix
+
 
 //routers controller
 const AppRouter = () => 
     <BrowserRouter>
         <Switch>
             <Route exact path = '/' component = {LoginPage} />
-            <Route path="/studentprofile" component={StudentProfilePage} />
-            <Route path="/pendinglist" component={pendinglistpage} />
-            <Route path="/courseenrolment" component={courseenrolmentPage} />
-            <Route path="/coursereview" component={coursereviewPage} />
-            <Route component= {NotFound} />
+            <Route exact path="/studentprofile" component={StudentProfilePage} />
+            <Route exact path="/pendinglist" component={pendinglistpage} />
+            <Route exact path="/courseenrolment" component={courseenrolmentPage} />
+            <Route exact path="/coursereview" component={coursereviewPage} />
+            {/* <Route component= {NotFound} /> */}
         </Switch>
     </BrowserRouter>
 

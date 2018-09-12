@@ -4,8 +4,21 @@
 const express = require('express');
 const MongoClient = require('mongodb').MongoClient;
 const url = "mongodb://localhost:27017/";
-
 const app = express();
+
+
+app.use(function(req, res, next) {
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header("Access-Control-Allow-Headers", "X-Requested-With");
+  res.header("Access-Control-Allow-Headers", "Content-Type");
+  res.header("Access-Control-Allow-Methods", "PUT, GET, POST, DELETE, OPTIONS");
+  next();
+});
+
+app.get('/endpoint', function (req, res, next) {
+  res.json({msg: 'This is CORS-enabled for all origins!'})
+})
+
 
 // the example given by author, no mongodb
 app.get('/api/customers', (req, res) => {
@@ -19,13 +32,15 @@ app.get('/api/customers', (req, res) => {
 });
 
 // the backend and mongodb test
+// can be used to do authentication and get studentprofile
+
 app.get('/api/user/:id', (req, res) => {
   const userInfo = new Promise((resolve, reject) => {
     MongoClient.connect(url, {useNewUrlParser: true}, function(err, db){
-      if (err) throw err;
+      if (err) reject(err);
       let dbo =db.db('coursetest');
       dbo.collection("users").findOne({zid: parseInt(req.params.id)}, function(err, result){
-        if (err) throw err;
+        if (err) reject (err);
         db.close();
         resolve(result);
       });
@@ -39,11 +54,6 @@ app.get('/api/user/:id', (req, res) => {
     console.log(`Opz, something wrong, the error message is ${err}`);
   });
 });
-
-
-
-
-
 
 
 

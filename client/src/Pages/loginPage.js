@@ -1,13 +1,12 @@
 //Done
 
 import React, { Component } from 'react';
+import '../css/style.css';
 import LoginForm from '../components/LoginForm';
 import { Helmet } from "react-helmet";
 
-
-
 const Loginbackground = (props) => 
-  <div className="limiter">
+  <div>
     {/* Below is the example how you write the html header */}
     <Helmet>
         <title>Course Enrollment System</title>
@@ -25,20 +24,10 @@ const Loginbackground = (props) =>
           </div>
       </div>
   </div>
-
-
-
+	
 
 class LoginPage extends Component {
-    // constructor(){
-    //     super();
-    //     this.state = {
-    //         username: "",
-    //         password: ""
-    //     };
-    // };
-
-
+    
     render() {
         return (
             <div>         
