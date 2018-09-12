@@ -6,7 +6,6 @@ class NavigationBar extends Component {
     constructor(props){
         super(props);
         this.state = {
-
         }
     }
 
@@ -22,31 +21,31 @@ class NavigationBar extends Component {
                 </Helmet>
 
                 <header id="header" className="transparent-nav">
-                <div className="navigationbar">
-                
-                    {/* <!-- Logo --> */}
-                    <div className="navbar-brand">
-                        <a className="logo" href="StudentProfile.html" target="_parent">
-                            <img src={require("../img/unsw.png")} alt="logo"/>
-                        </a>
-                    </div>
-                     {/* <!-- /Logo --> */}
-
-                    {/* <!-- Navigation --> */}
-                    <nav id="nav">
-                        <ul className="main-menu">
-                            <li><a href="CourseEnrollment.html" target="_parent">Course Enrollment</a></li>
-                            <li><a href="CourseReview.html" target="_parent">Course Review</a></li>
-                            <li><a href="PendingList.html" target="_parent">Pending List</a></li>
-                            <li><span id="Username">Username</span></li>
-                            <li><a href="StudentProfile/logout" target="_parent">Logout</a></li>
-                        </ul>
-                    </nav>
-                    {/* <!-- /Navigation --> */}
-                </div>
-                
-            </header>
-        {/* <!-- </div> --> */}
+		            <div className="navigationbar">
+		
+					{/* <!-- Logo --> */}
+			            <div className="navbar-brand" style={{padding : 0}}>
+				            <a className="logo" href="StudentProfile.html" target="_parent">
+					         <img src={require("../img/unsw.png")} alt="logo"/>
+				            </a>
+			            </div>
+                    {/* <!-- /Logo --> */}
+                    
+				    {/* <!-- Navigation --> */}
+			            <nav id="nav">
+                            <ul className="main-menu">
+                                <li><a href="CourseEnrollment.html" target="_parent">Course Enrollment</a></li>
+                                <li><a href="CourseReview.html" target="_parent">Course Review</a></li>
+                                <li><a href="PendingList.html" target="_parent">Pending List</a></li>
+                                <li><span id="Username">Username</span></li>
+                                <li><a href="StudentProfile/logout" target="_parent">Logout</a></li>
+                            </ul>
+			            </nav>
+					{/* <!-- /Navigation --> */}
+		            </div>
+		
+	            </header>
+                    {/* <!-- </div> --> */}
             </div>
 
         );
