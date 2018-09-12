@@ -298,7 +298,7 @@ html body{
 }
 
 .navbar-brand .logo {
-	margin-top: 10px;
+	/*margin-top: 10px;*/
 	float: left;
 }
 
@@ -344,7 +344,8 @@ html body{
 
 .main-menu {
 	list-style: none;
-	float: right!important;
+    float: right!important;
+    margin-top: 20px;
 }
 
 .main-menu li{
@@ -446,7 +447,8 @@ h2 {
 }
 
 .feature {
-	position:relative;
+    position:relative;
+    padding-top:5px;
 }
 
 .feature + .feature  {
@@ -472,7 +474,7 @@ h2 {
     color: #ffffff;
 }
 .container{
-    padding-top: 40px;
+    padding-top: 150px;
 }
 
 .Sbody{
@@ -489,6 +491,15 @@ h2 {
 .course_information tr:hover *{
     background: #eeeeee;
     color:#000;   
+}
+
+.Student_img {
+    border-radius: 200px;
+    width: 200px;
+    height: 200px;
+}
+.student_info {
+    padding-top: 30px;
 }
 /* Pending List */
 .pending_list{
