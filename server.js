@@ -55,6 +55,16 @@ app.get('/api/user/:id', (req, res) => {
   });
 });
 
+// dummy data
+app.get('/api/courses', (req, res) => {
+  const courses = [
+    {CourseId:'COMP9041', CourseName: 'Software Construct'},
+    {CourseId: 'COMP9323', CourseName: 'Software as a Service Project '},
+    {CourseId: 'COMP9900', CourseName: 'Information Technology Project'},
+  ];
+
+  res.json(courses);
+});
 
 
 

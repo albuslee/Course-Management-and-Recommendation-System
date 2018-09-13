@@ -1,7 +1,3 @@
-//import React, { Component } from 'react';
-//class PendingListPage extends Component {
-
-//Done
 
 import React, {Component} from 'react';
 import { Helmet } from "react-helmet";
@@ -11,9 +7,6 @@ import '../css/font-awesome.min.css';
 import NavigationBar from '../components/NavigationBar';
 
 
-
-
-
 const PendingListBackground= (props) => 
     
     
@@ -21,7 +14,7 @@ const PendingListBackground= (props) =>
     			<div id="contact" className="section">
              <div className="container">
                 <div className="row">
-                  <h1>Pending Course List</h1>
+                  <h2>Pending Course List</h2>
                   <form action="/" method="POST" className="pending_list">
                     <table width="100%" className="zebra pending_table">
                       <tbody>
@@ -71,23 +64,20 @@ class PendingListPage extends Component {
   constructor(){
     super();
     this.state= {
-      ID:"",
-      CourseName:""
+      id:"",
+      courseName:""
 		}
   }
 
 
-componentWillMount(props){
-  fetch('/api/courses')
-  .then(response => response.json())
-  .then(json=> {
-      this.setState({Id: `${json.ID}`, course_name: `${json.CourseName}`});
-      console.log(this.state);          
-  })
-  .catch((err) => {
-    console.log(`Opz, something wrong, the error message is ${err}`);
-  });
-}
+// componentWillMount(props){
+//   fetch('/api/courses')
+//   .then(response => response.json())
+//   .then(json => this.setState( { id: json.id , courseName: json.CourseName})
+//   .catch((err) => {
+//     console.log(`Opz, something wrong, the error message is ${err}`);
+//   });
+// }
 
 
 
