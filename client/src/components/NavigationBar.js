@@ -1,15 +1,25 @@
 import React, { PropTypes, Component } from 'react';
 import { Helmet } from "react-helmet";
-
+import { Link } from 'react-router-dom';
 
 class NavigationBar extends Component {
     constructor(props){
         super(props);
         this.state = {
+            username : ''
         }
     }
 
+    componentWillMount(props){
+        this.setState({
+            username : localStorage.getItem('session-first_name').slice(1,-1)
+        })
+    }
+
+
     render() {
+        const username = this.state.username;
+
         return (
             <div>
                 <Helmet>
@@ -25,7 +35,7 @@ class NavigationBar extends Component {
 		
 					{/* <!-- Logo --> */}
 			            <div className="navbar-brand" style={{padding : 0}}>
-				            <a className="logo" href="StudentProfile.html" target="_parent">
+                            <a className="logo" href="/studentprofile" target="_parent">
 					         <img src={require("../img/unsw.png")} alt="logo"/>
 				            </a>
 			            </div>
@@ -34,11 +44,11 @@ class NavigationBar extends Component {
 				    {/* <!-- Navigation --> */}
 			            <nav id="nav">
                             <ul className="main-menu">
-                                <li><a href="CourseEnrollment.html" target="_parent">Course Enrollment</a></li>
-                                <li><a href="CourseReview.html" target="_parent">Course Review</a></li>
-                                <li><a href="PendingList.html" target="_parent">Pending List</a></li>
-                                <li><span id="Username">Username</span></li>
-                                <li><a href="StudentProfile/logout" target="_parent">Logout</a></li>
+                                <li><Link to="/" target="_parent">Course Enrollment</Link></li>
+                                <li><Link to="/courseenrolment" target="_parent">Course Review</Link></li>
+                                <li><Link to="/pendinglist" target="_parent">Pending List</Link></li>
+                                <li><span id="Username">{username}</span></li>
+                                <li><Link to="/" target="_parent">Logout</Link></li>
                             </ul>
 			            </nav>
 					{/* <!-- /Navigation --> */}

@@ -7,6 +7,7 @@ import '../css/bootstrap.min.css';
 import '../css/font-awesome.min.css';
 
 import NavigationBar from '../components/NavigationBar';
+import StudentInfo from '../components/StudentInfo';
 
 // TODO: need decomposite the student info and course enrolment info from the below html code. 
 const StudentProfileBackground = () => 
@@ -43,46 +44,12 @@ const StudentProfileBackground = () =>
                 {/* <!-- row --> */}
                 <div className="row">
                   
-                  <div className="col-md-6">
-                    <div className="section-header">
-                      <h2>Student Information</h2>
-                    </div>
-                    <img src={require(`../images/5198410.jpg`)} alt="" className="Student_img"/>
-                    {/* <!-- feature --> */}
-                    <div className="student_info"> 
-                      <div className="feature">
-                        <i className="feature-icon fa fa-flask"></i>
-                        <div className="feature-content">
-                          <h4>Name</h4>
-                          <p>info1</p>
-                        </div>
-                      </div>
-                      {/* <!-- /feature --> */}
-
-                      {/* <!-- feature --> */}
-                      <div className="feature">
-                        <i className="feature-icon fa fa-users"></i>
-                        <div className="feature-content">
-                          <h4>ZID</h4>
-                          <p>info2</p>
-                        </div>
-                      </div>
-                      {/* <!-- /feature --> */}
-
-                      {/* <!-- feature --> */}
-                      <div className="feature">
-                        <i className="feature-icon fa fa-comments"></i>
-                        <div className="feature-content">
-                          <h4>Current Term</h4>
-                          <p>info3</p>
-                        </div>
-                    </div>
-                    {/* <!-- /feature --> */}
-                  </div>
-                  </div>
+                  <StudentInfo/>
                   <div className="section-header">
                     <h2>Your Enrollents</h2>
                   </div>
+
+                  
                   <table  className="zebra course_information">
                     <tbody>
                       <tr>
