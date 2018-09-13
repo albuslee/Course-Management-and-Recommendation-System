@@ -88,7 +88,7 @@ const StudentProfileBackground = () =>
 
 
 
-class StudentProfile extends Component {
+class StudentProfilePage extends Component {
 
   render() {
     return (
@@ -99,4 +99,4 @@ class StudentProfile extends Component {
   }
 }
 
-export default StudentProfile;
+export default StudentProfilePage;

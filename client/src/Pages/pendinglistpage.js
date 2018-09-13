@@ -4,59 +4,57 @@
 //Done
 
 import React, {Component} from 'react';
-//import {BootstrapTable, TableHeaderColumn} from 'react-bootstrap-table';
-import _ from 'lodash';
 import { Helmet } from "react-helmet";
 import '../css/style.css';
 import '../css/bootstrap.min.css';
 import '../css/font-awesome.min.css';
-import PendingListPage from '../components/PendingListPage'
+import NavigationBar from '../components/NavigationBar';
 
 
 
 
 
-const Pending_list= (props) => 
-
+const PendingListBackground= (props) => 
     
-		<div class="Sbody">
-    			<div id="contact" class="section">
-          <iframe src="navigationbar.html" width="100%" height="110px" frameborder="0" scrolling="no" name="navigationbar"></iframe>
-             <div class="container">
-                <div class="row">
+    
+		<div className="Sbody">
+    			<div id="contact" className="section">
+             <div className="container">
+                <div className="row">
                   <h1>Pending Course List</h1>
-                  <form action="/" method="POST" class="pending_list">
-                    <table width="100%" class="zebra pending_table">
+                  <form action="/" method="POST" className="pending_list">
+                    <table width="100%" className="zebra pending_table">
+                      <tbody>
+                        <tr>
 
-                    <tr>
-
-									    <td width="5%"><input type="checkbox" name="" value=""/></td>
-									    <td width="20%" id="CourseID">this.state.Id</td>
-									    <td width="75%" id="CourseDitails">CourseDitails</td>
-										
-								    </tr>
-                    <tr>
-									<td width="5%"><input type="checkbox" name="" value=""/></td>
-									<td width="20%" id="CourseID">CourseID</td>
-									<td width="75%" id="CourseDitails">CourseDitails</td>
-									
-								</tr>
-								<tr>
-									<td width="5%"><input type="checkbox" name="" value=""/></td>
-									<td width="20%" id="CourseID">CourseID</td>
-									<td width="75%" id="CourseDitails">CourseDitails</td>
-										
-								</tr>
-								<tr>
-									<td width="5%"><input type="checkbox" name="" value=""/></td>
-									<td width="20%" id="CourseID">CourseID</td>
-									<td width="75%" id="CourseDitails">CourseDitails</td>
-										
-								</tr>                    
+                          <td width="5%"><input type="checkbox" name="" value=""/></td>
+                          <td width="20%" id="CourseID">this.state.Id</td>
+                          <td width="75%" id="CourseDitails">CourseDitails</td>
+                        
+                        </tr>
+                        <tr>
+                          <td width="5%"><input type="checkbox" name="" value=""/></td>
+                          <td width="20%" id="CourseID">CourseID</td>
+                          <td width="75%" id="CourseDitails">CourseDitails</td>
+                          
+                        </tr>
+                        <tr>
+                          <td width="5%"><input type="checkbox" name="" value=""/></td>
+                          <td width="20%" id="CourseID">CourseID</td>
+                          <td width="75%" id="CourseDitails">CourseDitails</td>
+                            
+                        </tr>
+                        <tr>
+                          <td width="5%"><input type="checkbox" name="" value=""/></td>
+                          <td width="20%" id="CourseID">CourseID</td>
+                          <td width="75%" id="CourseDitails">CourseDitails</td>
+                            
+                        </tr>  
+                      </tbody>                  
                     </table>
-                <div class="button_part">
-								    <button type="submit" class="button">Proceed to Enroll</button>
-								    <a href="CourseEnrollment.html" class="button">Back</a>
+                <div className="button_part">
+								    <button type="submit" className="button">Proceed to Enroll</button>
+								    <a href="CourseEnrollment.html" className="button">Back</a>
 							</div>                    
 
                   </form>
@@ -69,7 +67,7 @@ const Pending_list= (props) =>
 
 
 
-class PendingListPage extends React.Component {
+class PendingListPage extends Component {
   constructor(){
     super();
     this.state= {
@@ -96,8 +94,30 @@ componentWillMount(props){
 render() {
     return (
       <div>
-        <Pending_list/> 
-       <PendingListPage/>       
+      <Helmet>
+        <meta charset="utf-8"/>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1"/>
+        {/* <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags --> */}
+
+        <title>Pending List</title>
+
+        {/* <!-- Google font --> */}
+        <link href="https://fonts.googleapis.com/css?family=Lato:700%7CMontserrat:400,600" rel="stylesheet"/>
+
+        {/* <!-- Bootstrap --> */}
+        <link type="css" rel="stylesheet" href="css/bootstrap.min.css"/>
+
+        {/* <!-- Font Awesome Icon --> */}
+        <link rel="font" href="css/font-awesome.min.css"/>
+
+        {/* <!-- Custom stlylesheet --> */}
+        <link type="css" rel="stylesheet" href="css/style.css"/>
+
+      </Helmet>
+
+      <NavigationBar/>
+      <PendingListBackground/>     
       </div>
   );
   }
