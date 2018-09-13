@@ -49,6 +49,7 @@ class LoginForm extends Component {
           auth_bool = true;
           // console.log(auth_bool);
           localStorage.setItem('session-username', JSON.stringify(username));
+          localStorage.setItem('session-first_name', JSON.stringify(json.username.first_name));
           console.log(localStorage);
           this.setState({isAuthenticated : true});
           window.location.href = "/studentprofile"
