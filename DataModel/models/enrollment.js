@@ -13,4 +13,4 @@ let enrollmentSchema = new Schema({
     star: Number,  
 })
 
-module.exports = new mongoose.model('Enrollment', enrollmentSchema);
+module.exports = mongoose.model('Enrollment', enrollmentSchema);

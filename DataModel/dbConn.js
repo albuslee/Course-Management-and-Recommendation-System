@@ -34,25 +34,4 @@ class Database{
   }
 }
 
-const courseDB = new Database();
-
-// insert json into mongoDB
-courseModel.insertMany(course_data, function(err,result) {
-    if (err) {
-      // handle error
-      console.log(err);
-    } else {
-      // handle success
-      console.log("All courses are inserted successfully")
-    }
- });
-
-userModel.insertMany(user_data, function(err,result) {
-  if (err) {
-    // handle error
-    console.log(err);
-  } else {
-    // handle success
-    console.log("All users are inserted successfully")
-  }
-});
+module.exports = new Database();
