@@ -63,7 +63,8 @@ app.get('/api/user/:id', (req, res) => {
 
 // get enrollment
 app.get('/api/enrollment/:id', (req, res) => {
-  mongoose.connect(url+'coursetest')
+  enrollmentInfo = new Promise((resolve, reject) => {
+    mongoose.connect(url+'coursetest')
     .then(
       () => {
         console.log('Database connect')
@@ -75,29 +76,35 @@ app.get('/api/enrollment/:id', (req, res) => {
     .find({'user': parseInt(req.params.id)})
     .exec(function(err, docs){
       if (err) return handleError(err);
-      console.log('docs', docs);
+      //console.log('docs', docs);
       for( let enroll of docs){
-        console.log(enroll.course_list)
-        let enroll_list = []
+        //console.log(enroll.course_list)
+        var enroll_list = [];
+        var nb_of_course = enroll.course_list.length;
         for( let course of enroll.course_list) {
-          console.log(course)
+          console.log('coursename',course)
           courseModel
-            .findById(course, 'code name')
+            .findOne({'_id': course})
             .lean()
-            .exec(function(err, result) {
-              if (err) return handleError(err);
-              enroll_list.push({'code': result.code, 'name': result.name})
-              console.log('enrol_list', enroll_list);
+            .exec(function(e, result) {
+              if (e) {
+                console.log(e);
+              }
+              enroll_list.push(result)
+              console.log('enroll_list', enroll_list);
+              mongoose.disconnect();
+              if (enroll_list.length === nb_of_course){
+                resolve(enroll_list);
+              }
             });
-        };
-        
+        }
       }
-      
-      mongoose.disconnect();
-      //return res.json(enroll_list);
     })
+  }) // promise end
+  enrollmentInfo.then( enroll_list => {
+      return res.json(enroll_list);
+  })
 });
-
 
 
 const port = 5000;

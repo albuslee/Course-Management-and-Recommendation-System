@@ -8,7 +8,7 @@ let enrollmentSchema = new Schema({
         unique: true,
     },
     course_list: [{
-        type: Schema.Types.ObjectId, ref: 'Course'
+        type: String, ref: 'Course'
     }],
     star: {type: Number, default: 0} 
 })
