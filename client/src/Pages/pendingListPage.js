@@ -14,7 +14,9 @@ const PendingListBackground= (props) =>
     			<div id="contact" className="section">
              <div className="container">
                 <div className="row">
-                  <h2>Pending Course List</h2>
+                  <div className="section-header">
+                    <h1>Pending Course List</h1>
+                  </div>
                   <form action="/" method="POST" className="pending_list">
                     <table width="100%" className="zebra pending_table">
                       <tbody>
