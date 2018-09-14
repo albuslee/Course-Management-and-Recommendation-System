@@ -10,7 +10,7 @@ let enrollmentSchema = new Schema({
     course: [{
         type: Schema.Types.ObjectId, ref: 'Course'
     }],
-    star: Number,  
+    star: {type: Number, default: 0} 
 })
 
 module.exports = mongoose.model('Enrollment', enrollmentSchema);

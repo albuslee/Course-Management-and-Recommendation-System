@@ -8,7 +8,17 @@ const courseDB = require('./dbConn');
 
 userModel
 	.find({currentTerm: 2})
-	.exec( function(err, docs) {
-		if (err) return handleError(err);
-    console.log(docs);
-	})
+	.exec()
+	.then( function(docs) {
+		docs.map(doc => {
+		let enroll = new enrollmentModel({
+			user: doc._id,
+			course: ['5b823a66a1dae80310a4d28c', '5b823a66a1dae80310a4d28a', '5b823a66a1dae80310a4d29f']
+		})
+		.save()
+		.then(
+			console.log(doc.zid + 'inserted successfully!')
+		)
+		.catch(err => console.log(err))
+	})}
+);
