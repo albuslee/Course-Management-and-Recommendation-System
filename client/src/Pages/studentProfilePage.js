@@ -8,6 +8,7 @@ import '../css/font-awesome.min.css';
 
 import NavigationBar from '../components/NavigationBar';
 import StudentInfo from '../components/StudentInfo';
+import EnrollmentInfo from '../components/EnrollmentInfo';
 
 // TODO: need decomposite the student info and course enrolment info from the below html code. 
 const StudentProfileBackground = () => 
@@ -49,32 +50,14 @@ const StudentProfileBackground = () =>
                     <h2>Your Enrollents</h2>
                   </div>
 
-                  
                   <table  className="zebra course_information">
                     <tbody>
-                      <tr>
-                        <td width="20%" id="CourseID">CourseID</td>
-                        <td id="CourseDitails">CourseDitails</td>
-                          
-                      </tr>
-                      <tr>
-                        <td width="20%" id="CourseID">CourseID</td>
-                        <td id="CourseDitails">CourseDitails</td>
-                        
-                      </tr>
-                      <tr>
-                        <td width="20%" id="CourseID">CourseID</td>
-                        <td id="CourseDitails">CourseDitails</td>
-                          
-                      </tr>
-                      <tr>
-                        <td width="20%" id="CourseID">CourseID</td>
-                        <td id="CourseDitails">CourseDitails</td>
-                          
-                      </tr>
-                      
+                      {/* <!-- Enrollment Component Start --> */}
+                      <EnrollmentInfo/>
+                      {/* <!-- Enrollment Component End --> */}
                     </tbody>
                   </table>
+                
                 </div>
                 {/* <!-- row --> */}
                 
