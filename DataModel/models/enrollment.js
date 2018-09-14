@@ -8,9 +8,9 @@ let enrollmentSchema = new Schema({
         unique: true,
     },
     course_list: [{
-        type: String, ref: 'Course'
+        _id: {type: String, ref: 'Course'},
+        star: {type: Number, default: 0} ,
     }],
-    star: {type: Number, default: 0} 
 })
 
 module.exports = mongoose.model('Enrollment', enrollmentSchema, 'Enrollment');
