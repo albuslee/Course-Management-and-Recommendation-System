@@ -10,12 +10,13 @@ class StudentInfo extends Component {
         this.state = {
             name: "",
             email: "",
-            current_sem : ""
+            current_sem : "",
         }
     }
 
     componentWillMount(props){
-        fetch(`api/user/${localStorage.getItem('session-username').slice(1,-1)}`)
+      let username = localStorage.getItem('session-username').slice(1,-1)
+        fetch('api/user/' + username)
         .then(res => res.json())
         .then(json => this.setState({
             name : `${json.username.first_name + ' ' + json.username.last_name}`,
