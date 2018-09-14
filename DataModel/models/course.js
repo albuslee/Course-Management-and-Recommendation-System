@@ -15,9 +15,10 @@ let courseSchema = new Schema({
         UOC: Number,
     },
     description: String,
-    courseId: {
+    _id: {
         type: String,
         unique: true,
+        required: true,
     }
 })
 
