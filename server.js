@@ -3,8 +3,14 @@
 
 const express = require('express');
 const MongoClient = require('mongodb').MongoClient;
+const mongoose = require('mongoose');
 const url = "mongodb://localhost:27017/";
 const app = express();
+
+// import database external library
+let courseModel = require('./DataModel/models/course.js');
+let userModel = require('./DataModel/models/user.js');
+let enrollmentModel = require('./DataModel/models/enrollment.js');
 
 
 app.use(function(req, res, next) {
@@ -39,7 +45,7 @@ app.get('/api/user/:id', (req, res) => {
     MongoClient.connect(url, {useNewUrlParser: true}, function(err, db){
       if (err) reject(err);
       let dbo =db.db('coursetest');
-      dbo.collection("users").findOne({zid: parseInt(req.params.id)}, function(err, result){
+      dbo.collection("User").findOne({_id: parseInt(req.params.id)}, function(err, result){
         if (err) reject (err);
         db.close();
         resolve(result);
@@ -55,15 +61,41 @@ app.get('/api/user/:id', (req, res) => {
   });
 });
 
-// dummy data
-app.get('/api/courses', (req, res) => {
-  const courses = [
-    {CourseId:'COMP9041', CourseName: 'Software Construct'},
-    {CourseId: 'COMP9323', CourseName: 'Software as a Service Project '},
-    {CourseId: 'COMP9900', CourseName: 'Information Technology Project'},
-  ];
+// get enrollment
+app.get('/api/enrollment/:id', (req, res) => {
+  mongoose.connect(url+'coursetest')
+    .then(
+      () => {
+        console.log('Database connect')
+      },
+      err => { console.log(err) }
+    )
 
-  res.json(courses);
+  enrollmentModel
+    .find({'user': parseInt(req.params.id)})
+    .exec(function(err, docs){
+      if (err) return handleError(err);
+      console.log('docs', docs);
+      for( let enroll of docs){
+        console.log(enroll.course_list)
+        let enroll_list = []
+        for( let course of enroll.course_list) {
+          console.log(course)
+          courseModel
+            .findById(course, 'code name')
+            .lean()
+            .exec(function(err, result) {
+              if (err) return handleError(err);
+              enroll_list.push({'code': result.code, 'name': result.name})
+              console.log('enrol_list', enroll_list);
+            });
+        };
+        
+      }
+      
+      mongoose.disconnect();
+      //return res.json(enroll_list);
+    })
 });
 
 

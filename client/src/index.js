@@ -4,12 +4,12 @@ import { BrowserRouter, Route , Switch } from 'react-router-dom'
 import ReactDOM from 'react-dom';
 
 //import routers
-import LoginPage from './Pages/LoginPage';
-import StudentProfilePage from './Pages/StudentProfilePage';
-import courseenrolmentPage from './Pages/courseenrolmentPage';
-import coursereviewPage from './Pages/coursereviewPage';
-import PendingListPage from './Pages/PendingListPage';
-import NotFound from './Pages/NotFound';    //TODO : 404 bug need to fix
+import LoginPage from './Pages/loginPage';
+import StudentProfilePage from './Pages/studentProfilePage';
+import courseenrolmentPage from './Pages/courseEnrolmentPage';
+import coursereviewPage from './Pages/courseReviewPage';
+import PendingListPage from './Pages/pendingListPage';
+import NotFound from './Pages/notFound';    //TODO : 404 bug need to fix
 
 
 //routers controller
