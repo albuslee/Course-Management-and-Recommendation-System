@@ -82,7 +82,7 @@ app.get('/api/enrollment/:id', (req, res) => {
         var enroll_list = [];
         var nb_of_course = enroll.course_list.length;
         for( let course of enroll.course_list) {
-          console.log('coursename',course)
+          //console.log('coursename',course)
           courseModel
             .findOne({'_id': course})
             .lean()
@@ -91,7 +91,7 @@ app.get('/api/enrollment/:id', (req, res) => {
                 console.log(e);
               }
               enroll_list.push(result)
-              console.log('enroll_list', enroll_list);
+              //console.log('enroll_list', enroll_list);
               mongoose.disconnect();
               if (enroll_list.length === nb_of_course){
                 resolve(enroll_list);
