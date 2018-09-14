@@ -5,7 +5,7 @@ let Schema = mongoose.Schema;
 let userSchema = new Schema({
     first_name: String,
     last_name: String,
-    zid: {
+    _id: {
         type: Number,
         unique: true,
         required: true,
@@ -23,4 +23,4 @@ let userSchema = new Schema({
 userSchema.virtual('full_name').get(function() {
     return this.firstName + ' ' + this.lastName
 })
-module.exports = mongoose.model('User', userSchema);
+module.exports = mongoose.model('User', userSchema, 'User');

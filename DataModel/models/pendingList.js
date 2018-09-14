@@ -12,4 +12,4 @@ let pendingListSchema = new Schema({
     }]
 })
 
-module.exports = new mongoose.model('PendingList', pendingListSchema);
+module.exports = new mongoose.model('PendingList', pendingListSchema, 'PendingList');

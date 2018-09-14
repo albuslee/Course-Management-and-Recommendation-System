@@ -13,11 +13,11 @@ userModel
 		docs.map(doc => {
 		let enroll = new enrollmentModel({
 			user: doc._id,
-			course: ['5b823a66a1dae80310a4d28c', '5b823a66a1dae80310a4d28a', '5b823a66a1dae80310a4d29f']
+			course_list: ['5b823a66a1dae80310a4d28c', '5b823a66a1dae80310a4d28a', '5b823a66a1dae80310a4d29f']
 		})
 		.save()
 		.then(
-			console.log(doc.zid + 'inserted successfully!')
+			console.log(doc._id + 'inserted successfully!')
 		)
 		.catch(err => console.log(err))
 	})}
