@@ -32,6 +32,10 @@ class CourseEnrolmentPage extends Component {
                         <div class="course_detail">
                           <span class="course_id">CourseID + CourseName</span>
                           <span class="course_description">Course Description</span>
+                          <div class="rank">
+                            <span class="course_rank">rank</span>
+                            <img src={require("../img/stars.png")} class="rank_star"></img>
+                          </div>
                           <button type="submit" class="proceed_to_enroll">Proceed to Enroll</button>
                         </div>
                         
@@ -40,6 +44,10 @@ class CourseEnrolmentPage extends Component {
                         <div class="course_detail">
                           <span class="course_id">CourseID + CourseName</span>
                           <span class="course_description">Course Description</span>
+                          <div class="rank">
+                            <span class="course_rank">rank</span>
+                            <img src={require("../img/stars.png")} class="rank_star"></img>
+                          </div>
                           <button type="submit" class="proceed_to_enroll">Proceed to Enroll</button>
                         </div>
                       </li>
@@ -47,6 +55,10 @@ class CourseEnrolmentPage extends Component {
                         <div class="course_detail">
                           <span class="course_id">CourseID + CourseName</span>
                           <span class="course_description">Course Description</span>
+                          <div class="rank">
+                            <span class="course_rank">rank</span>
+                            <img src={require("../img/stars.png")} class="rank_star"></img>
+                          </div>
                           <button type="submit" class="proceed_to_enroll">Proceed to Enroll</button>
                         </div>
                       </li>
@@ -54,6 +66,10 @@ class CourseEnrolmentPage extends Component {
                         <div class="course_detail">
                           <span class="course_id">CourseID + CourseName</span>
                           <span class="course_description">Course Description</span>
+                          <div class="rank">
+                            <span class="course_rank">rank</span>
+                            <img src={require("../img/stars.png")} class="rank_star"></img>
+                          </div>
                           <button type="submit" class="proceed_to_enroll">Proceed to Enroll</button>
                         </div>
                       </li>
@@ -61,6 +77,10 @@ class CourseEnrolmentPage extends Component {
                         <div class="course_detail">
                           <span class="course_id">CourseID + CourseName</span>
                           <span class="course_description">Course Description</span>
+                          <div class="rank">
+                            <span class="course_rank">rank</span>
+                            <img src={require("../img/stars.png")} class="rank_star"></img>
+                          </div>
                           <button type="submit" class="proceed_to_enroll">Proceed to Enroll</button>
                         </div>
                       </li>
@@ -68,6 +88,10 @@ class CourseEnrolmentPage extends Component {
                         <div class="course_detail">
                           <span class="course_id">CourseID + CourseName</span>
                           <span class="course_description">Course Description</span>
+                          <div class="rank">
+                            <span class="course_rank">rank</span>
+                            <img src={require("../img/stars.png")} class="rank_star"></img>
+                          </div>
                           <button type="submit" class="proceed_to_enroll">Proceed to Enroll</button>
                         </div>
                       </li>
@@ -75,6 +99,10 @@ class CourseEnrolmentPage extends Component {
                         <div class="course_detail">
                           <span class="course_id">CourseID + CourseName</span>
                           <span class="course_description">Course Description</span>
+                          <div class="rank">
+                            <span class="course_rank">rank</span>
+                            <img src={require("../img/stars.png")} class="rank_star"></img>
+                          </div>
                           <button type="submit" class="proceed_to_enroll">Proceed to Enroll</button>
                         </div>
                       </li>
@@ -82,6 +110,10 @@ class CourseEnrolmentPage extends Component {
                         <div class="course_detail">
                           <span class="course_id">CourseID + CourseName</span>
                           <span class="course_description">Course Description</span>
+                          <div class="rank">
+                            <span class="course_rank">rank</span>
+                            <img src={require("../img/stars.png")} class="rank_star"></img>
+                          </div>
                           <button type="submit" class="proceed_to_enroll">Proceed to Enroll</button>
                         </div>
                       </li>
