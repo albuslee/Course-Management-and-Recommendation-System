@@ -30,16 +30,20 @@ class EnrollmentInfo extends Component {
 			const data = this.state.enrollment;
       return (
         <div>
+					<table  width="50%" className="zebra course_information">
+            	<tbody>
                 {
 									data.map( item => {
 										return(
 											<tr>
 												<td width="20%" id="CourseID">{item.code}</td>
-												<td id="CourseDitails">{item.name}</td>     
+												<td width="80%" id="CourseDitails">{item.name}</td>     
                 			</tr>
 										)
 									})
 								}
+							</tbody>
+					</table>
         </div> 
       );
     }
