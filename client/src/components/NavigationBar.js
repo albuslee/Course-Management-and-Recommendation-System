@@ -1,4 +1,4 @@
-import React, { PropTypes, Component } from 'react';
+import React, { Component } from 'react';
 import { Helmet } from "react-helmet";
 import { Link } from 'react-router-dom';
 
