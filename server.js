@@ -63,7 +63,7 @@ app.get('/api/user/:id', (req, res) => {
 
 // get enrollment
 app.get('/api/enrollment/:id', (req, res) => {
-  enrollmentInfo = new Promise((resolve, reject) => {
+  const enrollmentInfo = new Promise((resolve, reject) => {
     mongoose.connect(url+'coursetest')
     .then(
       () => {
@@ -84,7 +84,7 @@ app.get('/api/enrollment/:id', (req, res) => {
         for( let course of enroll.course_list) {
           //console.log('coursename',course)
           courseModel
-            .findOne({'_id': course})
+            .findOne({'_id': course._id})
             .lean()
             .exec(function(e, result) {
               if (e) {

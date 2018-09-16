@@ -22,8 +22,11 @@ class CourseReviewPage extends Component {
                 {/* <!-- row --> */}
                 <div className = "row">
                     {/* <!-- contact information --> */}
-                    <h1>Course Review</h1>
+                    <div className="section-header">
+                        <h1>Course Review</h1>
+                    </div>
                     <CourseReview />
+
                     {/* <!-- contact information --> */}
                     <div className = "button_part">
                         <button type="submit" className = "button">Submit</button>

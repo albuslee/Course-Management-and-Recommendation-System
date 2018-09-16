@@ -13,7 +13,10 @@ userModel
 		docs.map(doc => {
 		let enroll = new enrollmentModel({
 			user: doc._id,
-			course_list: ['1COMP9021', '1COMP9020', '1COMP9311']
+			course_list: [
+				{_id: '1COMP9021'}, 
+				{_id: '1COMP9020'}, 
+				{_id: '1COMP9311'}]
 		})
 		.save()
 		.then(
