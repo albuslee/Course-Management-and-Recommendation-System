@@ -33,9 +33,12 @@ class CourseReview extends Component {
     
     render() {
         const data = this.state.enrollment;
-        
+        let courseIdNum = 0;
         for (let course of data){
             console.log(course['id']);
+            if (course['id'] === courseIdNum){
+
+            }
         }
         //console.log(data);
         return (
@@ -45,15 +48,19 @@ class CourseReview extends Component {
                 {data.map( item => {
                     return(
                         <form action = "/" method = "POST" className = "course_review">
-                            <h2>{item.id}</h2>
+                            <div className="section-header">
+                                <h2>{item.id}</h2>
+                            </div>
                             <table width="100%" class="zebra review_table">
-                            <tr>
-                                <td width="10%" id="CourseID">{item.code}</td>
-                                <td width="70%" id="CourseDitails">{item.name}</td>
-                                <td width="20%" id="Star">
-                                    <ReviewStar/> 
-                                </td>	
-                            </tr>
+                                <tbody>
+                                    <tr>
+                                        <td width="10%" id="CourseID">{item.code}</td>
+                                        <td width="70%" id="CourseDitails">{item.name}</td>
+                                        <td width="20%" id="Star">
+                                            <ReviewStar/> 
+                                        </td>	
+                                    </tr>
+                                </tbody>
                             </table>
                         </form>
                     )

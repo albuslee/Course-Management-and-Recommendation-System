@@ -7,7 +7,8 @@ let userModel = require('./models/user.js');
 let enrollmentModel = require('./models/enrollment.js');
 
 
-mongoose.connect(url+'coursetest')
+const enrollmentInfo = new Promise((resolve, reject) => {
+    mongoose.connect(url+'coursetest')
     .then(
       () => {
         console.log('Database connect')
@@ -15,31 +16,32 @@ mongoose.connect(url+'coursetest')
       err => { console.log(err) }
     )
 
-enrollmentModel
+  enrollmentModel
     .find({'user': parseInt('5190239')})
     .exec(function(err, docs){
       if (err) return handleError(err);
       console.log('docs', docs);
       for( let enroll of docs){
-        console.log(enroll.course_list)
-        let enroll_list = []
+        //console.log(enroll.course_list)
+        var enroll_list = [];
+        var nb_of_course = enroll.course_list.length;
         for( let course of enroll.course_list) {
-          console.log(course)
+          console.log('coursename',course)
           courseModel
-            .findOne({'_id':course}, 'code name')
+            .findOne({'_id': course._id})
             .lean()
             .exec(function(e, result) {
               if (e) {
                 console.log(e);
               }
-              console.log(result);
-              //enroll_list.push({'code': result.code, 'name': result.name})
-              console.log('enrol_list', enroll_list);
+              enroll_list.push(result)
+              console.log('enroll_list', enroll_list);
+              mongoose.disconnect();
+              if (enroll_list.length === nb_of_course){
+                resolve(enroll_list);
+              }
             });
-        };
-        
+        }
       }
-      
-      //mongoose.disconnect();
-      //return res.json(enroll_list);
     })
+  }) // promise end
