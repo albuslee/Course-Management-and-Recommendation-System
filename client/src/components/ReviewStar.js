@@ -1,7 +1,7 @@
 import React, { PropTypes, Component } from 'react';
 
  
-class reviewStar  extends  Component{
+class ReviewStar  extends  Component{
 
     constructor(props){
         super(props);
@@ -49,7 +49,7 @@ class reviewStar  extends  Component{
                     }
                     num = this.index ;
                     this.CountStars = num + 1;
-                    console.log(this.CountStars);
+                    //console.log(this.CountStars);
                     aStxt.innerHTML=arrBtxt[num];
                     for(var i=0;i<=this.index;i++){
                         aBstar[i].style.backgroundPosition="0 0";
@@ -78,4 +78,4 @@ class reviewStar  extends  Component{
 }
 
 
-export default reviewStar;
+export default ReviewStar;
