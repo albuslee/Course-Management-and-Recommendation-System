@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
-// import { Helmet } from "react-helmet";
-// import reviewStar from '../components/ReviewStar';
 
-class courseReview extends Component {
+
+class CourseReview extends Component {
 
     constructor(props){
         super(props);
@@ -13,34 +12,56 @@ class courseReview extends Component {
 
     componentWillMount(props){
       let username = JSON.parse(localStorage.getItem('session-username'))
-				fetch('/api/enrollment/' + username)
-				.then(res => res.json())
-				.then(json => {
-						for ( let course of json){
-						this.setState({
-								enrollment: [...this.state.enrollment, {'code': course.code, 'name': course.name}],
-						})
-						}
-				})
-				.catch((err) => {
-					console.log(`Opz, something wrong, the error message is ${err}`);
-				});
+        fetch('/api/enrollment/' + username)
+        .then(res => res.json())
+        .then(json => {
+                for ( let course of json){
+                this.setState({
+                    enrollment: [...this.state.enrollment, {'code': course.code, 'name': course.name, 'id': course._id[0]}],
+                    
+                    
+                })
+                }
+        })
+        .catch((err) => {
+            console.log(`Opz, something wrong, the error message is ${err}`);
+        });
+
     }
 
+    
     render() {
         const data = this.state.enrollment;
+        let courseIdNum = 0;
+        for (let course of data){
+            console.log(course['id']);
+            if (course['id'] === courseIdNum){
+
+            }
+        }
+        //console.log(data);
         return (
+            
             <div>
                 
                 {data.map( item => {
                     return(
-                        <tr>
-                            <td width="10%" id="CourseID">{item.code}</td>
-                            <td width="70%" id="CourseDitails">{item.name}</td>
-                            <td width="20%" id="Star">
-                                <reviewStar/> 
-                            </td>	
-                        </tr>
+                        <form action = "/" method = "POST" className = "course_review">
+                            <div className="section-header">
+                                <h2>{item.id}</h2>
+                            </div>
+                            <table width="100%" class="zebra review_table">
+                                <tbody>
+                                    <tr>
+                                        <td width="10%" id="CourseID">{item.code}</td>
+                                        <td width="70%" id="CourseDitails">{item.name}</td>
+                                        <td width="20%" id="Star">
+                                            <ReviewStar/> 
+                                        </td>	
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </form>
                     )
                 })}
 
@@ -49,4 +70,4 @@ class courseReview extends Component {
     }
   }
 
-  export default courseReview;
+  export default CourseReview;
