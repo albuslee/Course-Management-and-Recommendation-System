@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import ReviewStar from '../components/ReviewStar';
 
 
 class CourseReview extends Component {
@@ -32,39 +33,29 @@ class CourseReview extends Component {
     
     render() {
         const data = this.state.enrollment;
-        let courseIdNum = 0;
-        for (let course of data){
-            console.log(course['id']);
-            if (course['id'] === courseIdNum){
-
-            }
-        }
-        //console.log(data);
+        
         return (
             
-            <div>
-                
-                {data.map( item => {
-                    return(
-                        <form action = "/" method = "POST" className = "course_review">
+            <div>   
+                <form action = "/" method = "POST" className = "course_review">
                             <div className="section-header">
-                                <h2>{item.id}</h2>
+                                <h2>Semester 1</h2>
                             </div>
-                            <table width="100%" class="zebra review_table">
-                                <tbody>
-                                    <tr>
-                                        <td width="10%" id="CourseID">{item.code}</td>
-                                        <td width="70%" id="CourseDitails">{item.name}</td>
-                                        <td width="20%" id="Star">
-                                            <ReviewStar/> 
-                                        </td>	
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </form>
-                    )
-                })}
-
+                            {data.map( item => {
+                                return(
+                                    <table width="100%" className="zebra review_table">
+                                        <tbody>
+                                            <tr>
+                                                <td width="10%" id="CourseID">{item.code}</td>
+                                                <td width="70%" id="CourseDitails">{item.name}</td>
+                                                <td width="20%" id="Star">
+                                                    <ReviewStar/> 
+                                                </td>	
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                            )})}
+                        </form>  
             </div> 
         );
     }
