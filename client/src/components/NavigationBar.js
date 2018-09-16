@@ -44,7 +44,7 @@ class NavigationBar extends Component {
 				    {/* <!-- Navigation --> */}
 			            <nav id="nav">
                             <ul className="main-menu">
-                                <li><Link to="/" target="_parent">Course Enrollment</Link></li>
+                                <li><Link to="/courseenrolment" target="_parent">Course Enrollment</Link></li>
                                 <li><Link to="/coursereview" target="_parent">Course Review</Link></li>
                                 <li><Link to="/pendinglist" target="_parent">Pending List</Link></li>
                                 <li><span id="Username">{username}</span></li>

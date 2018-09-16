@@ -50,13 +50,11 @@ const StudentProfileBackground = () =>
                     <h2>Your Enrollents</h2>
                   </div>
 
-                  <table  className="zebra course_information">
-                    <tbody>
+                  
                       {/* <!-- Enrollment Component Start --> */}
                       <EnrollmentInfo/>
                       {/* <!-- Enrollment Component End --> */}
-                    </tbody>
-                  </table>
+                    
                 
                 </div>
                 {/* <!-- row --> */}

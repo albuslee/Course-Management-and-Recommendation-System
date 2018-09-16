@@ -41,10 +41,12 @@ class CourseReview extends Component {
                             <div className="section-header">
                                 <h2>Semester 1</h2>
                             </div>
+                            <table width="100%" className="zebra review_table">
+                            <tbody>
                             {data.map( item => {
                                 return(
-                                    <table width="100%" className="zebra review_table">
-                                        <tbody>
+                                   
+                                        
                                             <tr>
                                                 <td width="10%" id="CourseID">{item.code}</td>
                                                 <td width="70%" id="CourseDitails">{item.name}</td>
@@ -52,9 +54,11 @@ class CourseReview extends Component {
                                                     <ReviewStar/> 
                                                 </td>	
                                             </tr>
-                                        </tbody>
-                                    </table>
+                                        
+                                    
                             )})}
+                            </tbody>
+                            </table>
                         </form>  
             </div> 
         );

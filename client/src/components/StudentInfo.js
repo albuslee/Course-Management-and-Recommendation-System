@@ -40,8 +40,8 @@ class StudentInfo extends Component {
                       <div className="feature">
                         <i className="feature-icon fa fa-flask"></i>
                         <div className="feature-content">
-                          <h4>Student Name</h4>
-                          <p>{this.state.name}</p>
+                          <h3>Student Name</h3>
+                          <h4>{this.state.name}</h4>
                         </div>
                       </div>
                       {/* <!-- /feature --> */}
@@ -50,8 +50,8 @@ class StudentInfo extends Component {
                       <div className="feature">
                         <i className="feature-icon fa fa-users"></i>
                         <div className="feature-content">
-                          <h4>Email</h4>
-                          <p>{this.state.email}</p>
+                          <h3>Email</h3>
+                          <h4>{this.state.email}</h4>
                         </div>
                       </div>
                       {/* <!-- /feature --> */}
@@ -60,8 +60,8 @@ class StudentInfo extends Component {
                       <div className="feature">
                         <i className="feature-icon fa fa-comments"></i>
                         <div className="feature-content">
-                          <h4>Current Term</h4>
-                          <p>{this.state.current_sem}</p>
+                          <h3>Current Term</h3>
+                          <h4>{this.state.current_sem}</h4>
                         </div>
                     </div>
                     {/* <!-- /feature --> */}
