@@ -4,7 +4,7 @@ import { BrowserRouter, Route , Switch } from 'react-router-dom'
 import ReactDOM from 'react-dom';
 
 //import routers
-import LoginPage from './Pages/LoginPage';
+import LoginPage from './Pages/loginPage';
 import StudentProfilePage from './Pages/studentProfilePage';
 import coursereviewPage from './Pages/courseReviewPage';
 import PendingListPage from './Pages/pendingListPage';
