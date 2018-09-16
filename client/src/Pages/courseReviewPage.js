@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Helmet } from 'react-helmet'; 
+// import { Helmet } from 'react-helmet'; 
 import '../css/style.css';
 import '../css/bootstrap.min.css';
 import '../css/font-awesome.min.css';

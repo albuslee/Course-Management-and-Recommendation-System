@@ -5,6 +5,7 @@ import '../css/style.css';
 import '../css/bootstrap.min.css';
 import '../css/font-awesome.min.css';
 import NavigationBar from '../components/NavigationBar';
+import PendingListForm from '../components/PendingListForm';
 
 
 const PendingListBackground= (props) => 
@@ -17,42 +18,7 @@ const PendingListBackground= (props) =>
                   <div className="section-header">
                     <h1>Pending Course List</h1>
                   </div>
-                  <form action="/" method="POST" className="pending_list">
-                    <table width="100%" className="zebra pending_table">
-                      <tbody>
-                        <tr>
-
-                          <td width="5%"><input type="checkbox" name="" value=""/></td>
-                          <td width="20%" id="CourseID">this.state.Id</td>
-                          <td width="75%" id="CourseDitails">CourseDitails</td>
-                        
-                        </tr>
-                        <tr>
-                          <td width="5%"><input type="checkbox" name="" value=""/></td>
-                          <td width="20%" id="CourseID">CourseID</td>
-                          <td width="75%" id="CourseDitails">CourseDitails</td>
-                          
-                        </tr>
-                        <tr>
-                          <td width="5%"><input type="checkbox" name="" value=""/></td>
-                          <td width="20%" id="CourseID">CourseID</td>
-                          <td width="75%" id="CourseDitails">CourseDitails</td>
-                            
-                        </tr>
-                        <tr>
-                          <td width="5%"><input type="checkbox" name="" value=""/></td>
-                          <td width="20%" id="CourseID">CourseID</td>
-                          <td width="75%" id="CourseDitails">CourseDitails</td>
-                            
-                        </tr>  
-                      </tbody>                  
-                    </table>
-                <div className="button_part">
-								    <button type="submit" className="button">Proceed to Enroll</button>
-								    <a href="CourseEnrollment.html" className="button">Back</a>
-							</div>                    
-
-                  </form>
+                    <PendingListForm />
 
                 </div>
 

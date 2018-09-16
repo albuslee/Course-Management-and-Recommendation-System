@@ -1,6 +1,6 @@
-import React, { PropTypes, Component } from 'react';
-import { Helmet } from "react-helmet";
-import reviewStar from '../components/ReviewStar';
+import React, { Component } from 'react';
+// import { Helmet } from "react-helmet";
+// import reviewStar from '../components/ReviewStar';
 
 class courseReview extends Component {
 
