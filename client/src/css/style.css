@@ -641,6 +641,17 @@ h2 {
     background-color: rgba(255, 255, 255, 0.5);
     color: #000000;
 }
+
+.enroll ul li:hover .proceed_to_enroll {
+    background-color: #999999;
+    color: #000000;
+    border-radius: 20px;
+    position: absolute;
+    bottom: 0;
+    font-size: 16px;
+    width: 50%;
+    height: 30px;
+}
 .course_detail {
     transition:all 0.5s;
     -moz-transition:all 0.5s; 
@@ -672,12 +683,29 @@ h2 {
 }
 
 .proceed_to_enroll {
+    transition:all 0.5s;
+    -moz-transition:all 0.5s; 
+    -webkit-transition:all 0.5s; 
+    -o-transition:all 0.5s;
+    width: 50%;
     background-color: #999999;
     color: #000000;
     border-radius: 20px;
     position: absolute;
     bottom: 0;
-    font-size: 10px;
+    font-size: 12px;
+}
+
+.rank_star {
+    margin-bottom: 5px;
+    margin-left: 3px;
+}
+
+.rank {
+    position: absolute;
+    bottom: 0;
+    margin-left: 20px;
+    font-size: 20px;
 }
 
 .pages{
