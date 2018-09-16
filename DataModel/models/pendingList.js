@@ -4,12 +4,13 @@ let Schema = mongoose.Schema;
 
 let pendingListSchema = new Schema({
     user: {
-        type: Schema.Types.ObjectId, ref: 'User',
+        type: Number, ref: 'User',
         unique: true,
     },
-    course: [{
-        type: Schema.Types.ObjectId, ref: 'Course'
-    }]
+    course_list: [{
+        _id: {type: String, ref: 'Course'},
+        star: {type: Number, default: 0} ,
+    }],
 })
 
 module.exports = new mongoose.model('PendingList', pendingListSchema, 'PendingList');
