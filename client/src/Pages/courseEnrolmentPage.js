@@ -18,10 +18,12 @@ class CourseEnrolmentPage extends Component {
                 <div class="section-header">
                   <h1>Course Enrollment</h1>
                 </div>
+                {/* <!-- Search bar start --> */}
                 <form action="/" method="POST" class="search_bar">
                   <input type="text" name="search" class="search" id="search" placeholder="Please input Keywords"/>
                   <button type="submit" class="search_button"><i class="search_icon fa fa-search"></i></button>
                 </form>
+                {/* <!-- Search bar End --> */}
                 <div class="section-header">
                   <h2 class="notice">Here is some course recommand to you:</h2>
                 </div>

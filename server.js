@@ -122,6 +122,32 @@ app.get('/api/courses', (req, res) => {
   res.json(courses);
 });
 
+//search course code and name
+app.get('/api/search/:query', (req, res) => {
+  const searchInfo = new Promise((resolve, reject) => {
+    mongoose.connect(url+'coursetest')
+    .then(
+      () => {
+        console.log('Database connect')
+      },
+      err => { console.log(err) }
+    )
+
+    courseModel
+    .find({'full_name': new RegExp(req.params.query, 'i')})
+      .exec(function(err, docs){
+        if (err) reject(err);
+        console.log('docs', docs);
+        mongoose.disconnect();
+        resolve(docs)
+      })
+    }) // promise end
+  searchInfo.then(result => {
+    return res.json(result);
+  })
+})
+
+
 
 const port = 5000;
 
