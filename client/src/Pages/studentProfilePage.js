@@ -49,13 +49,9 @@ const StudentProfileBackground = () =>
                   <div className="section-header">
                     <h2>Your Enrollents</h2>
                   </div>
-
-                  
                       {/* <!-- Enrollment Component Start --> */}
                       <EnrollmentInfo/>
                       {/* <!-- Enrollment Component End --> */}
-                    
-                
                 </div>
                 {/* <!-- row --> */}
                 

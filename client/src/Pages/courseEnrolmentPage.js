@@ -6,29 +6,27 @@ class CourseEnrolmentPage extends Component {
   render() {
     return (
       <div>
-          <div class="Sbody">
+          <div className="Sbody">
           {/* <!-- Contact --> */}
-          <div id="contact" class="section">
+          <div id="contact" className="section">
             <NavigationBar/>
             {/* <!-- container --> */}
-            <div class="container">
+            <div className="container">
               {/* <!-- row --> */}
-              <div class="row">
+              <div className="row">
                 {/* <!-- contact information --> */}
-                <div class="section-header">
+                <div className="section-header">
                   <h1>Course Enrollment</h1>
                 </div>
-                {/* <!-- Search bar start --> */}
-                <form action="/" method="POST" class="search_bar">
-                  <input type="text" name="search" class="search" id="search" placeholder="Please input Keywords"/>
-                  <button type="submit" class="search_button"><i class="search_icon fa fa-search"></i></button>
+                <form action="/" method="POST" className="search_bar">
+                  <input type="text" name="search" className="search" id="search" placeholder="Please input Keywords"/>
+                  <button type="submit" className="search_button"><i className="search_icon fa fa-search"></i></button>
                 </form>
-                {/* <!-- Search bar End --> */}
-                <div class="section-header">
-                  <h2 class="notice">Here is some course recommand to you:</h2>
+                <div className="section-header">
+                  <h2 className="notice">Here is some course recommand to you:</h2>
                 </div>
-                <div class="search_result">
-                  <form action="/" method="post" class="enroll">
+                <div className="search_result">
+                  <form action="/" method="post" className="enroll">
                     <ul>
                       <li>
                         <div class="course_detail">
@@ -120,12 +118,12 @@ class CourseEnrolmentPage extends Component {
                         </div>
                       </li>
                     </ul>
-                    <div class="pages">
-                      <button type="submit" class="previous_page">&lt;</button>
-                      <button type="submit" class="page1">1</button>
-                      <button type="submit" class="page2">2</button>
-                      <button type="submit" class="page3">3</button>
-                      <button type="submit" class="next_page">&gt;</button>
+                    <div className="pages">
+                      <button type="submit" className="previous_page">&lt;</button>
+                      <button type="submit" className="page1">1</button>
+                      <button type="submit" className="page2">2</button>
+                      <button type="submit" className="page3">3</button>
+                      <button type="submit" className="next_page">&gt;</button>
                     </div>
                   </form>
                 </div>
