@@ -54,7 +54,10 @@ app.get('/api/user/:id', (req, res) => {
   });
   userInfo.then((result) => {
     //console.log(res);
-    return res.json({username : result})    //// TEMP: need use "then" to load user's trasction, until both info loaded,then return to front-end.
+    res.json({username : result})    //// TEMP: need use "then" to load user's trasction, until both info loaded,then return to front-end.
+  })
+  .then((haha) => {
+    console.log(haha)
   })
   .catch((err) => {
     console.log(`Opz, something wrong, the error message is ${err}`);
