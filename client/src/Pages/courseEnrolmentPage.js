@@ -29,12 +29,6 @@ class CourseEnrolmentPage extends Component {
                   <form action="/" method="post" className="enroll">
                     <ul>
                       <li>
-<<<<<<< HEAD
-                        <div className="course_detail">
-                          <span className="course_id">CourseID + CourseName</span>
-                          <span className="course_description">Course Description</span>
-                          <button type="submit" className="proceed_to_enroll">Proceed to Enroll</button>
-=======
                         <div class="course_detail">
                           <span class="course_id">CourseID + CourseName</span>
                           <span class="course_description">Course Description</span>
@@ -43,59 +37,10 @@ class CourseEnrolmentPage extends Component {
                             <img src={require("../img/stars.png")} class="rank_star"></img>
                           </div>
                           <button type="submit" class="proceed_to_enroll">Proceed to Enroll</button>
->>>>>>> b2b71aa91d45524c5ee55915c4b986130ae81079
                         </div>
                         
                       </li>
                       <li>
-<<<<<<< HEAD
-                        <div className="course_detail">
-                          <span className="course_id">CourseID + CourseName</span>
-                          <span className="course_description">Course Description</span>
-                          <button type="submit" className="proceed_to_enroll">Proceed to Enroll</button>
-                        </div>
-                      </li>
-                      <li>
-                        <div className="course_detail">
-                          <span className="course_id">CourseID + CourseName</span>
-                          <span className="course_description">Course Description</span>
-                          <button type="submit" className="proceed_to_enroll">Proceed to Enroll</button>
-                        </div>
-                      </li>
-                      <li>
-                        <div className="course_detail">
-                          <span className="course_id">CourseID + CourseName</span>
-                          <span className="course_description">Course Description</span>
-                          <button type="submit" className="proceed_to_enroll">Proceed to Enroll</button>
-                        </div>
-                      </li>
-                      <li>
-                        <div className="course_detail">
-                          <span className="course_id">CourseID + CourseName</span>
-                          <span className="course_description">Course Description</span>
-                          <button type="submit" className="proceed_to_enroll">Proceed to Enroll</button>
-                        </div>
-                      </li>
-                      <li>
-                        <div className="course_detail">
-                          <span className="course_id">CourseID + CourseName</span>
-                          <span className="course_description">Course Description</span>
-                          <button type="submit" className="proceed_to_enroll">Proceed to Enroll</button>
-                        </div>
-                      </li>
-                      <li>
-                        <div className="course_detail">
-                          <span className="course_id">CourseID + CourseName</span>
-                          <span className="course_description">Course Description</span>
-                          <button type="submit" className="proceed_to_enroll">Proceed to Enroll</button>
-                        </div>
-                      </li>
-                      <li>
-                        <div className="course_detail">
-                          <span className="course_id">CourseID + CourseName</span>
-                          <span className="course_description">Course Description</span>
-                          <button type="submit" className="proceed_to_enroll">Proceed to Enroll</button>
-=======
                         <div class="course_detail">
                           <span class="course_id">CourseID + CourseName</span>
                           <span class="course_description">Course Description</span>
@@ -170,7 +115,6 @@ class CourseEnrolmentPage extends Component {
                             <img src={require("../img/stars.png")} class="rank_star"></img>
                           </div>
                           <button type="submit" class="proceed_to_enroll">Proceed to Enroll</button>
->>>>>>> b2b71aa91d45524c5ee55915c4b986130ae81079
                         </div>
                       </li>
                     </ul>
