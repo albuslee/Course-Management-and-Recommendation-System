@@ -510,6 +510,16 @@ h2 {
 
 }
 
+.Remove_button {
+    border-radius: 20px;
+    background-color: #404040;
+}
+
+.Remove_button:nth-child(even) {
+    border-radius: 20px;
+    background-color: #000000;
+}
+
 .button{
     margin-right: 50px;
     margin-left: 50px;
