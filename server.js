@@ -54,7 +54,10 @@ app.get('/api/user/:id', (req, res) => {
   });
   userInfo.then((result) => {
     //console.log(res);
-    return res.json({username : result})    //// TEMP: need use "then" to load user's trasction, until both info loaded,then return to front-end.
+    res.json({username : result})    //// TEMP: need use "then" to load user's trasction, until both info loaded,then return to front-end.
+  })
+  .then((haha) => {
+    console.log(haha)
   })
   .catch((err) => {
     console.log(`Opz, something wrong, the error message is ${err}`);
@@ -190,6 +193,32 @@ app.get('/api/courses', (req, res) => {
 
   res.json(courses);
 });
+
+//search course code and name
+app.get('/api/search/:query', (req, res) => {
+  const searchInfo = new Promise((resolve, reject) => {
+    mongoose.connect(url+'coursetest')
+    .then(
+      () => {
+        console.log('Database connect')
+      },
+      err => { console.log(err) }
+    )
+
+    courseModel
+    .find({'full_name': new RegExp(req.params.query, 'i')})
+      .exec(function(err, docs){
+        if (err) reject(err);
+        console.log('docs', docs);
+        mongoose.disconnect();
+        resolve(docs)
+      })
+    }) // promise end
+  searchInfo.then(result => {
+    return res.json(result);
+  })
+})
+
 
 
 const port = 5000;

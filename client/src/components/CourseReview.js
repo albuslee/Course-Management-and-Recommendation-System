@@ -33,33 +33,27 @@ class CourseReview extends Component {
     
     render() {
         const data = this.state.enrollment;
-        
         return (
-            
             <div>   
                 <form action = "/" method = "POST" className = "course_review">
-                            <div className="section-header">
-                                <h2>Semester 1</h2>
-                            </div>
-                            <table width="100%" className="zebra review_table">
-                            <tbody>
-                            {data.map( item => {
-                                return(
-                                   
-                                        
-                                            <tr>
-                                                <td width="10%" id="CourseID">{item.code}</td>
-                                                <td width="70%" id="CourseDitails">{item.name}</td>
-                                                <td width="20%" id="Star">
-                                                    <ReviewStar/> 
-                                                </td>	
-                                            </tr>
-                                        
-                                    
-                            )})}
-                            </tbody>
-                            </table>
-                        </form>  
+                    <div className="section-header">
+                        <h2>Semester 1</h2>
+                    </div>
+                    <table width="100%" className="zebra review_table">
+                    <tbody>
+                    {data.map((item, index) => {
+                        return(
+                            <tr>
+                                <td width="10%" id="CourseID">{item.code}</td>
+                                <td width="70%" id="CourseDitails">{item.name}</td>
+                                <td width="20%" id="Star">
+                                    <ReviewStar/> 
+                                </td>	
+                            </tr> 
+                    )})}
+                    </tbody>
+                    </table>
+                </form>  
             </div> 
         );
     }
