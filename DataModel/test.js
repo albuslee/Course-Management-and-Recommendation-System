@@ -39,13 +39,7 @@ enrollmentModel
   .populate('course_list._id')
   .exec(function(err, docs){
     if (err) return handleError(err);
-    docs[0].course_list.forEach(course => {
-      console.log(course._id)
-    })
-    //console.log('docs', docs[0].course_list);
-    
+    console.log(docs[0].course_list);
   })
-}) // promise end
-// enrollmentInfo.then( enroll_list => {
-//     return res.json(enroll_list);
-// })
+})
+
