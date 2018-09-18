@@ -12,16 +12,23 @@ class PendingListForm extends Component {
             pendingCourseObj: [],
             toggledCourses: {},
         };
+        this.handleChangeClick = this.handleChangeClick.bind(this);
     }
 
     componentWillMount(){
-        fetch('/api/courses')
+        fetch(`/api/pendinglist/${localStorage.getItem('session-username').slice(1,-1)}`)
         .then(res => res.json())
         .then(json => {
             console.log(json);
+            let defauleToggledCourses = {};
+            for (const course of json) {
+                defauleToggledCourses[course.id] = false;
+            }
             this.setState({
-                pendingCourseObj : json
+                pendingCourseObj : json,
+                toggledCourses : defauleToggledCourses
             })
+            console.log(this.state); //done
         })
     }
 
@@ -32,7 +39,12 @@ class PendingListForm extends Component {
     }
 
     handleChangeClick(CourseId, isChecked) {
+        //below is the code of updating the state for the toggled course in this.state.toggledcourses.
         console.log(CourseId, isChecked);
+        let newState = Object.assign({}, this.state)
+        newState.toggledCourses[CourseId] = isChecked;
+        this.setState(newState);
+        console.log(this.state.toggledCourses);
     }
 
     proceedToEnroll(e) {
@@ -41,7 +53,6 @@ class PendingListForm extends Component {
     }
 
     render() {
-
         console.log(this.state.pendingCourseObj);
         return (
             <form action="/" method="POST" className="pending_list">

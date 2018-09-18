@@ -56,9 +56,6 @@ app.get('/api/user/:id', (req, res) => {
     //console.log(res);
     res.json({username : result})    //// TEMP: need use "then" to load user's trasction, until both info loaded,then return to front-end.
   })
-  .then((haha) => {
-    console.log(haha)
-  })
   .catch((err) => {
     console.log(`Opz, something wrong, the error message is ${err}`);
   });
@@ -115,17 +112,63 @@ app.get('/api/enrollment/:id', (req, res) => {
 
 //dummydata for test pending list
 
-app.get('/api/courses', (req, res) => {
+app.get('/api/pendinglist/:uid', (req, res) => {
   const courses = [
-    {id: 1, CourseId: 'COMP6324', CourseName: 'IoT Services Engineering', CourseDescription: 'This course aims to introduce the students to core concepts and practical skills for designing and engineering IoT services and applications. Specifically, the course aims to expose students to IoT business strategy, requirements, IoT technologies, solution design and implementation'},
-    {id: 2, CourseId: 'COMP6714', CourseName: 'Info Retrieval and Web Search', CourseDescription: 'Information Retrieval: (a) Document modeling (b) Inverted index construction and compression (c)Vector space model and ranking methods (d) Probabilistic and language models (e) Evaluation methods (f) Relevance feedback and query expansion.Web Search: (a) Web search engine architecture (b) Web crawli'},
+    {id: 1, CourseId: 'COMP9024', CourseName: 'IoT Services Data Structures & Algorithms', CourseDescription: 'Data types and data structures: abstractions and representations; lists, stacks, queues, heaps, graphs; dictionaries and hash tables; search trees; searching and sorting algorithms'},
+    {id: 2, CourseId: 'COMP9417', CourseName: 'Machine Learning & Data Mining', CourseDescription: 'Machine learning is the algorithmic approach to learning from data. This course covers the key techniques in data mining technology, gives their theoretical background and shows their application. Topics include: decision tree algorithms (such as C4.5), regression and model tree algorithms, neural network'},
     {id: 3, CourseId: 'COMP9101', CourseName: 'Design &Analysis of Algorithms', CourseDescription: 'Techniques for design and performance analysis of algorithms for a variety of computational problems. Asymptotic notations, bounding summations, recurrences, best-case, worst-case and average-case analysis. Design techniques: divide-and-conquer, dynamic programming and memorisation, greedy strategy'}
   ];
 
   res.json(courses);
 });
 
+app.get('/api/course/:id', (req, res) => {
+  const userInfo = new Promise((resolve, reject) => {
+    MongoClient.connect(url, {useNewUrlParser: true}, function(err, db){
+      if (err) reject(err);
+      let dbo =db.db('coursetest');
+      dbo.collection("Course").findOne({_d: parseInt(req.params.id)}, function(err, result){
+        if (err) reject (err);
+        db.close();
+        resolve(result);
+      });
+    });
+  });
+  userInfo.then((result) => {
+    //console.log(res);
+    res.json({username : result})    //// TEMP: need use "then" to load user's trasction, until both info loaded,then return to front-end.
+  })
+  .catch((err) => {
+    console.log(`Opz, something wrong, the error message is ${err}`);
+  });
+});
+
 
 const port = 5000;
 
 app.listen(port, () => `Server running on port ${port}`);
+
+
+
+
+// Pending List Schema
+// let pendingListSchema = new Schema({
+//   user: {
+//       type: Number, ref: 'User',
+//       unique: true,
+//   },
+//   course_list: [{
+//       _id: {type: String, ref: 'Course'},
+//       star: {type: Number, default: 0} ,
+//   }],
+// })
+
+// Dummy Data for pending list , the real data should fetch from database
+// const user_pending_list = {
+//   user: 5198285,
+//   course_list : [
+//   {_id: '2COMP9024', star: 0},
+//   {_id: '2COMP9417', star: 0},
+//   {_id: '2COMP9101', star: 0}
+// ]}
+// res.json(user_pending_list);
