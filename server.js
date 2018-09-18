@@ -137,13 +137,15 @@ app.get('/api/search/:query', (req, res) => {
     )
 
     courseModel
-    .find({'full_name': new RegExp(req.params.query, 'i')})
-      .exec(function(err, docs){
-        if (err) reject(err);
-        console.log('docs', docs);
-        mongoose.disconnect();
-        resolve(docs)
-      })
+    .find({'full_name': new RegExp(req.params.query, 'i'), 'term': 2}, 'full_name description')
+    .exec(function(err, docs){
+      if (err) {
+        console.log(err);
+      }
+      //console.log('docs', docs);
+      mongoose.disconnect();
+      resolve(docs)
+    })
     }) // promise end
   searchInfo.then(result => {
     return res.json(result);
