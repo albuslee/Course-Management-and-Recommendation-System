@@ -12,7 +12,7 @@ let courseModel = require('./DataModel/models/course.js');
 let userModel = require('./DataModel/models/user.js');
 let enrollmentModel = require('./DataModel/models/enrollment.js');
 
-
+// CSRF pre-fighting
 app.use(function(req, res, next) {
   res.header("Access-Control-Allow-Origin", "*");
   res.header("Access-Control-Allow-Headers", "X-Requested-With");
@@ -113,37 +113,67 @@ app.get('/api/enrollment/:id', (req, res) => {
 //dummydata for test pending list
 
 app.get('/api/pendinglist/:uid', (req, res) => {
-  const courses = [
-    {id: 1, CourseId: 'COMP9024', CourseName: 'IoT Services Data Structures & Algorithms', CourseDescription: 'Data types and data structures: abstractions and representations; lists, stacks, queues, heaps, graphs; dictionaries and hash tables; search trees; searching and sorting algorithms'},
-    {id: 2, CourseId: 'COMP9417', CourseName: 'Machine Learning & Data Mining', CourseDescription: 'Machine learning is the algorithmic approach to learning from data. This course covers the key techniques in data mining technology, gives their theoretical background and shows their application. Topics include: decision tree algorithms (such as C4.5), regression and model tree algorithms, neural network'},
-    {id: 3, CourseId: 'COMP9101', CourseName: 'Design &Analysis of Algorithms', CourseDescription: 'Techniques for design and performance analysis of algorithms for a variety of computational problems. Asymptotic notations, bounding summations, recurrences, best-case, worst-case and average-case analysis. Design techniques: divide-and-conquer, dynamic programming and memorisation, greedy strategy'}
+  //fetch data from database using original 
+
+  // const pendinglistInfo = new Promise((resolve, reject) => {
+  //   mongoose.connect(url+'coursetest')
+  //   .then(
+  //     () => {
+  //       resolve(console.log('Database connect'))
+  //     },
+  //     reject(err => { console.log(err) })
+  //   )
+  
+  // enrollmentModel
+  //   .find({'user': parseInt(req.params.uid)})
+  //   .populate('course_list._id')
+  //   .exec(function(err, docs){
+  //     if (err) return handleError(err);
+      // console.log(docs[0].course_list);
+      // const courses = docs[0].course_list
+      //res.json(docs[0].course_list)
+
+      //// fetch enrollment data
+      // const enrollmentList = []
+
+      //// fetch real pendinglist data
+      // courses_dto = []
+      // var index = 1
+      // for (const course of courses){
+      //// TODO: Need to get the real enrollment data from other API and convert the list like below: ['COMP9020', 'COMP9021', 'COMP9024']
+      //// let prerequisitiesChecking = prerequisitiesValidation(course._id.pre_courses, enrollmentList);
+      //   let course_single_dto = {id: index, CourseId: course._id.code, CourseName: course._id.name, CourseDescription:course._id.description, Prerequisities: course._id.pre_courses};
+      //   courses_dto.push(course_single_dto);
+      //   index ++;
+      // }
+      // res.json(courses_dto)
+  //    })
+  // })
+
+  // fetch dammy data
+
+  const enrollmentList = ['COMP9020', 'COMP9021', 'COMP9311']
+  
+  var courses = [
+    {id: 1, CourseId: 'COMP9024', CourseName: 'Data Structures & Algorithms', CourseDescription: 'Data types and data structures: abstractions and representations; lists, stacks, queues, heaps, graphs; dictionaries and hash tables; search trees; searching and sorting algorithms' ,Prerequisities:{"code":{"1":["COMP9021"],"2":[]},"UOC":0}, Prerequisities_Desc:"Prerequisite: COMP9021"},
+    {id: 2, CourseId: 'COMP9417', CourseName: 'Machine Learning & Data Mining', CourseDescription: 'Machine learning is the algorithmic approach to learning from data. This course covers the key techniques in data mining technology, gives their theoretical background and shows their application. Topics include: decision tree algorithms (such as C4.5), regression and model tree algorithms, neural network', Prerequisities:{"code":{"1": ["COMP9021", "COMP9024"],"2": ["COMP9020", "COMP9024"]},"UOC": 0}, Prerequisities_Desc:"Prerequisite: (COMP9020 and COMP9021) or COMP9024"},
+    {id: 3, CourseId: 'COMP9101', CourseName: 'Design &Analysis of Algorithms', CourseDescription: 'Techniques for design and performance analysis of algorithms for a variety of computational problems. Asymptotic notations, bounding summations, recurrences, best-case, worst-case and average-case analysis. Design techniques: divide-and-conquer, dynamic programming and memorisation, greedy strategy',Prerequisities:{"code":{"1": ["COMP9024"],"2": []},"UOC": 0}, Prerequisities_Desc:"Prerequisite: COMP9024"}
   ];
 
+
+
+
+  var index = 0;
+  courses.forEach(course => {
+    // console.log(course.Prerequisities, enrollmentList)
+    let preRequisitiesCheck = prerequisitiesValidator(course.Prerequisities, enrollmentList);
+    console.log(preRequisitiesCheck);
+    courses[index].Prerequisities['isPre'] = preRequisitiesCheck;
+    index++;
+  });
   res.json(courses);
 });
 
-<<<<<<< HEAD
-app.get('/api/course/:id', (req, res) => {
-  const userInfo = new Promise((resolve, reject) => {
-    MongoClient.connect(url, {useNewUrlParser: true}, function(err, db){
-      if (err) reject(err);
-      let dbo =db.db('coursetest');
-      dbo.collection("Course").findOne({_d: parseInt(req.params.id)}, function(err, result){
-        if (err) reject (err);
-        db.close();
-        resolve(result);
-      });
-    });
-  });
-  userInfo.then((result) => {
-    //console.log(res);
-    res.json({username : result})    //// TEMP: need use "then" to load user's trasction, until both info loaded,then return to front-end.
-  })
-  .catch((err) => {
-    console.log(`Opz, something wrong, the error message is ${err}`);
-  });
-});
-=======
 //search course code and name
 app.get('/api/search/:query', (req, res) => {
   const searchInfo = new Promise((resolve, reject) => {
@@ -169,14 +199,9 @@ app.get('/api/search/:query', (req, res) => {
   })
 })
 
->>>>>>> 6c28119c08aa04112bb75bd4030760ab9b53979a
-
-
 const port = 5000;
 
 app.listen(port, () => `Server running on port ${port}`);
-
-
 
 
 // Pending List Schema
@@ -200,3 +225,52 @@ app.listen(port, () => `Server running on port ${port}`);
 //   {_id: '2COMP9101', star: 0}
 // ]}
 // res.json(user_pending_list);
+
+
+//checking prerequisities for pendinglist
+function prerequisitiesValidator (Prerequisities, Enrollment){
+  // arg Prerequisities should be in this format:
+  // Prerequisities = {"code":{"1": ["COMP9021", "COMP9024"],"2": ["COMP9020", "COMP9024"]},"UOC": 0}
+  let canBeEnrolled = false;
+  console.log(Prerequisities.code, Enrollment);
+  if (Prerequisities.code[1].length === 0 && Prerequisities.code[2].length === 0){
+    console.log('1');
+    canBeEnrolled = true;
+  }else if(Prerequisities.code[1].length >= 1 && Prerequisities.code[2].length === 0){
+    console.log('2');
+    for(let course of Prerequisities.code[1]){
+      if(Enrollment.includes(course)){
+        canBeEnrolled = true;
+        break;
+      }
+    }
+  }else if(Prerequisities.code[1].length === 0  && Prerequisities.code[2] >= 1){
+    console.log('3');
+    for(let course of Prerequisities.code[2]){
+      if(Enrollment.includes(course)){
+        canBeEnrolled = true;
+        break;
+      }
+    }
+  }else if(Prerequisities.code[1].length >= 1 && Prerequisities.code[2].length >=1 ){
+    console.log('4');
+    let validatorCodeList1 = false;
+    let validatorCodeList2 = false;
+    for(let course of Prerequisities.code[1]){
+      if(Enrollment.includes(course)){
+        canBeEnrolled = true;
+        break;
+      }
+    }
+    for(let course of Prerequisities.code[2]){
+      if(Enrollment.includes(course)){
+        canBeEnrolled = true;
+        break;
+      }
+    }
+    if(validatorCodeList1 === true && validatorCodeList2 === true){
+      canBeEnrolled = true;
+    }
+  }
+  return canBeEnrolled;
+}

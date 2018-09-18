@@ -15,11 +15,23 @@ class PendingListForm extends Component {
         this.handleChangeClick = this.handleChangeClick.bind(this);
     }
 
+
+    // app.get('/api/pendinglist/:uid', (req, res) => {
+    //     const courses = [
+    //       {id: 1, CourseId: 'COMP9024', CourseName: 'IoT Services Data Structures & Algorithms', CourseDescription: 'Data types and data structures: abstractions and representations; lists, stacks, queues, heaps, graphs; dictionaries and hash tables; search trees; searching and sorting algorithms'},
+    //       {id: 2, CourseId: 'COMP9417', CourseName: 'Machine Learning & Data Mining', CourseDescription: 'Machine learning is the algorithmic approach to learning from data. This course covers the key techniques in data mining technology, gives their theoretical background and shows their application. Topics include: decision tree algorithms (such as C4.5), regression and model tree algorithms, neural network'},
+    //       {id: 3, CourseId: 'COMP9101', CourseName: 'Design &Analysis of Algorithms', CourseDescription: 'Techniques for design and performance analysis of algorithms for a variety of computational problems. Asymptotic notations, bounding summations, recurrences, best-case, worst-case and average-case analysis. Design techniques: divide-and-conquer, dynamic programming and memorisation, greedy strategy'}
+    //     ];
+      
+    //     res.json(courses);
+    //   });
+
+
     componentWillMount(){
         fetch(`/api/pendinglist/${localStorage.getItem('session-username').slice(1,-1)}`)
         .then(res => res.json())
         .then(json => {
-            console.log(json);
+            console.log(json)
             let defauleToggledCourses = {};
             for (const course of json) {
                 defauleToggledCourses[course.id] = false;
@@ -34,7 +46,7 @@ class PendingListForm extends Component {
 
     renderCourses() {
         return this.state.pendingCourseObj.map((Course) => (
-            <PendingListSingle key={Course.id} index={Course.id} CourseId={Course.CourseId} CourseName={Course.CourseName} CourseDescription={Course.CourseDescription} handleChangeClick={this.handleChangeClick.bind(this, Course.id)}/>
+            <PendingListSingle key={Course.id} index={Course.id} CourseId={Course.CourseId} CourseName={Course.CourseName} CourseDescription={Course.CourseDescription} prerequisiteChecked={Course.Prerequisities.isPre} prerequisiteDesc={Course.Prerequisities_Desc} handleChangeClick={this.handleChangeClick.bind(this, Course.id)}/>
         ));
     }
 
