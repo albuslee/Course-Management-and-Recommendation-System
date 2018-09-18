@@ -6,6 +6,7 @@ let courseSchema = new Schema({
     career: String,
     code: String,
     name: String,
+    full_name: String,
     prerequisites: String,
     term: Number,
     pre_courses: {

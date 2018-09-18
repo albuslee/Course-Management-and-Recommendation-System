@@ -4,7 +4,7 @@ let courseModel = require('./models/course.js');
 let userModel = require('./models/user.js');
 
 const courseDB = require('./dbConn');
-const course_data = require('./data/opt_course_data.json');
+const course_data = require('./data/opt_course_data2.json');
 const user_data = require('./data/user_data_up.json');
 
 
