@@ -20,6 +20,8 @@
 		<!-- Custom stlylesheet -->
 		<link type="text/css" rel="stylesheet" href="css/style.css"/>
 
+		<script src="js/PendingList.js" type="text/javascript"></script>
+
     </head>
 	<body>
 		<div class="Sbody">
@@ -44,28 +46,29 @@
 						<form action="/" method="POST" class="pending_list">
 							<table width="100%" class="zebra pending_table">
 								<tr>
-									<td width="5%"><input type="checkbox" name="" value=""></td>
-									<td width="20%" id="CourseID">CourseID</td>
+									<td width="2%"><input type="checkbox" name="" value=""></td>
+									<td width="18%" id="CourseID">CourseID</td>
 									<td width="75%" id="CourseDitails">CourseDitails</td>
+									<td width="5%" id="Remove_Course"><input type="button" value="Remove" class="Remove_button" onclick="removeRow(this)"></td>
 										
 								</tr>
 								<tr>
 									<td width="5%"><input type="checkbox" name="" value=""></td>
 									<td width="20%" id="CourseID">CourseID</td>
 									<td width="75%" id="CourseDitails">CourseDitails</td>
-									
+									<td width="5%" id="Remove_Course"><input type="button" value="Remove" class="Remove_button" onclick="removeRow(this)"></td>
 								</tr>
 								<tr>
 									<td width="5%"><input type="checkbox" name="" value=""></td>
 									<td width="20%" id="CourseID">CourseID</td>
 									<td width="75%" id="CourseDitails">CourseDitails</td>
-										
+									<td width="5%" id="Remove_Course"><input type="button" value="Remove" class="Remove_button" onclick="removeRow(this)"></td>
 								</tr>
 								<tr>
 									<td width="5%"><input type="checkbox" name="" value=""></td>
 									<td width="20%" id="CourseID">CourseID</td>
 									<td width="75%" id="CourseDitails">CourseDitails</td>
-										
+									<td width="5%" id="Remove_Course"><input type="button" value="Remove" class="Remove_button" onclick="removeRow(this)"></td>
 								</tr>
 							</table>
 							<div class="button_part">

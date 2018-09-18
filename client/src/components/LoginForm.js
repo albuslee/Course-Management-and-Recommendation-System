@@ -38,7 +38,7 @@ class LoginForm extends Component {
       this.setState({username : this.refs.username.value, password: this.refs.password.value})
 
       if (username.startsWith('z')) {
-        username = parseInt(username.slice(1)).toString();
+        username = parseInt(username.slice(1),10).toString();
       }
       // console.log(username);
       fetch(`api/user/${username}`)

@@ -9,8 +9,6 @@ import PendingListForm from '../components/PendingListForm';
 
 
 const PendingListBackground= (props) => 
-    
-    
 		<div className="Sbody">
     			<div id="contact" className="section">
              <div className="container">
@@ -19,9 +17,7 @@ const PendingListBackground= (props) =>
                     <h1>Pending Course List</h1>
                   </div>
                     <PendingListForm />
-
                 </div>
-
              </div>
           </div>
     </div>
