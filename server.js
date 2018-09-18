@@ -110,6 +110,75 @@ app.get('/api/enrollment/:id', (req, res) => {
 });
 
 
+
+// get courseReview
+app.get('/api/review/:id',(req,res) => {
+  // connect database
+  //by data schema provided by mongoose
+  const courseReview = new Promise((resolve,reject) => {
+    mongoose.connect(url + 'coursetest')
+    .then(
+      () => {
+        console.log('Database connect');
+      },
+      err => {
+        console.log(err);
+      }
+    )
+
+  //get user-course-star information from enrollment table
+    enrollmentModel
+    .findOne({
+      'user': parseInt(req.params.id)
+    })
+    
+    .lean().exec(function(err,docs){
+      if (err) return handleError(err);
+      //console.log(docs.course_list[0]['star']);
+      var reviewList = [];
+      var courseName = [];
+      var numOfList = docs.course_list.length;
+      reviewList.push(docs.course_list);
+      for (courseID of reviewList[0]){
+        //console.log(courseID);
+        courseModel
+        .findOne({'_id': courseID._id})
+        .lean()
+        .exec(function(err,result){
+          if (err) {console.log(err);}
+          courseName.push(result)
+          mongoose.disconnect();
+          
+          if (courseName.length === numOfList){
+            for (let i = 0; i < 3; i++){
+              //console.log(reviewList[0][i]._id);
+              if (reviewList[0][i]._id === aaa['_id']){
+                
+                reviewList[0]['name'] = aaa['name'];
+              }}
+            //console.log(reviewList[0]);
+          }
+          
+        });
+        
+      }    
+      //console.log(reviewList[0],courseName);
+
+      
+      
+    })
+  })
+  courseReview
+    .then( reviewList => {
+      return res.json(reviewList
+      );
+    })
+
+})
+
+
+
+
 //dummydata for test pending list
 
 app.get('/api/courses', (req, res) => {
