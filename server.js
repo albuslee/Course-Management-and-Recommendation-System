@@ -100,6 +100,7 @@ app.get('/api/enrollment/:id', (req, res) => {
               //console.log('enroll_list', enroll_list);
               mongoose.disconnect();
               if (enroll_list.length === nb_of_course){
+                //console.log(enroll_list);
                 resolve(enroll_list);
               }
             });
@@ -107,6 +108,7 @@ app.get('/api/enrollment/:id', (req, res) => {
       }
     })
   }) // promise end
+  //console.log(enroll_list);
   enrollmentInfo.then( enroll_list => {
       return res.json(enroll_list);
   })
@@ -131,44 +133,21 @@ app.get('/api/review/:id',(req,res) => {
 
   //get user-course-star information from enrollment table
     enrollmentModel
-    .findOne({
+    .find({
       'user': parseInt(req.params.id)
     })
-    
-    .lean().exec(function(err,docs){
+    .populate('course_list._id')
+    .exec(function(err, docs){
       if (err) return handleError(err);
-      //console.log(docs.course_list[0]['star']);
       var reviewList = [];
-      var courseName = [];
-      var numOfList = docs.course_list.length;
-      reviewList.push(docs.course_list);
-      for (courseID of reviewList[0]){
-        //console.log(courseID);
-        courseModel
-        .findOne({'_id': courseID._id})
-        .lean()
-        .exec(function(err,result){
-          if (err) {console.log(err);}
-          courseName.push(result)
-          mongoose.disconnect();
-          
-          if (courseName.length === numOfList){
-            for (let i = 0; i < 3; i++){
-              //console.log(reviewList[0][i]._id);
-              if (reviewList[0][i]._id === aaa['_id']){
-                
-                reviewList[0]['name'] = aaa['name'];
-              }}
-            //console.log(reviewList[0]);
-          }
-          
-        });
-        
-      }    
-      //console.log(reviewList[0],courseName);
-
-      
-      
+      docs[0].course_list.forEach(course => {
+        reviewList.push({'code' : course._id.code, 'name': course._id.name, 'star':course.star});    
+      });
+      console.log(reviewList);
+      resolve(reviewList);
+      console.log('asfdsafsf');
+      mongoose.disconnect();
+    
     })
   })
   courseReview
@@ -176,8 +155,7 @@ app.get('/api/review/:id',(req,res) => {
       return res.json(reviewList
       );
     })
-
-})
+});
 
 
 
