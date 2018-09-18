@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
-import PropTypes from 'prop-types';
 
-export class CourseCard extends Component {
+class CourseCard extends Component {
 	constructor(props){
 		super(props)
 		this.state = {
@@ -18,14 +17,14 @@ export class CourseCard extends Component {
         
         <ul>
 						<li>
-							<div class="course_detail">
-								<span class="course_id">{this.props.full_name}</span>
-								<span class="course_description">{this.props.description}</span>
-								<div class="rank">
-									<span class="course_rank">{this.props.star}</span>
-									<img src={require("../img/stars.png")} class="rank_star"></img>
+							<div className="course_detail">
+								<span className="course_id">{this.props.full_name}</span>
+								<span className="course_description">{this.props.description}</span>
+								<div className="rank">
+									<span className="course_rank">{this.props.star}</span>
+									<img src={require("../img/stars.png")} alt='star' className="rank_star"></img>
 								</div>
-								<button type="submit" class="proceed_to_enroll">Proceed to Enroll</button>
+								<button type="submit" className="proceed_to_enroll">Proceed to Enroll</button>
 							</div>
 							
 						</li>
