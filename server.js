@@ -122,6 +122,7 @@ app.get('/api/pendinglist/:uid', (req, res) => {
   res.json(courses);
 });
 
+<<<<<<< HEAD
 app.get('/api/course/:id', (req, res) => {
   const userInfo = new Promise((resolve, reject) => {
     MongoClient.connect(url, {useNewUrlParser: true}, function(err, db){
@@ -142,6 +143,33 @@ app.get('/api/course/:id', (req, res) => {
     console.log(`Opz, something wrong, the error message is ${err}`);
   });
 });
+=======
+//search course code and name
+app.get('/api/search/:query', (req, res) => {
+  const searchInfo = new Promise((resolve, reject) => {
+    mongoose.connect(url+'coursetest')
+    .then(
+      () => {
+        console.log('Database connect')
+      },
+      err => { console.log(err) }
+    )
+
+    courseModel
+    .find({'full_name': new RegExp(req.params.query, 'i')})
+      .exec(function(err, docs){
+        if (err) reject(err);
+        console.log('docs', docs);
+        mongoose.disconnect();
+        resolve(docs)
+      })
+    }) // promise end
+  searchInfo.then(result => {
+    return res.json(result);
+  })
+})
+
+>>>>>>> 6c28119c08aa04112bb75bd4030760ab9b53979a
 
 
 const port = 5000;
