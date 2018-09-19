@@ -4,17 +4,28 @@ class Pagination extends Component {
 	constructor(props){
 		super(props)
 		this.state = {
-			nb_of_pages: this.props.nb_of_pages,
-			current_page: this.props.current_page,
+			nb_of_pages: 1,
+			current_page: 1,
 			pre_button: false,
 			next_button: false,
 		}
 		this.handleClick = this.handleClick.bind(this)
 	}
 
-	componentWillMount(){
-		let pre_button = (this.state.current_page === 1)? true : false;
-		let next_button = (this.state.current_page === this.state.nb_of_pages)? true: false;
+	componentWillReceiveProps(nextProps){
+		this.forceUpdate();
+		let current_page = this.state.current_page
+		let nb_of_pages = nextProps.nb_of_pages
+		// console.log(nextProps.current_page)
+		// if (nextProps.current_page===undefined && nextProps.nb_of_pages ===undefined){
+		// 	current_page = 1;
+		// 	nb_of_pages = 1;
+		// } else {
+		// 	current_page = nextProps.current_page;
+		// 	nb_of_pages = nextProps.current_page;
+		// }
+		let pre_button = (current_page === 1)? true : false;
+		let next_button = (current_page === nb_of_pages)? true: false;
 		this.setState({
 			pre_button: pre_button,
 			next_button: next_button,
@@ -22,11 +33,16 @@ class Pagination extends Component {
 		console.log(pre_button, next_button)
 	}
 
-	handleClick(type){
+	handleClick(type) {
 		this.setState( prevState => {
-			return {current_page: type==='next'? prevState.current_page + 1 : prevState.current_page - 1}
+			console.log('pre',prevState.current_page)
+			return {current_page: type=='next'? prevState.current_page + 1 : prevState.current_page - 1}
+		}, () => {
+			console.log('after callback', this.state.current_page)
+			this.props.onUserClick(this.state.current_page);
 		})
-		this.props.onUserClick(this.state.current_page);
+		console.log('after click current page', this.state.current_page)
+		
 	}
 
   render() {
