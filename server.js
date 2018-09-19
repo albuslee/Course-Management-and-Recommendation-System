@@ -6,11 +6,13 @@ const MongoClient = require('mongodb').MongoClient;
 const mongoose = require('mongoose');
 const url = "mongodb://localhost:27017/";
 const app = express();
+const bodyParser = require('body-parser');
 
 // import database external library
 let courseModel = require('./DataModel/models/course.js');
 let userModel = require('./DataModel/models/user.js');
 let enrollmentModel = require('./DataModel/models/enrollment.js');
+let pendingListModel = require('./DataModel/models/pendingList.js');
 
 // CSRF pre-fighting
 app.use(function(req, res, next) {
@@ -24,21 +26,12 @@ app.use(function(req, res, next) {
 app.get('/endpoint', function (req, res, next) {
   res.json({msg: 'This is CORS-enabled for all origins!'})
 })
+// for bodyparser
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended : true}));
 
 
-// the example given by author, no mongodb
-app.get('/api/customers', (req, res) => {
-  const customers = [
-    {id: 1, firstName: 'John', lastName: 'Doe'},
-    {id: 2, firstName: 'Brad', lastName: 'Traversy'},
-    {id: 3, firstName: 'Mary', lastName: 'Swanson'},
-  ];
-
-  res.json(customers);
-});
-
-// the backend and mongodb test
-// can be used to do authentication and get studentprofile
+// ----------------------------------------------------get the user infomation for display in studentprofile ---------------------
 
 app.get('/api/user/:id', (req, res) => {
   const userInfo = new Promise((resolve, reject) => {
@@ -64,7 +57,7 @@ app.get('/api/user/:id', (req, res) => {
 
 
 
-// get enrollment
+// ----------------------------------------------------get the enrollment info ---------------------
 app.get('/api/enrollment/:id', (req, res) => {
   const enrollmentInfo = new Promise((resolve, reject) => {
     mongoose.connect(url+'coursetest')
@@ -113,7 +106,7 @@ app.get('/api/enrollment/:id', (req, res) => {
 
 
 
-// get courseReview
+// ----------------------------------------------------get the course review info ---------------------
 app.get('/api/review/:id',(req,res) => {
   // connect database
   //by data schema provided by mongoose
@@ -140,9 +133,7 @@ app.get('/api/review/:id',(req,res) => {
       docs[0].course_list.forEach(course => {
         reviewList.push({'code' : course._id.code, 'name': course._id.name, 'star':course.star});    
       });
-      console.log(reviewList);
       resolve(reviewList);
-      console.log('asfdsafsf');
       mongoose.disconnect();
     
     })
@@ -154,74 +145,57 @@ app.get('/api/review/:id',(req,res) => {
     })
 });
 
-
-
-
-//dummydata for test pending list
+// ----------------------------------------------------get the pendinglist and prerequisitiescheck info ---------------------
 
 app.get('/api/pendinglist/:uid', (req, res) => {
   //fetch data from database using original 
 
-  // const pendinglistInfo = new Promise((resolve, reject) => {
-  //   mongoose.connect(url+'coursetest')
-  //   .then(
-  //     () => {
-  //       resolve(console.log('Database connect'))
-  //     },
-  //     reject(err => { console.log(err) })
-  //   )
+  const pendinglistInfo = new Promise((resolve, reject) => {
+    mongoose.connect(url+'coursetest')
+    .then(
+      () => {
+        resolve(console.log('Database connect'))
+      },
+      reject(err => { console.log(err) })
+    )
   
-  // enrollmentModel
-  //   .find({'user': parseInt(req.params.uid)})
-  //   .populate('course_list._id')
-  //   .exec(function(err, docs){
-  //     if (err) return handleError(err);
-      // console.log(docs[0].course_list);
-      // const courses = docs[0].course_list
-      //res.json(docs[0].course_list)
-
-      //// fetch enrollment data
-      // const enrollmentList = []
-
-      //// fetch real pendinglist data
-      // courses_dto = []
-      // var index = 1
-      // for (const course of courses){
-      //// TODO: Need to get the real enrollment data from other API and convert the list like below: ['COMP9020', 'COMP9021', 'COMP9024']
-      //// let prerequisitiesChecking = prerequisitiesValidation(course._id.pre_courses, enrollmentList);
-      //   let course_single_dto = {id: index, CourseId: course._id.code, CourseName: course._id.name, CourseDescription:course._id.description, Prerequisities: course._id.pre_courses};
-      //   courses_dto.push(course_single_dto);
-      //   index ++;
-      // }
-      // res.json(courses_dto)
-  //    })
-  // })
-
-  // fetch dammy data
-
-  const enrollmentList = ['COMP9020', 'COMP9021', 'COMP9311']
-  
-  var courses = [
-    {id: 1, CourseId: 'COMP9024', CourseName: 'Data Structures & Algorithms', CourseDescription: 'Data types and data structures: abstractions and representations; lists, stacks, queues, heaps, graphs; dictionaries and hash tables; search trees; searching and sorting algorithms' ,Prerequisities:{"code":{"1":["COMP9021"],"2":[]},"UOC":0}, Prerequisities_Desc:"Prerequisite: COMP9021"},
-    {id: 2, CourseId: 'COMP9417', CourseName: 'Machine Learning & Data Mining', CourseDescription: 'Machine learning is the algorithmic approach to learning from data. This course covers the key techniques in data mining technology, gives their theoretical background and shows their application. Topics include: decision tree algorithms (such as C4.5), regression and model tree algorithms, neural network', Prerequisities:{"code":{"1": ["COMP9021", "COMP9024"],"2": ["COMP9020", "COMP9024"]},"UOC": 0}, Prerequisities_Desc:"Prerequisite: (COMP9020 and COMP9021) or COMP9024"},
-    {id: 3, CourseId: 'COMP9101', CourseName: 'Design &Analysis of Algorithms', CourseDescription: 'Techniques for design and performance analysis of algorithms for a variety of computational problems. Asymptotic notations, bounding summations, recurrences, best-case, worst-case and average-case analysis. Design techniques: divide-and-conquer, dynamic programming and memorisation, greedy strategy',Prerequisities:{"code":{"1": ["COMP9024"],"2": []},"UOC": 0}, Prerequisities_Desc:"Prerequisite: COMP9024"}
-  ];
-
-
-
-
-  var index = 0;
-  courses.forEach(course => {
-    // console.log(course.Prerequisities, enrollmentList)
-    let preRequisitiesCheck = prerequisitiesValidator(course.Prerequisities, enrollmentList);
-    console.log(preRequisitiesCheck);
-    courses[index].Prerequisities['isPre'] = preRequisitiesCheck;
-    index++;
+  //fetching enrollment data from enrollment API using enrollment Model
+  var enrollment_list = []
+  enrollmentModel
+    .find({'user': parseInt(req.params.uid)})
+    .populate('course_list._id')
+    .exec(function(err, docs){
+      if (err) return handleError(err);
+    
+      const enr_courses = docs[0].course_list
+      for (const course of enr_courses){
+        enrollment_list.push(course._id.code);
+      }
+      //console.log(enrollment_list);
+      pendingListModel
+        .find({'user': parseInt(5198786)})
+        .populate('course_list._id')
+        .exec(function(err,docs){
+          if(err) return handleError(err);
+          const pen_courses = docs[0].course_list
+          courses_dto = [];
+          var index = 1
+          for (const course of pen_courses){
+            let prerequisitiesCheck = prerequisitiesValidator(course._id.pre_courses, enrollment_list);
+            //pen_courses[index].Prerequisities['isPre'] = prerequisitiesCheck;
+            let course_single_dto = {id: index, CourseId: course._id.code, CourseName: course._id.name, 
+                      CourseDescription:course._id.description, Prerequisities: course._id.pre_courses, 
+                      isPre: prerequisitiesCheck, Prerequisities_Desc: course._id.prerequisites}
+            courses_dto.push(course_single_dto);
+            index ++;
+          }
+          res.json(courses_dto);
+        })
+    })
   });
-  res.json(courses);
-});
-
-//search course code and name
+})
+  
+// ----------------------------------------------------search course code and name---------------------
 app.get('/api/search/:query', (req, res) => {
   const searchInfo = new Promise((resolve, reject) => {
     mongoose.connect(url+'coursetest')
@@ -248,45 +222,29 @@ app.get('/api/search/:query', (req, res) => {
   })
 })
 
-const port = 5000;
+// ----------------------------------------------------Insert the pending courses into the database ---------------------
 
-app.listen(port, () => `Server running on port ${port}`);
-
-
-// Pending List Schema
-// let pendingListSchema = new Schema({
-//   user: {
-//       type: Number, ref: 'User',
-//       unique: true,
-//   },
-//   course_list: [{
-//       _id: {type: String, ref: 'Course'},
-//       star: {type: Number, default: 0} ,
-//   }],
-// })
-
-// Dummy Data for pending list , the real data should fetch from database
-// const user_pending_list = {
-//   user: 5198285,
-//   course_list : [
-//   {_id: '2COMP9024', star: 0},
-//   {_id: '2COMP9417', star: 0},
-//   {_id: '2COMP9101', star: 0}
-// ]}
-// res.json(user_pending_list);
+app.post('/api/pendinginsert/:uid', function(req, res){
 
 
-//checking prerequisities for pendinglist
+  // userModel
+  
+  res.send(req.body);
+});
+
+
+
+// ----------------------------------------------------checking prerequisities for pendinglist---------------------
 function prerequisitiesValidator (Prerequisities, Enrollment){
   // arg Prerequisities should be in this format:
   // Prerequisities = {"code":{"1": ["COMP9021", "COMP9024"],"2": ["COMP9020", "COMP9024"]},"UOC": 0}
   let canBeEnrolled = false;
-  console.log(Prerequisities.code, Enrollment);
+  //console.log(Prerequisities.code, Enrollment);
   if (Prerequisities.code[1].length === 0 && Prerequisities.code[2].length === 0){
-    console.log('1');
+    //console.log('1');
     canBeEnrolled = true;
   }else if(Prerequisities.code[1].length >= 1 && Prerequisities.code[2].length === 0){
-    console.log('2');
+    //console.log('2');
     for(let course of Prerequisities.code[1]){
       if(Enrollment.includes(course)){
         canBeEnrolled = true;
@@ -294,7 +252,7 @@ function prerequisitiesValidator (Prerequisities, Enrollment){
       }
     }
   }else if(Prerequisities.code[1].length === 0  && Prerequisities.code[2] >= 1){
-    console.log('3');
+    //console.log('3');
     for(let course of Prerequisities.code[2]){
       if(Enrollment.includes(course)){
         canBeEnrolled = true;
@@ -302,7 +260,7 @@ function prerequisitiesValidator (Prerequisities, Enrollment){
       }
     }
   }else if(Prerequisities.code[1].length >= 1 && Prerequisities.code[2].length >=1 ){
-    console.log('4');
+    //console.log('4');
     let validatorCodeList1 = false;
     let validatorCodeList2 = false;
     for(let course of Prerequisities.code[1]){
@@ -323,3 +281,10 @@ function prerequisitiesValidator (Prerequisities, Enrollment){
   }
   return canBeEnrolled;
 }
+
+
+
+
+const port = 5000;
+
+app.listen(port, () => `Server running on port ${port}`);
