@@ -11,8 +11,8 @@ class SearchResult extends Component {
 		this.state = {
 			filterText: '',
 			course_list: [{_id: '2COMP9024',full_name: 'COMP9024', description: 'fuckkkkkk'}],
-			nb_of_pages: 1,
-			current_page: 1,
+			nb_of_pages: null,
+			current_page: null,
 			start_index: 0,
 			end_index: 8
 		}
@@ -96,7 +96,7 @@ class SearchResult extends Component {
 						{/* Pagination Sector Start */}
 						<Pagination 
 						nb_of_pages={this.state.nb_of_pages}
-						current_page={this.state.current_page}
+						//current_page={this.state.current_page}
 						onUserClick={this.handlePage.bind(this)}
 						/>
 						{/* Pagination Sector End */}
