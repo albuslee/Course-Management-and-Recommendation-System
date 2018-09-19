@@ -24,6 +24,7 @@ class PendingListSingle extends Component {
     }
 
     render() {
+        console.log(this.state);
         return (
             <tr>
                 <td width="5%"><input type="checkbox" name=""  onClick={this.handleClick}/></td>
