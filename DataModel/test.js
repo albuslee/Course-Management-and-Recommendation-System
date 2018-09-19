@@ -36,30 +36,30 @@ const enrollmentInfo = new Promise((resolve, reject) => {
   )
 
   enrollmentModel
-    .find({'user': parseInt(5198786)})
-    .populate('course_list._id')
+    .findOneAndUpdate({'user': parseInt(5198786)},
+    {'$push': {'course_list': {'_id':'2COMP9417'} }},
+    { "new": true, "upsert": true })
     .exec(function(err, docs){
-      if (err) return handleError(err);
-      let full_list = {}
-      full_list['id'] = 5198786
-      full_list['enrollment'] = docs[0].course_list
-      resolve(full_list);
+      if (err) {
+      console.log(err)
+    };
+      console.log(docs)
       //console.log('docs', docs[0].course_list);
       
     })
   }) // promise end
-enrollmentInfo
-  .then(full_list => {
-    pendingListModel
-      .find({'user': full_list['id']})
-      .exec(function(err, docs){
-        if (err) return handleError(err);
-        full_list['pending'] = docs[0].course_list
-        //resolve(full_list);
-        //mongoose.disconnect();
-      })
-    }
-  ).then(full_list => {
-    console.log(full_list)
-  })
+// enrollmentInfo
+//   .then(full_list => {
+//     pendingListModel
+//       .find({'user': full_list['id']})
+//       .exec(function(err, docs){
+//         if (err) return handleError(err);
+//         full_list['pending'] = docs[0].course_list
+//         //resolve(full_list);
+//         //mongoose.disconnect();
+//       })
+//     }
+//   ).then(full_list => {
+//     console.log(full_list)
+//   })
   
