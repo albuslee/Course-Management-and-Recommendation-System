@@ -71,12 +71,13 @@ class PendingListForm extends Component {
         .then(response => console.log('Success:', JSON.stringify(response)))
         .catch(error => console.error('Error:', error));
         console.log(enroll_course_list);
+        window.location.href="./studentprofile"
     }
 
     render() {
         console.log(this.state)
         return (
-            <form className="pending_list">
+            <form className="pending_list" action="/studentprofile">
                  <table width="100%" className="zebra pending_table">
                     <tbody>
                         {this.renderCourses()}
