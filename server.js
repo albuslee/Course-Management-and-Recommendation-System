@@ -242,6 +242,18 @@ app.post('/api/pendinginsert/:uid', function(req, res){
           res.sendStatus(500)
         }
         console.log(raw)
+        //delete the enrolled course from pending list:
+        pendingListModel
+        .findOneAndUpdate({'user': parseInt(req.params.uid)},
+        {'$pull': {'course_list': course}},
+        {'new': true, "upsert": true })
+        .exec(function(err,raw){
+          if(err){
+            console.log(err)
+            res.sendStatus(500)
+          }
+          console.log(raw)
+        })
       })
   });
   return res.status(200).json({status:"ok"})
