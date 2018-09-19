@@ -22,18 +22,6 @@ class PendingListSingle extends Component {
         if(this.state.prerequisiteChecked === false){
             document.getElementById(this.props.index).disabled = true;
         }
-        // fetch('api/')
-
-        // fetch('api/user/' + username)
-        // .then(res => res.json())
-        // .then(json => this.setState({
-        //     name : `${json.username.first_name + ' ' + json.username.last_name}`,
-        //     email: `${json.username.email}`,
-        //     current_sem: `2018 S${json.username.currentTerm}`
-        // }))
-        // .catch((err) => {
-        //     console.log(`Opz, something wrong, the error message is ${err}`);
-        // });
     }
 
     handleClick = () => {
