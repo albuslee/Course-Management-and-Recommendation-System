@@ -2,37 +2,21 @@ import React, { Component } from 'react'
 
 import SearchBar from './SearchBar';
 import CourseCard from './CourseCard';
+import Pagination from './Pagination';
+import { SSL_OP_NETSCAPE_CHALLENGE_BUG } from 'constants';
 
 class SearchResult extends Component {
 	constructor(props){
 		super(props)
 		this.state = {
 			filterText: '',
-			course_list: [{_id: '2COMP9024',full_name: 'COMP9024', description: 'fuckkkkkk'}]
+			course_list: [{_id: '2COMP9024',full_name: 'COMP9024', description: 'fuckkkkkk'}],
+			nb_of_pages: 1,
+			current_page: 1,
+			start_index: 0,
+			end_index: 8
 		}
 	}
-
-	// componentWillMount(props){
-	// 	let username = JSON.parse(localStorage.getItem('session-username'))
-	// 		fetch('/api/enrollment/' + username)
-	// 		.then(res => res.json())
-	// 		.then(json => {
-	// 				for ( let course of json){
-	// 				this.setState({
-	// 						enrollment: [...this.state.enrollment, {'code': course.code, 'name': course.name}],
-	// 				})
-	// 				}
-	// 		})
-	// 		.catch((err) => {
-	// 			console.log(`Opz, something wrong, the error message is ${err}`);
-	// 		});
-	// }
-
-	// componentDidUpdate(prevProps, prevState){
-	// 	if(this.state.filterText !== prevState.filterText){
-  //     this.getCourseResult();
-  //   }
-  // }
 
 	getCourseResult(filterText) {
 		if(filterText.length !== 0){
@@ -46,6 +30,7 @@ class SearchResult extends Component {
 			.then(json => {
 				this.setState({course_list: json})
 				console.log(this.state.course_list)
+				this.makePagination();
 			})
 		} else {
 			this.setState({course_list: []})
@@ -59,10 +44,39 @@ class SearchResult extends Component {
 		this.getCourseResult(filterText)
 	}
 
-	renderCourseCard() {
-		return this.state.course_list.map((course) => 
+	renderCourseCard(start_index, end_index) {
+		if ( start_index === undefined && end_index === undefined){
+			start_index = 0;
+			end_index = 8;
+		}
+		console.log('start', start_index, 'end', end_index);
+		return this.state.course_list.slice(start_index, end_index).map((course) => 
 			<CourseCard key={course._id} full_name={course.full_name} description={course.description}/>
 		)
+	}
+
+	makePagination() {
+		const course_list = this.state.course_list;
+		if ( course_list.length <= 8 ){
+			this.setState()
+		} else {
+			let nb_of_pages = Math.ceil(course_list.length / 8)
+			console.log('nb_of_pages',nb_of_pages);
+			this.setState({nb_of_pages: nb_of_pages});
+		}
+		//this.renderCourseCard(0, 8)
+	}
+
+	handlePage(current_page) {
+		this.setState({
+			current_page: current_page
+		})
+		let start_index = (current_page - 1) * 8;
+		let end_index = ( (start_index + 8) > this.state.course_list.length) ? this.state.course_list.length : (start_index + 8);
+		this.setState({
+			start_index: start_index,
+			end_index: end_index
+		})
 	}
 
   render() {
@@ -77,15 +91,15 @@ class SearchResult extends Component {
 					<h2 className="notice">Here is some course recommand to you:</h2>
 				</div>
         <div className="search_result">
-					<form action="/" method="post" className="enroll">
-						{this.renderCourseCard()}
-						<div className="pages">
-							<button type="submit" className="previous_page">&lt;</button>
-							<button type="submit" className="page1">1</button>
-							<button type="submit" className="page2">2</button>
-							<button type="submit" className="page3">3</button>
-							<button type="submit" className="next_page">&gt;</button>
-						</div>
+					<form className="enroll">
+						{this.renderCourseCard(this.state.start_index, this.state.end_index)}
+						{/* Pagination Sector Start */}
+						<Pagination 
+						nb_of_pages={this.state.nb_of_pages}
+						current_page={this.state.current_page}
+						onUserClick={this.handlePage.bind(this)}
+						/>
+						{/* Pagination Sector End */}
 					</form>
 				</div>
 
