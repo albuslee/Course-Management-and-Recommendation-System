@@ -55,7 +55,7 @@ class PendingListForm extends Component {
         for(var key in this.state.toggledCourses){
             console.log(this.state.toggledCourses[key], this.state.pendingCourseObj[key-1].CourseId)
             if(this.state.toggledCourses[key] === true){
-                enroll_course_list.push('2' + this.state.pendingCourseObj[key-1].CourseId)
+                enroll_course_list.push({'_id' : '2' + this.state.pendingCourseObj[key-1].CourseId})
             }
         }
         var url = `http://127.0.0.1:5000/api/pendinginsert/5198786`;
