@@ -18,11 +18,11 @@ class PendingListForm extends Component {
         fetch('/api/courses')
         .then(res => res.json())
         .then(json => {
-            console.log(json);
             this.setState({
                 pendingCourseObj : json
             })
         })
+        //.then(console.log(this.state));
     }
 
     renderCourses() {
@@ -41,8 +41,6 @@ class PendingListForm extends Component {
     }
 
     render() {
-
-        console.log(this.state.pendingCourseObj);
         return (
             <form action="/" method="POST" className="pending_list">
                  <table width="100%" className="zebra pending_table">

@@ -141,11 +141,9 @@ app.get('/api/review/:id',(req,res) => {
       if (err) return handleError(err);
       var reviewList = [];
       docs[0].course_list.forEach(course => {
-        reviewList.push({'code' : course._id.code, 'name': course._id.name, 'star':course.star});    
+        reviewList.push({'code' : course._id.code, 'name': course._id.name, 'star':course.star,'term': course._id.term});    
       });
-      console.log(reviewList);
-      resolve(reviewList);
-      console.log('asfdsafsf');
+      resolve(reviewList); 
       mongoose.disconnect();
     
     })

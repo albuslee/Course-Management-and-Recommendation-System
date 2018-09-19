@@ -40,6 +40,7 @@ enrollmentModel
   .exec(function(err, docs){
     if (err) return handleError(err);
     docs[0].course_list.forEach(course => {
+      console.log(course);
       console.log(course._id.code, course._id.name, course.star)
     });
     //console.log('docs', docs[0].course_list);
