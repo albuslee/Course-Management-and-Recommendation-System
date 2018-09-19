@@ -225,8 +225,19 @@ app.get('/api/search/:query', (req, res) => {
 // ----------------------------------------------------Insert the pending courses into the database ---------------------
 
 app.post('/api/pendinginsert/:uid', function(req, res){
-
-
+  //console.log(req.body.pendinglist[0])
+  let courseId = req.body.pendinglist[0]
+  console.log(courseId)
+  enrollmentModel
+  .findOneAndUpdate({'user': parseInt(req.params.uid)}, 
+  {$push: {'course_list': {_id:courseId} }},
+  { "new": true, "upsert": true })
+  .exec(function(err, raw){
+    if (err){
+      console.log(err)
+    }
+    console.log(raw)
+  })
   // userModel
   
   res.send(req.body);
