@@ -12,12 +12,13 @@ class SearchResult extends Component {
 			filterText: '',
 			course_list: [{_id: '2COMP9024',full_name: 'COMP9024', description: 'fuckkkkkk'}],
 			nb_of_pages: null,
-			current_page: null,
 			start_index: 0,
-			end_index: 8
+			end_index: 8,
+			recommendation: true
 		}
 	}
 
+	// use fetch method to get courses' result from database according to filtertext
 	getCourseResult(filterText) {
 		if(filterText.length !== 0){
 			console.log(filterText)
@@ -28,15 +29,22 @@ class SearchResult extends Component {
 				return result
 			})
 			.then(json => {
-				this.setState({course_list: json})
+				this.setState({
+					course_list: json,
+					recommendation: false,
+				})
 				console.log(this.state.course_list)
 				this.makePagination();
 			})
 		} else {
-			this.setState({course_list: []})
+			this.setState({
+				course_list: [{_id: '2COMP9024',full_name: 'COMP9024', description: 'fuckkkkkk'}],
+				recommendation: true,
+			})
 		}
 	}
 
+	// get filterText from child component <SearchBar/>
 	handleUserInput(filterText) {
 		this.setState({
 			filterText: filterText
@@ -44,6 +52,7 @@ class SearchResult extends Component {
 		this.getCourseResult(filterText)
 	}
 
+	// get specific course card from child component from <CourseCard/> based on current_page
 	renderCourseCard(start_index, end_index) {
 		if ( start_index === undefined && end_index === undefined){
 			start_index = 0;
@@ -51,14 +60,15 @@ class SearchResult extends Component {
 		}
 		console.log('start', start_index, 'end', end_index);
 		return this.state.course_list.slice(start_index, end_index).map((course) => 
-			<CourseCard key={course._id} full_name={course.full_name} description={course.description}/>
+			<CourseCard key={course._id} course_id={course._id} full_name={course.full_name} description={course.description}/>
 		)
 	}
 
+	// calulate number of pages
 	makePagination() {
 		const course_list = this.state.course_list;
 		if ( course_list.length <= 8 ){
-			this.setState()
+			this.setState({nb_of_pages: 1})
 		} else {
 			let nb_of_pages = Math.ceil(course_list.length / 8)
 			console.log('nb_of_pages',nb_of_pages);
@@ -67,6 +77,7 @@ class SearchResult extends Component {
 		//this.renderCourseCard(0, 8)
 	}
 
+	// get current_page from child component <Pagination/>
 	handlePage(current_page) {
 		this.setState({
 			current_page: current_page
@@ -79,6 +90,23 @@ class SearchResult extends Component {
 		})
 	}
 
+	// handle header text
+	handleHeader() {
+		if (this.state.recommendation === true) {
+			return (
+				<div className="section-header">
+					<h2 className="notice">Below are your course recommendations:</h2>
+				</div>
+			)
+		} else {
+			return (
+				<div className="section-header">
+					<h2 className="notice">Below are your search results:</h2>
+				</div>
+			)
+		}
+	}
+
   render() {
     return (
       <div>
@@ -87,9 +115,7 @@ class SearchResult extends Component {
 					filterText={this.state.filterText} 
 					onUserInput={this.handleUserInput.bind(this)} 
 				/>
-        <div className="section-header">
-					<h2 className="notice">Here is some course recommand to you:</h2>
-				</div>
+        {this.handleHeader()}
         <div className="search_result">
 					<form className="enroll">
 						{this.renderCourseCard(this.state.start_index, this.state.end_index)}
