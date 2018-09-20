@@ -12,18 +12,11 @@ class Pagination extends Component {
 		this.handleClick = this.handleClick.bind(this)
 	}
 
+	// keep updating props from parent component <SearchResult/>
 	componentWillReceiveProps(nextProps){
 		this.forceUpdate();
 		let current_page = this.state.current_page
 		let nb_of_pages = nextProps.nb_of_pages
-		// console.log(nextProps.current_page)
-		// if (nextProps.current_page===undefined && nextProps.nb_of_pages ===undefined){
-		// 	current_page = 1;
-		// 	nb_of_pages = 1;
-		// } else {
-		// 	current_page = nextProps.current_page;
-		// 	nb_of_pages = nextProps.current_page;
-		// }
 		let pre_button = (current_page === 1)? true : false;
 		let next_button = (current_page === nb_of_pages)? true: false;
 		this.setState({
@@ -33,10 +26,11 @@ class Pagination extends Component {
 		console.log(pre_button, next_button)
 	}
 
+	// get user's click, then change the current_page, finally call the function in parent component <SearchResult/>
 	handleClick(type) {
 		this.setState( prevState => {
 			console.log('pre',prevState.current_page)
-			return {current_page: type=='next'? prevState.current_page + 1 : prevState.current_page - 1}
+			return {current_page: type==='next'? prevState.current_page + 1 : prevState.current_page - 1}
 		}, () => {
 			console.log('after callback', this.state.current_page)
 			this.props.onUserClick(this.state.current_page);
