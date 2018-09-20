@@ -18,7 +18,7 @@ class ReviewStar  extends  Component{
             let aStxt=scope[id].getElementsByClassName("star-txt")[0];
             let aBstar=aSpan.getElementsByTagName("b");
             var arrBtxt=["Bad","Poor","Normal","Good","Perfect"];
-            //console.log(this.state.CourseStars);
+            //console.log(this.state.CourseStars +'asdfsafsafasf'+ this.state.CourseCode);
             //this.CountStars = num + 1;
             aStxt.innerHTML=arrBtxt[this.state.CourseStars];
                 for(var i=0;i<=this.state.CourseStars;i++){
