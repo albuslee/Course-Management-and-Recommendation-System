@@ -6,56 +6,25 @@ class ReviewStar  extends  Component{
     constructor(props){
         super(props);
         this.state = {
-            CountStars: 0,                                            // the star given by user.
+            CourseCode: this.props.CourseCode,
+            CourseStars: this.props.CourseStar,                                           // the star given by user.
         }
     }
 
     componentDidMount(){
-        var scope = document.getElementsByClassName("review");
-        //console.log(scope[id]);
+        var scope = document.getElementsByClassName("review");      
         for (var id = 0; id < scope.length; id++){
             let aSpan=scope[id].getElementsByClassName("star")[0];
             let aStxt=scope[id].getElementsByClassName("star-txt")[0];
             let aBstar=aSpan.getElementsByTagName("b");
             var arrBtxt=["Bad","Poor","Normal","Good","Perfect"];
-            var num=0;
-            let onOff=true;
-            for(var i= 0;i<aBstar.length;i++){
-                aBstar[i].index=i;
-                aBstar[i].onmouseover=function(){
-                    if(onOff) {
-                        num = this.index;
-                        aStxt.innerHTML = arrBtxt[num];
-                        for (var i = 0; i <=this.index; i++) {
-                            aBstar[i].style.backgroundPosition = "0 0";
-                        }
-                    }
-                };
-
-                aBstar[i].onmouseout=function(){
-                    if(onOff){
-                        aStxt.innerHTML="";
-                        for(var i=0;i<=this.index;i++){
-                            aBstar[i].style.backgroundPosition="-39px 0";
-                        }
-                    }
-                    };
-
-                aBstar[i].onclick=function(){
-                    onOff=false;
-                    aStxt.innerHTML="";
-                    for(var i=0;i<aBstar.length;i++){
-                        aBstar[i].style.backgroundPosition="-39px 0";
-                    }
-                    num = this.index ;
-                    this.CountStars = num + 1;
-                    //console.log(this.CountStars);
-                    aStxt.innerHTML=arrBtxt[num];
-                    for(var i=0;i<=this.index;i++){
-                        aBstar[i].style.backgroundPosition="0 0";
-                    }
-                };
-            }
+            //console.log(this.state.CourseStars);
+            //this.CountStars = num + 1;
+            aStxt.innerHTML=arrBtxt[this.state.CourseStars];
+                for(var i=0;i<=this.state.CourseStars;i++){
+                    aBstar[i].style.backgroundPosition="0 0";
+                }                
+            
         }
     }
 

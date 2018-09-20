@@ -131,9 +131,13 @@ app.get('/api/review/:id',(req,res) => {
       if (err) return handleError(err);
       var reviewList = [];
       docs[0].course_list.forEach(course => {
-        reviewList.push({'code' : course._id.code, 'name': course._id.name, 'star':course.star});    
+        reviewList.push({'code' : course._id.code, 'name': course._id.name, 'star':course.star,'term': course._id.term});    
       });
+<<<<<<< HEAD
+      resolve(reviewList); 
+=======
       resolve(reviewList);
+>>>>>>> ec369f8663096ec87c71fee2d07a87d600d2018c
       mongoose.disconnect();
     
     })
@@ -226,23 +230,38 @@ app.get('/api/search/:query', (req, res) => {
 
 app.post('/api/pendinginsert/:uid', function(req, res){
   //console.log(req.body.pendinglist[0])
-  let courseId = req.body.pendinglist[0]
-  console.log(courseId)
-  enrollmentModel
-  .findOneAndUpdate({'user': parseInt(req.params.uid)}, 
-  {$push: {'course_list': {_id:courseId} }},
-  { "new": true, "upsert": true })
-  .exec(function(err, raw){
-    if (err){
-      console.log(err)
-    }
-    console.log(raw)
-  })
-  // userModel
-  
-  res.send(req.body);
-});
+  let courseList = req.body.pendinglist
+  // console.log(`req.body is`,courseList)
+  // res.send(req.body);
 
+  courseList.forEach(course => {
+    console.log(course)
+    enrollmentModel
+    .findOneAndUpdate({'user': parseInt(req.params.uid)}, 
+      {'$push': {'course_list': course }},
+      { "new": true, "upsert": true })
+      .exec(function(err, raw){
+        if (err){
+          console.log(err)
+          res.sendStatus(500)
+        }
+        console.log(raw)
+        //delete the enrolled course from pending list:
+        pendingListModel
+        .findOneAndUpdate({'user': parseInt(req.params.uid)},
+        {'$pull': {'course_list': course}},
+        {'new': true, "upsert": true })
+        .exec(function(err,raw){
+          if(err){
+            console.log(err)
+            res.sendStatus(500)
+          }
+          console.log(raw)
+        })
+      })
+  });
+  return res.status(200).json({status:"ok"})
+});
 
 
 // ----------------------------------------------------checking prerequisities for pendinglist---------------------
