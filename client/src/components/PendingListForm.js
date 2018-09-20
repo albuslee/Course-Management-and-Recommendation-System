@@ -19,14 +19,11 @@ class PendingListForm extends Component {
         fetch(`/api/pendinglist/${localStorage.getItem('session-username').slice(1,-1)}`)
         .then(res => res.json())
         .then(json => {
-<<<<<<< HEAD
-=======
             // console.log(json)
             let defauleToggledCourses = {};
             for (const course of json) {
                 defauleToggledCourses[course.id] = false;
             }
->>>>>>> ec369f8663096ec87c71fee2d07a87d600d2018c
             this.setState({
                 pendingCourseObj : json,
                 toggledCourses : defauleToggledCourses
@@ -78,10 +75,7 @@ class PendingListForm extends Component {
     }
 
     render() {
-<<<<<<< HEAD
-=======
         console.log(this.state)
->>>>>>> ec369f8663096ec87c71fee2d07a87d600d2018c
         return (
             <form className="pending_list">
                  <table width="100%" className="zebra pending_table">

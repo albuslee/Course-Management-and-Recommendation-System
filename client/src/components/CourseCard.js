@@ -1,15 +1,6 @@
 import React, { Component } from 'react';
 
 class CourseCard extends Component {
-	constructor(props){
-		super(props)
-		this.state = {
-				index: this.props.index,
-				full_name: this.props.full_name,
-				description: this.props.description,
-				star: this.props.star,
-		}
-	}
 
   render() {
     return (
