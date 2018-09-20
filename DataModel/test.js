@@ -35,24 +35,6 @@ const enrollmentInfo = new Promise((resolve, reject) => {
     err => { console.log(err) }
   )
 
-<<<<<<< HEAD
-enrollmentModel
-  .find({'user': parseInt(5198786)})
-  .populate('course_list._id')
-  .exec(function(err, docs){
-    if (err) return handleError(err);
-    docs[0].course_list.forEach(course => {
-      console.log(course);
-      console.log(course._id.code, course._id.name, course.star)
-    });
-    //console.log('docs', docs[0].course_list);
-    
-  })
-}) // promise end
-// enrollmentInfo.then( enroll_list => {
-//     return res.json(enroll_list);
-// })
-=======
   enrollmentModel
     .findOneAndUpdate({'user': parseInt(5198786)},
     {'$push': {'course_list': {'_id':'2COMP9417'} }},
@@ -81,4 +63,3 @@ enrollmentModel
 //     console.log(full_list)
 //   })
   
->>>>>>> ec369f8663096ec87c71fee2d07a87d600d2018c
