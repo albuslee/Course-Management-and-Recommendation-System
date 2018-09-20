@@ -3,9 +3,7 @@ import React, { Component } from 'react'
 class SearchBar extends Component {
   constructor(props){
     super(props)
-    this.state = {
-        //filterText: this.props.filterText
-    }
+
     this.handleChange = this.handleChange.bind(this);
 }
 
@@ -15,6 +13,7 @@ class SearchBar extends Component {
   //   }
   // }
 
+  // get filtertext from users' input and call the parent component <SearchResult/> function
   handleChange() {
     this.props.onUserInput(this.refs.filterTextInput.value);
   }

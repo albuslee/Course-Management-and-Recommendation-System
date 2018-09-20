@@ -30,6 +30,7 @@ class PendingListForm extends Component {
             })
             // console.log(this.state); //done
         })
+        //.then(console.log(this.state));
     }
 
     renderCourses() {

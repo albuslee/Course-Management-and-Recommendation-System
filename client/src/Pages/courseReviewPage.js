@@ -7,13 +7,8 @@ import '../css/font-awesome.min.css';
 import NavigationBar from '../components/NavigationBar';
 import CourseReview from '../components/CourseReview';
 
-
-
-class CourseReviewPage extends Component {
-  render() {
-    return (
-      <div>    
-        <div className = "Sbody">
+const CourseReviewBackground = () => 
+    <div className = "Sbody">
         {/* <!-- Contact --> */}
           <div id = "contact" className = "section">
             <NavigationBar/>
@@ -28,10 +23,7 @@ class CourseReviewPage extends Component {
                     <CourseReview />
 
                     {/* <!-- contact information --> */}
-                    <div className = "button_part">
-                        <button type="submit" className = "button">Submit</button>
-                        <a href="StudentProfile.html" className = "button">Back</a>
-                    </div>
+                    
                 </div>
                 {/* <!-- /row --> */}
 
@@ -41,10 +33,21 @@ class CourseReviewPage extends Component {
         </div>
         {/* <!-- /Contact --> */}
     </div>
-        
+
+class CourseReviewPage extends Component {
+  render() {
+    return (
+      <div>    
+        <CourseReviewBackground/>
       </div>
     );
   }
 }
 
 export default CourseReviewPage;
+
+
+
+
+
+
