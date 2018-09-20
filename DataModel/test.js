@@ -37,7 +37,7 @@ const enrollmentInfo = new Promise((resolve, reject) => {
 
   enrollmentModel
     .findOneAndUpdate({'user': parseInt(5198786)},
-    {'$push': {'course_list': {'_id':'2COMP9417'} }},
+    {'$pull': {'course_list': {'_id':'2COMP9417'} }},
     { "new": true, "upsert": true })
     .exec(function(err, docs){
       if (err) {
