@@ -2,6 +2,24 @@ import React, { Component } from 'react';
 
 class CourseCard extends Component {
 
+	handleClick() {
+		let course_id = this.props.course_id;
+		let id = JSON.parse(localStorage.getItem('session-username'))
+		console.log(id)
+		var url = `http://127.0.0.1:5000/api/pending/5198786`;
+		var data = {'_id': course_id};
+		fetch(url, {
+				method: 'POST', // or 'PUT'
+				body: JSON.stringify(data), // data can be `string` or {object}!
+				headers:{
+						'Content-Type': 'application/json'
+		}
+		}).then(res => res.json())
+		.then(response => console.log('Success:', JSON.stringify(response)))
+		.catch(error => console.error('Error:', error));
+		
+}
+
   render() {
     return (
       <div>
@@ -15,7 +33,7 @@ class CourseCard extends Component {
 									<span className="course_rank">{this.props.star}</span>
 									<img src={require("../img/stars.png")} alt='star' className="rank_star"></img>
 								</div>
-								<button type="submit" className="proceed_to_enroll">Proceed to Enroll</button>
+								<button type="button" className="proceed_to_enroll" onClick={this.handleClick.bind(this)}>Add to Pending List</button>
 							</div>
 							
 						</li>
