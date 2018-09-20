@@ -30,7 +30,7 @@ class Pagination extends Component {
 	handleClick(type) {
 		this.setState( prevState => {
 			console.log('pre',prevState.current_page)
-			return {current_page: type=='next'? prevState.current_page + 1 : prevState.current_page - 1}
+			return {current_page: type==='next'? prevState.current_page + 1 : prevState.current_page - 1}
 		}, () => {
 			console.log('after callback', this.state.current_page)
 			this.props.onUserClick(this.state.current_page);
