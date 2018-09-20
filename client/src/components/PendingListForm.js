@@ -19,7 +19,6 @@ class PendingListForm extends Component {
         fetch(`/api/pendinglist/${localStorage.getItem('session-username').slice(1,-1)}`)
         .then(res => res.json())
         .then(json => {
-
             // console.log(json)
             let defauleToggledCourses = {};
             for (const course of json) {

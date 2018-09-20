@@ -133,7 +133,7 @@ app.get('/api/review/:id',(req,res) => {
       docs[0].course_list.forEach(course => {
         reviewList.push({'code' : course._id.code, 'name': course._id.name, 'star':course.star,'term': course._id.term});    
       });
-      resolve(reviewList); 
+      resolve(reviewList);
       mongoose.disconnect();
     
     })
@@ -207,7 +207,7 @@ app.get('/api/search/:query', (req, res) => {
     )
 
     courseModel
-    .find({'full_name': new RegExp(req.params.query, 'i'), 'term': 2}, 'full_name description')
+    .find({'full_name': new RegExp(req.params.query, 'i'), 'term': 2}, 'full_name description _id')
     .exec(function(err, docs){
       if (err) {
         console.log(err);
@@ -220,6 +220,32 @@ app.get('/api/search/:query', (req, res) => {
   searchInfo.then(result => {
     return res.json(result);
   })
+})
+
+app.post('api/pending/:id', function(req, res){
+  let course_id = req.body._id
+  console.log(course_id)
+  mongoose.connect(url+'coursetest')
+    .then(
+      () => {
+        console.log('Database connect')
+      },
+      err => { console.log(err) }
+    )
+  pendingListModel
+  .findOneAndUpdate({'user': parseInt(req.params.id)},
+    {'push': {'course_list': course_id}},
+    {'new': true, "upsert": true})
+  .exec(function(err, docs){
+    if (err) {
+      console.log(err);
+      res.sendStatus(500)
+    }
+    console.log(docs)
+    return res.status(200).json({status:"ok"})
+
+  })
+
 })
 
 // ----------------------------------------------------Insert the pending courses into the database ---------------------
