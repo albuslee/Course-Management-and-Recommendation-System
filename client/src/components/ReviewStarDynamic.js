@@ -1,5 +1,5 @@
 import React, { PropTypes, Component } from 'react';
-import ReactStars from 'react-stars'
+
  
 class ReviewStarDynamic  extends  Component{
 
@@ -51,15 +51,8 @@ class ReviewStarDynamic  extends  Component{
                     for(var i=0;i<aBstar.length;i++){
                         aBstar[i].style.backgroundPosition="-39px 0";
                     }
-
                     num = this.index ;
-                    // this.setstate({
-                    //     CourseStars:num + 1,
-                    // })
-                    
                     CountStars = num + 1;
-                    //console.log(CountStars)
-                    //this.props.onStar(CountStars)
                     aStxt.innerHTML=arrBtxt[num];
                     for(var i=0;i<=this.index;i++){
                         aBstar[i].style.backgroundPosition="0 0";
@@ -91,7 +84,6 @@ class ReviewStarDynamic  extends  Component{
     
 
     render(){
-        //console.log(this.codeandstar);
         return(
             <div className="review">
                 <span className="star">

@@ -286,6 +286,39 @@ app.post('/api/pendinginsert/:uid', function(req, res){
 });
 
 
+// ----------------------------------------------------Insert the Review Courses Star into the database ---------------------
+
+app.post('/api/reviewinsert/:id', function(req, res){
+   var term = req.body.term;
+   var star = req.body.star;
+   var code = term + req.body.code;
+  //res.send(req.body);
+  //console.log(req.body.star,'u r a silly dog', req.body.code);
+  
+  mongoose.connect(url+'coursetest')
+    .then(
+      () => {
+        console.log('Database connect')
+      },
+      err => { console.log(err) }
+    )
+  enrollmentModel
+  .findOneAndUpdate(
+    {'user': parseInt(req.params.id), 'course_list._id': code},
+    {'$set':{ 'course_list.$.star': star } },
+    {'new': true, "upsert": true})
+    .exec(function(err, raw){
+      if (err){
+        console.log(err)
+      }
+      mongoose.disconnect();
+      //console.log(raw)
+      
+    })
+
+});
+
+
 // ----------------------------------------------------checking prerequisities for pendinglist---------------------
 function prerequisitiesValidator (Prerequisities, Enrollment){
   // arg Prerequisities should be in this format:

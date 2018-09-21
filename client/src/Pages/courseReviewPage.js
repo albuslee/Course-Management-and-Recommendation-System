@@ -20,6 +20,7 @@ const CourseReviewBackground = () =>
                     <div className="section-header">
                         <h1>Course Review</h1>
                     </div>
+                    
                     <CourseReview />
 
                     {/* <!-- contact information --> */}
