@@ -11,12 +11,13 @@ class ReviewFormDynamic  extends  Component{
             CourseCode: this.props.CourseCode,
             CourseStars: this.props.CourseStar,
             CourseName: this.props.CourseName,
+            CourseTerm: this.props.CourseTerm,
             CountStars: 0,                                          
         }
     }
 
     getStars(star) {
-        this.props.onStar(this.state.CourseCode,star);
+        this.props.onStar(this.state.CourseCode,star,this.state.CourseTerm);
         //console.log(this.state.CourseCode, 'u r a silly dog', star);
     }
 
