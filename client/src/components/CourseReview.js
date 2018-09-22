@@ -65,13 +65,13 @@ class CourseReview extends Component {
     semesterTitleDivision_1 = () => {
         if (this.state.currentTerm === 1){
             return this.state.term_1.map((Course) => (
-                <ReviewFormDynamic key={Course.code} CourseCode={Course.code} CourseName={Course.name} CourseStar={Course.star} />
+                <ReviewFormDynamic key={Course.code} CourseCode={Course.code} CourseTerm = {Course.term} CourseName={Course.name} CourseStar={Course.star} onStar = {this.getStars.bind(this)} />
             ));        
         }
         else{
             //console.log(this.state.term_1);
             return this.state.term_1.map((Course) => (
-                <ReviewFormDynamic key={Course.code} CourseCode={Course.code} CourseName={Course.name} CourseStar={Course.star} onStar = {this.getStars.bind(this)} />
+                <ReviewForm key={Course.code} CourseCode={Course.code} CourseName={Course.name} CourseStar={Course.star} />
             ));
         };
     }
@@ -81,7 +81,7 @@ class CourseReview extends Component {
     semesterTitleDivision_2 = () => {
         if (this.state.currentTerm === 2){
             return this.state.term_2.map((Course) => (
-                <ReviewFormDynamic key={Course.code} CourseCode={Course.code} CourseName={Course.name} CourseStar={Course.star} />
+                <ReviewFormDynamic key={Course.code} CourseCode={Course.code} CourseTerm = {Course.term} CourseName={Course.name} CourseStar={Course.star} onStar = {this.getStars.bind(this)} />
             ));         
         }
         else{
@@ -95,7 +95,7 @@ class CourseReview extends Component {
     semesterTitleDivision_3 = () => {
         if (this.state.currentTerm === 3){
             return this.state.term_3.map((Course) => (
-                <ReviewFormDynamic key={Course.code} CourseCode={Course.code} CourseName={Course.name} CourseStar={Course.star} />
+                <ReviewFormDynamic key={Course.code} CourseCode={Course.code} CourseTerm = {Course.term} CourseName={Course.name} CourseStar={Course.star} onStar = {this.getStars.bind(this)} />
             ));        
         }
         else{
@@ -107,19 +107,20 @@ class CourseReview extends Component {
     }
 
 
-    getStars (courseCode,star){
-        // let username = JSON.parse(localStorage.getItem('session-username'));
-        // var url = '/api/review/' + username;
-        // fetch(url, {
-        //     method: 'POST', // or 'PUT'
-        //     body: JSON.stringify(data), // data can be `string` or {object}!
-        //     headers:{
-        //         'Content-Type': 'application/json'
-        // }
-        // }).then(res => res.json())
-        // .then(response => console.log('Success:', JSON.stringify(response)))
-        // .catch(error => console.error('Error:', error));
-        console.log(courseCode,star);
+    getStars (courseCode,star,courseTerm){
+        var data = {'code':courseCode,'star':star,'term':courseTerm};
+        let username = JSON.parse(localStorage.getItem('session-username'));
+        var url = '/api/reviewinsert/' + username;
+        fetch(url, {
+            method: 'POST', 
+            body: JSON.stringify(data),
+            headers:{
+                'Content-Type': 'application/json'
+        }
+        }).then(res => res.json())
+        .then(response => console.log('Success:', JSON.stringify(response)))
+        .catch(error => console.error('Error:', error));
+        //console.log(courseCode,star);
         
     }
 
@@ -127,6 +128,12 @@ class CourseReview extends Component {
     backOnclick(){
         window.location.href='/studentprofile';
     }
+
+    successSubmit(){
+        alert('Successful Submit!');
+        window.location.href='/studentprofile';
+    }
+
     
     render() {
         
@@ -167,7 +174,7 @@ class CourseReview extends Component {
                 </form>
 
                 <div className = "button_part">
-                    <button type="submit" className = "button" onClick = {this.getStars.bind(this)}>Submit</button>
+                    <button type="submit" className = "button" onClick = {this.successSubmit}>Submit</button>
                     <button onClick = {this.backOnclick} className = "button">Back</button>
                 </div>
 
