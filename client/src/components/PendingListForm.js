@@ -30,7 +30,6 @@ class PendingListForm extends Component {
             })
             // console.log(this.state); //done
         })
-        //.then(console.log(this.state));
     }
 
     renderCourses() {
@@ -59,7 +58,7 @@ class PendingListForm extends Component {
                 enroll_course_list.push({'_id' : '2' + this.state.pendingCourseObj[key-1].CourseId})
             }
         }
-        var url = `http://127.0.0.1:5000/api/pendinginsert/5198786`;
+        var url = `http://127.0.0.1:5000/api/enrollmentinsert/5198786`;
         var data = {pendinglist: enroll_course_list};
 
         fetch(url, {
@@ -72,7 +71,7 @@ class PendingListForm extends Component {
         .then(response => console.log('Success:', JSON.stringify(response)))
         .catch(error => console.error('Error:', error));
         console.log(enroll_course_list);
-        window.location.href="./studentprofile"
+        window.location.href="./studentprofilegit"
     }
 
     render() {

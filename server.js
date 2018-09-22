@@ -250,7 +250,7 @@ app.post('api/pending/:id', function(req, res){
 
 // ----------------------------------------------------Insert the pending courses into the database ---------------------
 
-app.post('/api/pendinginsert/:uid', function(req, res){
+app.post('/api/enrollmentinsert/:uid', function(req, res){
   //console.log(req.body.pendinglist[0])
   let courseList = req.body.pendinglist
   // console.log(`req.body is`,courseList)
