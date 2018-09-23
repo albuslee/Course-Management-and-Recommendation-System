@@ -8,6 +8,7 @@ class NavigationBar extends Component {
         this.state = {
             username : ''
         }
+        this.handleLogout = this.handleLogout.bind(this);
     }
 
     componentWillMount(props){
@@ -16,6 +17,9 @@ class NavigationBar extends Component {
         })
     }
 
+    handleLogout(e) {
+        localStorage.clear();
+    }
 
     render() {
         const username = this.state.username;
@@ -48,7 +52,7 @@ class NavigationBar extends Component {
                                 <li><Link to="/coursereview" target="_parent">Course Review</Link></li>
                                 <li><Link to="/pendinglist" target="_parent">Pending List</Link></li>
                                 <li><span id="Username">{username}</span></li>
-                                <li><Link to="/" target="_parent">Logout</Link></li>
+                                <li><Link to="/" onClick={this.handleLogout} target="_parent">Logout</Link></li>
                             </ul>
 			            </nav>
 					{/* <!-- /Navigation --> */}
