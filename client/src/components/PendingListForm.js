@@ -60,6 +60,9 @@ class PendingListForm extends Component {
         }
         var url = `http://127.0.0.1:5000/api/enrollmentinsert/5198786`;
         var data = {pendinglist: enroll_course_list};
+        console.log('----------------------------------')
+        console.log(data);
+        console.log('----------------------------------')
 
         fetch(url, {
             method: 'POST', // or 'PUT'
@@ -71,7 +74,7 @@ class PendingListForm extends Component {
         .then(response => console.log('Success:', JSON.stringify(response)))
         .catch(error => console.error('Error:', error));
         console.log(enroll_course_list);
-        window.location.href="./studentprofilegit"
+        window.location.href="./studentprofile"
     }
 
     render() {
