@@ -250,9 +250,12 @@ app.post('/api/pending/:id', function(req, res){
 
 // ----------------------------------------------------Insert the pending courses into the database ---------------------
 
-app.post('/api/pendinginsert/:uid', function(req, res){
+app.post('/api/enrollmentinsert/:uid', function(req, res){
   //console.log(req.body.pendinglist[0])
   let courseList = req.body.pendinglist
+  console.log("------------------------------------------")
+  console.log(courseList);
+  console.log("------------------------------------------")
   // console.log(`req.body is`,courseList)
   // res.send(req.body);
 
@@ -286,7 +289,73 @@ app.post('/api/pendinginsert/:uid', function(req, res){
 });
 
 
-// ----------------------------------------------------checking prerequisities for pendinglist---------------------
+// ----------------------------------------------------Insert the Review Courses Star into the database ---------------------
+
+app.post('/api/reviewinsert/:id', function(req, res){
+   var term = req.body.term;
+   var star = req.body.star;
+   var code = term + req.body.code;
+  //res.send(req.body);
+  //console.log(req.body.star,'u r a silly dog', req.body.code);
+  
+  mongoose.connect(url+'coursetest')
+    .then(
+      () => {
+        console.log('Database connect')
+      },
+      err => { console.log(err) }
+    )
+  enrollmentModel
+  .findOneAndUpdate(
+    {'user': parseInt(req.params.id), 'course_list._id': code},
+    {'$set':{ 'course_list.$.star': star } },
+    {'new': true, "upsert": true})
+    .exec(function(err, raw){
+      if (err){
+        console.log(err)
+      }
+      mongoose.disconnect();
+      //console.log(raw)
+      
+    })
+
+});
+
+// ---------------------------------------------------- remove item from the pending list---------------------
+
+app.delete('/api/pendinglistdelete/:uid', function(req, res){
+  let userId = req.params.uid;
+  let courseList = req.body.pendinglist
+
+  const pendinglistInfo = new Promise((resolve, reject) => {
+    mongoose.connect(url+'coursetest')
+    .then(
+      () => {
+        resolve(console.log('Database connect'))
+      },
+      reject(err => { console.log(err) })
+    )
+  
+  //fetching enrollment data from enrollment API using enrollment Model
+  
+    //delete the enrolled course from pending list:
+    //example for courseList: [ { _id: '2COMP9024' }, { _id: '2COMP9417' } ]
+    pendingListModel
+    .findOneAndUpdate({'user': parseInt(userId)},
+    {'$pull': {'course_list': courseList[0]}},
+    {'new': true, "upsert": true })
+    .exec(function(err,raw){
+      if(err){
+        console.log(err)
+        res.sendStatus(500)
+      }
+      console.log(raw)
+    })
+  });
+  return res.status(200).json({status:"ok"})
+})
+
+// ---------------------------------------------------- checking prerequisities for pendinglist ---------------------
 function prerequisitiesValidator (Prerequisities, Enrollment){
   // arg Prerequisities should be in this format:
   // Prerequisities = {"code":{"1": ["COMP9021", "COMP9024"],"2": ["COMP9020", "COMP9024"]},"UOC": 0}
