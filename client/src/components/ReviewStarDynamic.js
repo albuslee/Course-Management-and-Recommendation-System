@@ -1,4 +1,4 @@
-import React, { PropTypes, Component } from 'react';
+import React, { Component } from 'react';
 
  
 class ReviewStarDynamic  extends  Component{
@@ -6,31 +6,41 @@ class ReviewStarDynamic  extends  Component{
     constructor(props){
         super(props);
         this.state = {
+            review: this.props.index
 
-            CourseStars: this.props.CourseStars,
+            //CourseStars: this.props.CourseStars,
             
         }
     }
 
     componentDidMount(){
-        var scope = document.getElementsByClassName("review");        
-        for (var id = 0; id < scope.length; id++){
+        let scope = document.getElementsByClassName(this.state.review);        
+        for (let id = 0; id < scope.length; id++){
             
             let aSpan=scope[id].getElementsByClassName("star")[0];
             let aStxt=scope[id].getElementsByClassName("star-txt")[0];
             let aBstar=aSpan.getElementsByTagName("b");
-            var arrBtxt=["Bad","Poor","Normal","Good","Perfect"];
-            var num=0;
+            let arrBtxt=["Bad","Poor","Normal","Good","Perfect"];
+            let num=0;
             let onOff=true;
-            var CountStars = 0;
+            const CourseStars = this.props.CourseStars;
+            console.log('coursestar', CourseStars)
+            
 
-            for(var i= 0;i<aBstar.length;i++){
+            
+            aStxt.innerHTML=arrBtxt[CourseStars];
+                for(let i=0;i<CourseStars;i++){
+                    console.log(aBstar[i])
+                    aBstar[i].style.backgroundPosition="0 0";
+                }
+
+            for(let i= 0;i<aBstar.length;i++){
                 aBstar[i].index=i;
                 aBstar[i].onmouseover=function(){
                     if(onOff) {
                         num = this.index;
                         aStxt.innerHTML = arrBtxt[num];
-                        for (var i = 0; i <=this.index; i++) {
+                        for (let i = 0; i <=this.index; i++) {
                             aBstar[i].style.backgroundPosition = "0 0";
                         }
                     }
@@ -39,7 +49,7 @@ class ReviewStarDynamic  extends  Component{
                 aBstar[i].onmouseout=function(){
                     if(onOff){
                         aStxt.innerHTML="";
-                        for(var i=0;i<=this.index;i++){
+                        for(let i=0;i<=this.index;i++){
                             aBstar[i].style.backgroundPosition="-39px 0";
                         }
                     }
@@ -48,13 +58,13 @@ class ReviewStarDynamic  extends  Component{
                 aBstar[i].onclick=function(){
                     onOff=false;
                     aStxt.innerHTML="";
-                    for(var i=0;i<aBstar.length;i++){
+                    for(let i=0;i<aBstar.length;i++){
                         aBstar[i].style.backgroundPosition="-39px 0";
                     }
                     num = this.index ;
-                    CountStars = num + 1;
+                    //CountStars = num + 1;
                     aStxt.innerHTML=arrBtxt[num];
-                    for(var i=0;i<=this.index;i++){
+                    for(let i=0;i<=this.index;i++){
                         aBstar[i].style.backgroundPosition="0 0";
                     }
                 };
@@ -85,7 +95,7 @@ class ReviewStarDynamic  extends  Component{
 
     render(){
         return(
-            <div className="review">
+            <div className={this.state.review}>
                 <span className="star">
                     <b className="ct-star  ic-star-off" onClick={this.onClick.bind(this, '1')}></b>
                     <b className="ct-star  ic-star-off" onClick={this.onClick.bind(this, '2')}></b> 
