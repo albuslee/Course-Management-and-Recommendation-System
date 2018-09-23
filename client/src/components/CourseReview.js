@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import ReviewForm from '../components/ReviewForm';
-import ReviewStarDynamic from './ReviewStarDynamic';
+import ReviewFormDynamic from './ReviewFormDynamic';
 
 
 class CourseReview extends Component {
@@ -8,6 +8,7 @@ class CourseReview extends Component {
     constructor(props){
         super(props);
         this.state = {
+            
             currentTerm : this.props.currentTerm,
             seme_1: '',
             seme_2: '',
@@ -63,7 +64,9 @@ class CourseReview extends Component {
 
     semesterTitleDivision_1 = () => {
         if (this.state.currentTerm === 1){
-            return (<ReviewStarDynamic/>);
+            return this.state.term_1.map((Course) => (
+                <ReviewFormDynamic key={Course.code} CourseCode={Course.code} CourseTerm = {Course.term} CourseName={Course.name} CourseStar={Course.star} onStar = {this.getStars.bind(this)} />
+            ));        
         }
         else{
             //console.log(this.state.term_1);
@@ -77,7 +80,9 @@ class CourseReview extends Component {
 
     semesterTitleDivision_2 = () => {
         if (this.state.currentTerm === 2){
-            return 
+            return this.state.term_2.map((Course) => (
+                <ReviewFormDynamic key={Course.code} CourseCode={Course.code} CourseTerm = {Course.term} CourseName={Course.name} CourseStar={Course.star} onStar = {this.getStars.bind(this)} />
+            ));         
         }
         else{
             //console.log(this.state.term_1);
@@ -89,7 +94,9 @@ class CourseReview extends Component {
 
     semesterTitleDivision_3 = () => {
         if (this.state.currentTerm === 3){
-            return (<ReviewStarDynamic/>);
+            return this.state.term_3.map((Course) => (
+                <ReviewFormDynamic key={Course.code} CourseCode={Course.code} CourseTerm = {Course.term} CourseName={Course.name} CourseStar={Course.star} onStar = {this.getStars.bind(this)} />
+            ));        
         }
         else{
             //console.log(this.state.term_1);
@@ -97,6 +104,34 @@ class CourseReview extends Component {
                 <ReviewForm key={Course.code} CourseCode={Course.code} CourseName={Course.name} CourseStar={Course.star} />
             ));
         };
+    }
+
+
+    getStars (courseCode,star,courseTerm){
+        var data = {'code':courseCode,'star':star,'term':courseTerm};
+        let username = JSON.parse(localStorage.getItem('session-username'));
+        var url = '/api/reviewinsert/' + username;
+        fetch(url, {
+            method: 'POST', 
+            body: JSON.stringify(data),
+            headers:{
+                'Content-Type': 'application/json'
+        }
+        }).then(res => res.json())
+        .then(response => console.log('Success:', JSON.stringify(response)))
+        .catch(error => console.error('Error:', error));
+        //console.log(courseCode,star);
+        
+    }
+
+    //back to StudentProfile
+    backOnclick(){
+        window.location.href='/studentprofile';
+    }
+
+    successSubmit(){
+        alert('Successful Submit!');
+        window.location.href='/studentprofile';
     }
 
     
@@ -139,8 +174,8 @@ class CourseReview extends Component {
                 </form>
 
                 <div className = "button_part">
-                    <button type="submit" className = "button">Submit</button>
-                    <a href="StudentProfile.html" className = "button">Back</a>
+                    <button type="submit" className = "button" onClick = {this.successSubmit}>Submit</button>
+                    <button onClick = {this.backOnclick} className = "button">Back</button>
                 </div>
 
             </div> 
