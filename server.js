@@ -222,8 +222,8 @@ app.get('/api/search/:query', (req, res) => {
   })
 })
 
-app.post('api/pending/:id', function(req, res){
-  let course_id = req.body._id
+app.post('/api/pending/:id', function(req, res){
+  let course_id = {'_id':req.body._id}
   console.log(course_id)
   mongoose.connect(url+'coursetest')
     .then(
@@ -234,7 +234,7 @@ app.post('api/pending/:id', function(req, res){
     )
   pendingListModel
   .findOneAndUpdate({'user': parseInt(req.params.id)},
-    {'push': {'course_list': course_id}},
+    {'$push': {'course_list': course_id}},
     {'new': true, "upsert": true})
   .exec(function(err, docs){
     if (err) {
@@ -242,8 +242,8 @@ app.post('api/pending/:id', function(req, res){
       res.sendStatus(500)
     }
     console.log(docs)
-    return res.status(200).json({status:"ok"})
-
+    return res.status(200).json(docs)
+    mongoose.disconnect()
   })
 
 })
