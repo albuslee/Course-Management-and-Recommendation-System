@@ -63,48 +63,48 @@ class CourseReview extends Component {
     
 
     semesterTitleDivision_1 = () => {
-        if (this.state.currentTerm === 1){
-            return this.state.term_1.map((Course) => (
-                <ReviewFormDynamic key={Course.code} CourseCode={Course.code} CourseTerm = {Course.term} CourseName={Course.name} CourseStar={Course.star} onStar = {this.getStars.bind(this)} />
-            ));        
-        }
-        else{
-            //console.log(this.state.term_1);
-            return this.state.term_1.map((Course) => (
-                <ReviewForm key={Course.code} CourseCode={Course.code} CourseName={Course.name} CourseStar={Course.star} />
-            ));
-        };
+        // if (this.state.currentTerm === 1){
+        //     return this.state.term_1.map((Course) => (
+        //         <ReviewFormDynamic key={Course.code} CourseCode={Course.code} CourseTerm = {Course.term} CourseName={Course.name} CourseStar={Course.star} onStar = {this.getStars.bind(this)} />
+        //     ));        
+        // }
+        // else{
+        //     //console.log(this.state.term_1);
+        //     return this.state.term_1.map((Course) => (
+        //         <ReviewFormDynamic key={Course.code} CourseCode={Course.code} CourseTerm = {Course.term} CourseName={Course.name} CourseStar={Course.star} onStar = {this.getStars.bind(this)} />
+        //     ));
+        // };
     }
 
 
 
     semesterTitleDivision_2 = () => {
         if (this.state.currentTerm === 2){
-            return this.state.term_2.map((Course) => (
+            return this.state.term_1.map((Course) => (
                 <ReviewFormDynamic key={Course.code} CourseCode={Course.code} CourseTerm = {Course.term} CourseName={Course.name} CourseStar={Course.star} onStar = {this.getStars.bind(this)} />
             ));         
         }
         else{
             //console.log(this.state.term_1);
-            return this.state.term_2.map((Course) => (
+            return this.state.term_1.map((Course) => (
                 <ReviewForm key={Course.code} CourseCode={Course.code} CourseName={Course.name} CourseStar={Course.star} />
             ));
         };
     }
 
-    semesterTitleDivision_3 = () => {
-        if (this.state.currentTerm === 3){
-            return this.state.term_3.map((Course) => (
-                <ReviewFormDynamic key={Course.code} CourseCode={Course.code} CourseTerm = {Course.term} CourseName={Course.name} CourseStar={Course.star} onStar = {this.getStars.bind(this)} />
-            ));        
-        }
-        else{
-            //console.log(this.state.term_1);
-            return this.state.term_3.map((Course) => (
-                <ReviewForm key={Course.code} CourseCode={Course.code} CourseName={Course.name} CourseStar={Course.star} />
-            ));
-        };
-    }
+    // semesterTitleDivision_3 = () => {
+    //     if (this.state.currentTerm === 3){
+    //         return this.state.term_3.map((Course) => (
+    //             <ReviewFormDynamic key={Course.code} CourseCode={Course.code} CourseTerm = {Course.term} CourseName={Course.name} CourseStar={Course.star} onStar = {this.getStars.bind(this)} />
+    //         ));        
+    //     }
+    //     else{
+    //         //console.log(this.state.term_1);
+    //         return this.state.term_3.map((Course) => (
+    //             <ReviewForm key={Course.code} CourseCode={Course.code} CourseName={Course.name} CourseStar={Course.star} />
+    //         ));
+    //     };
+    // }
 
 
     getStars (courseCode,star,courseTerm){
@@ -162,7 +162,7 @@ class CourseReview extends Component {
                     </table>
                 </form>
 
-                <form action = "/" method = "POST" className = "course_review">
+                {/* <form action = "/" method = "POST" className = "course_review">
                     <div className="section-header">
                         <h2>{this.state.seme_3}</h2>
                     </div>
@@ -171,7 +171,7 @@ class CourseReview extends Component {
                         {this.semesterTitleDivision_3()}
                     </tbody>
                     </table>
-                </form>
+                </form> */}
 
                 <div className = "button_part">
                     <button type="submit" className = "button" onClick = {this.successSubmit}>Submit</button>

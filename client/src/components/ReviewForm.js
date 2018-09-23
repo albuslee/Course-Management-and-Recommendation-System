@@ -1,4 +1,4 @@
-import React, { PropTypes, Component } from 'react';
+import React, { Component } from 'react';
 import ReviewStar from './ReviewStar';
 
  
@@ -12,7 +12,6 @@ class ReviewForm  extends  Component{
             CourseName: this.props.CourseName,
             CountStars: 0,                                            // the star given by user.
         }
-        //this.aaa = this.semesterTitleDivision_1.bind(this);
     }
 
     
