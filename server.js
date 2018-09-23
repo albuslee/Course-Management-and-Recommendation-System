@@ -222,6 +222,8 @@ app.get('/api/search/:query', (req, res) => {
   })
 })
 
+// ----------------------------------------------------pending transaction list---------------------
+
 app.post('api/pending/:id', function(req, res){
   let course_id = req.body._id
   console.log(course_id)
@@ -253,6 +255,9 @@ app.post('api/pending/:id', function(req, res){
 app.post('/api/enrollmentinsert/:uid', function(req, res){
   //console.log(req.body.pendinglist[0])
   let courseList = req.body.pendinglist
+  console.log("------------------------------------------")
+  console.log(courseList);
+  console.log("------------------------------------------")
   // console.log(`req.body is`,courseList)
   // res.send(req.body);
 
@@ -318,8 +323,41 @@ app.post('/api/reviewinsert/:id', function(req, res){
 
 });
 
+// ---------------------------------------------------- remove item from the pending list---------------------
 
-// ----------------------------------------------------checking prerequisities for pendinglist---------------------
+app.delete('/api/pendinglistdelete/:uid', function(req, res){
+  let userId = req.params.uid;
+  let courseList = req.body.pendinglist
+
+  const pendinglistInfo = new Promise((resolve, reject) => {
+    mongoose.connect(url+'coursetest')
+    .then(
+      () => {
+        resolve(console.log('Database connect'))
+      },
+      reject(err => { console.log(err) })
+    )
+  
+  //fetching enrollment data from enrollment API using enrollment Model
+  
+    //delete the enrolled course from pending list:
+    //example for courseList: [ { _id: '2COMP9024' }, { _id: '2COMP9417' } ]
+    pendingListModel
+    .findOneAndUpdate({'user': parseInt(userId)},
+    {'$pull': {'course_list': courseList[0]}},
+    {'new': true, "upsert": true })
+    .exec(function(err,raw){
+      if(err){
+        console.log(err)
+        res.sendStatus(500)
+      }
+      console.log(raw)
+    })
+  });
+  return res.status(200).json({status:"ok"})
+})
+
+// ---------------------------------------------------- checking prerequisities for pendinglist ---------------------
 function prerequisitiesValidator (Prerequisities, Enrollment){
   // arg Prerequisities should be in this format:
   // Prerequisities = {"code":{"1": ["COMP9021", "COMP9024"],"2": ["COMP9020", "COMP9024"]},"UOC": 0}

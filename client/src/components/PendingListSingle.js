@@ -15,6 +15,7 @@ class PendingListSingle extends Component {
             prerequisiteDesc: this.props.prerequisiteDesc
         }
         this.handleClick = this.handleClick.bind(this);
+        this.handleDelete = this.handleDelete.bind(this);
     }
 
 
@@ -33,6 +34,29 @@ class PendingListSingle extends Component {
         this.props.handleChangeClick(this.state.isChecked);
     }
 
+    handleDelete = () => {
+        let delete_course_list = [];
+        delete_course_list.push({'_id': '2' + this.props.CourseId})
+        let url = `http://127.0.0.1:5000/api/pendinglistdelete/5198786`;
+        let data = {pendinglist: delete_course_list};
+
+        fetch(url, {
+            method : 'DELETE',
+            body: JSON.stringify(data),
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        })
+        .then(res => res.json())
+        .then(response => console.log('Success:', JSON.stringify(response)))
+        .catch(error => console.error('Error:', error));
+        console.log(delete_course_list);
+        window.location.href="./pendinglist";
+
+    }
+
+
+
     render() {
         const failPrerequisite = <h4 style={{color:'#ff4d4d'}}>Can not enroll! You probably need to check if you satisfy the prerequisite: {this.props.prerequisiteDesc.slice(14)}</h4>
         return (
@@ -41,6 +65,7 @@ class PendingListSingle extends Component {
                 <td width="10%" id="CourseID">{this.props.CourseId}</td>
                 <td width="12%" id="CourseName">{this.props.CourseName}</td>
                 <td width="65%" id="CourseDescription">{this.props.prerequisiteChecked ? this.props.CourseDescription : failPrerequisite}</td>
+                <td width="10%" id="Remove_Course"><input type="button" value="Remove" className="Remove_button" onClick={this.handleDelete}/></td>
             </tr>
         )
     }
