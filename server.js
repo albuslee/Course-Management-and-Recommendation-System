@@ -9,10 +9,16 @@ const app = express();
 const bodyParser = require('body-parser');
 
 // import database external library
-let courseModel = require('./DataModel/models/course.js');
-let userModel = require('./DataModel/models/user.js');
-let enrollmentModel = require('./DataModel/models/enrollment.js');
-let pendingListModel = require('./DataModel/models/pendingList.js');
+const courseModel = require('./DataModel/models/course.js');
+const userModel = require('./DataModel/models/user.js');
+const enrollmentModel = require('./DataModel/models/enrollment.js');
+const pendingListModel = require('./DataModel/models/pendingList.js');
+
+const natural = require('natural');
+const classifier = new natural.BayesClassifier();
+
+
+
 
 // CSRF pre-fighting
 app.use(function(req, res, next) {
@@ -222,6 +228,36 @@ app.get('/api/search/:query', (req, res) => {
   })
 })
 
+// ----------------------------------------------------course recommendations---------------------
+  app.get('/api/recommendation', (req, res) => {
+    const fakeDescription = 'Operating system organisation and services. Process management: scheduling, synchronisation and communication. Memory management: virtual memory, paging and segmentation. Storage management: Disk scheduling, file systems. Protection and Security. Distributed operating systems and file systems. Case studies drawn from UNIX, MS-DOS, Mach. Lab. programming assignments';
+    //const stuCode = ;
+    //console.log(stuCode)
+    mongoose.connect(url+'coursetest')
+    .then(
+      () => {
+        console.log('Database connect')
+      },
+      err => { console.log(err) }
+    )
+    courseModel
+    .find({},'_id description')
+    .exec(function(err, courses){
+      if (err) {
+        console.log(err);
+      }
+      for (let i = 0; i < courses.length; i++){
+        classifier.addDocument(courses[i].description,courses[i]._id);      
+      }
+      classifier.train();
+      mongoose.disconnect();
+      const classifierResults = classifier.getClassifications(fakeDescription);
+      mongoose.disconnect();
+      console.log(classifierResults);
+    })
+  })
+
+// ----------------------------------------------------Pending---------------------
 app.post('/api/pending/:id', function(req, res){
   let course_id = {'_id':req.body._id}
   console.log(course_id)
