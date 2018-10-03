@@ -90,8 +90,14 @@ class SearchResult extends Component {
 		})
 	}
 
+	aaa(){
+		fetch('/api/recommendation')
+		.then(console.log('good'))
+	}
+
 	// handle header text
 	handleHeader() {
+		this.aaa();
 		if (this.state.recommendation === true) {
 			return (
 				<div className="section-header">

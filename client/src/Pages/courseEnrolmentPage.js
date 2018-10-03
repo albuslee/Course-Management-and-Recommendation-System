@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import NavigationBar from '../components/NavigationBar';
 
-import SearchBar from '../components/SearchBar';
+//import SearchBar from '../components/SearchBar';
 import SearchResult from '../components/SearchResult';
 
 class CourseEnrolmentPage extends Component {
