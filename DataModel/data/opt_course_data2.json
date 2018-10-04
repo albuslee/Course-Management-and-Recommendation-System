@@ -512,7 +512,7 @@
 	"full_name": "COMP9032 Microprocessors & Interfacing"
 }, {
 	"career": "Postgraduate",
-	"code": "COMP9044",
+	"code": "COMP9041",
 	"name": "Software Construction",
 	"prerequisites": "",
 	"term": 2,
@@ -524,8 +524,8 @@
 		"UOC": 0
 	},
 	"description": "",
-	"_id": "2COMP9044",
-	"full_name": "COMP9044 Software Construction"
+	"_id": "2COMP9041",
+	"full_name": "COMP9041 Software Construction"
 }, {
 	"career": "Postgraduate",
 	"code": "COMP9101",

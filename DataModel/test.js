@@ -36,30 +36,36 @@ const enrollmentInfo = new Promise((resolve, reject) => {
   )
 
   enrollmentModel
-  .findOneAndUpdate(
-    {'user': parseInt(5198786), 'course_list._id': '1COMP9021'},
-    {'$set':{ 'course_list.$.star': 4 } },
-    {'new': true, "upsert": true})
-    .exec(function(err, raw){
-      if (err){
-        console.log(err)
-      }
-      console.log(raw)
-      
+    .find({}, 'user course_list')
+    .exec( function(err, docs){
+      console.log(docs);
     })
 
-  enrollmentModel
-    .findOneAndUpdate({'user': parseInt(5198786)},
-    {'$push': {'course_list': {'_id':'2COMP9417'} }},
-    { "new": true, "upsert": true })
-    .exec(function(err, docs){
-      if (err) {
-      console.log(err)
-    };
-      console.log(docs)
-      //console.log('docs', docs[0].course_list);
+  // enrollmentModel
+  // .findOneAndUpdate(
+  //   {'user': parseInt(5198786), 'course_list._id': '1COMP9021'},
+  //   {'$set':{ 'course_list.$.star': 4 } },
+  //   {'new': true, "upsert": true})
+  //   .exec(function(err, raw){
+  //     if (err){
+  //       console.log(err)
+  //     }
+  //     console.log(raw)
       
-    })
+  //   })
+
+  // enrollmentModel
+  //   .findOneAndUpdate({'user': parseInt(5198786)},
+  //   {'$push': {'course_list': {'_id':'2COMP9417'} }},
+  //   { "new": true, "upsert": true })
+  //   .exec(function(err, docs){
+  //     if (err) {
+  //     console.log(err)
+  //   };
+  //     console.log(docs)
+  //     //console.log('docs', docs[0].course_list);
+      
+  //   })
   }) // promise end
 // enrollmentInfo
 //   .then(full_list => {
