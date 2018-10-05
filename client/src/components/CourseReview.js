@@ -53,7 +53,6 @@ class CourseReview extends Component {
                 }   
             }
         })
-        //.then(console.log(this.state))
         .catch((err) => {
             console.log(`Opz, something wrong, the error message is ${err}`);
         })
@@ -63,6 +62,7 @@ class CourseReview extends Component {
     
 
     semesterTitleDivision_1 = () => {
+        console.log(this.state)
         if (this.state.currentTerm === 1){
             return this.state.term_1.map((Course) => (
                 <ReviewFormDynamic key={Course.code} CourseCode={Course.code} CourseTerm = {Course.term} CourseName={Course.name} CourseStar={Course.star} onStar = {this.getStars.bind(this)} />
@@ -162,7 +162,7 @@ class CourseReview extends Component {
                     </table>
                 </form>
 
-                {/* <form action = "/" method = "POST" className = "course_review">
+                <form action = "/" method = "POST" className = "course_review">
                     <div className="section-header">
                         <h2>{this.state.seme_3}</h2>
                     </div>
@@ -171,7 +171,7 @@ class CourseReview extends Component {
                         {this.semesterTitleDivision_3()}
                     </tbody>
                     </table>
-                </form> */}
+                </form>
 
                 <div className = "button_part">
                     <button type="submit" className = "button" onClick = {this.successSubmit}>Submit</button>
