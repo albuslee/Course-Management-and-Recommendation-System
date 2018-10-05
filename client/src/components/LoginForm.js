@@ -41,9 +41,10 @@ class LoginForm extends Component {
         username = parseInt(username.slice(1),10).toString();
       }
       // console.log(username);
-      fetch(`api/user/${username}`)
+      fetch(`/api/user/${username}`)
       .then(res => res.json())
       .then(json => {
+        console.log(this.refs.password.value)
         // console.log(this.state);
         if(json.username.password === this.refs.password.value){
           auth_bool = true;
