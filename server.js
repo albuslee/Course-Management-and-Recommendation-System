@@ -257,10 +257,8 @@ app.get('/api/search/:query', (req, res) => {
             courseId.push(reviewList[0].course_list[i]._id);
           }
         }
-        
         const courseIdForRecom = courseId;
         var description = "";
-
         courseIdForRecom.map((item) => {
           courseModel
           .find({'_id':item})
@@ -280,11 +278,11 @@ app.get('/api/search/:query', (req, res) => {
               classifier.train();
               const classifierResults = classifier.getClassifications(description);
               classifierResults.filter(function (sItem){
-                // console.log(item.slice(1), sItem.label.slice(1), item.slice(1) !== sItem.label.slice(1))
                 return item.slice(1) !== sItem.label.slice(1)
               })
               resolve(classifierResults)
-              // console.log(classifierResults)
+              mongoose.disconnect();
+              
 
             })
             
