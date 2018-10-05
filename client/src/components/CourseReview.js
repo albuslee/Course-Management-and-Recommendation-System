@@ -21,6 +21,7 @@ class CourseReview extends Component {
 
     componentWillMount(props){
       let username = JSON.parse(localStorage.getItem('session-username'))
+      console.log(username);
         fetch('/api/user/' + username)
             .then(res => res.json())
             .then(json => {
