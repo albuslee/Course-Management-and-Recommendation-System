@@ -284,11 +284,12 @@ app.get('/api/search/:query', (req, res) => {
               })
               resolve(classifierResults)
               console.log(classifierResults)
-
+              
             })
             
           })
         })
+        mongoose.disconnect();
       })
     }) //promise end
     
