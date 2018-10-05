@@ -6,9 +6,7 @@ class ReviewStarDynamic  extends  Component{
     constructor(props){
         super(props);
         this.state = {
-            review: this.props.index
-
-            //CourseStars: this.props.CourseStars,
+            review: this.props.index,
             
         }
     }
@@ -24,13 +22,9 @@ class ReviewStarDynamic  extends  Component{
             let num=0;
             let onOff=true;
             const CourseStars = this.props.CourseStars;
-            console.log('coursestar', CourseStars)
-            
-
             
             aStxt.innerHTML=arrBtxt[CourseStars];
                 for(let i=0;i<CourseStars;i++){
-                    console.log(aBstar[i])
                     aBstar[i].style.backgroundPosition="0 0";
                 }
 
