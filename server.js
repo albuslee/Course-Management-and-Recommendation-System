@@ -172,7 +172,9 @@ app.get('/api/pendinglist/:uid', (req, res) => {
     .populate('course_list._id')
     .exec(function(err, docs){
       if (err) return handleError(err);
-    
+      if(docs.length === 0){
+        return res.status(404)
+      }
       const enr_courses = docs[0].course_list
       for (const course of enr_courses){
         enrollment_list.push(course._id.code);
@@ -213,7 +215,7 @@ app.get('/api/search/:query', (req, res) => {
     )
 
     courseModel
-    .find({'full_name': new RegExp(req.params.query, 'i'), 'term': 2}, 'full_name description _id')
+    .find({'full_name': new RegExp(req.params.query, 'i'), 'term': 3}, 'full_name description _id')
     .exec(function(err, docs){
       if (err) {
         console.log(err);
