@@ -289,7 +289,7 @@ app.get('/api/search/:query', (req, res) => {
             
           })
         })
-        mongoose.disconnect();
+        // mongoose.disconnect();
       })
     }) //promise end
     
