@@ -7,12 +7,13 @@ class PendingListSingle extends Component {
         super(props)
         this.state = {
             index: this.props.index,
-            CourseId: this.props.CourseId,
-            CourseName: this.props.CourseName,
-            CourseDescription: this.props.CourseDescription,
+            courseId: this.props.courseId,
+            courseName: this.props.courseName,
+            courseDescription: this.props.courseDescription,
             isChecked : true,
             prerequisiteChecked: this.props.prerequisiteChecked,
-            prerequisiteDesc: this.props.prerequisiteDesc
+            prerequisiteDesc: this.props.prerequisiteDesc,
+            courseTerm: this.props.term,
         }
         this.handleClick = this.handleClick.bind(this);
         this.handleDelete = this.handleDelete.bind(this);
@@ -36,7 +37,7 @@ class PendingListSingle extends Component {
 
     handleDelete = () => {
         let delete_course_list = [];
-        delete_course_list.push({'_id': '2' + this.props.CourseId})
+        delete_course_list.push({'_id': this.props.courseTerm + this.props.courseId})
         let url = `http://127.0.0.1:5000/api/pendinglistdelete/${localStorage.getItem('session-username').slice(1,-1)}`;
         let data = {pendinglist: delete_course_list};
 
@@ -58,13 +59,14 @@ class PendingListSingle extends Component {
 
 
     render() {
-        const failPrerequisite = <h4 style={{color:'#ff4d4d'}}>Can not enroll! You probably need to check if you satisfy the prerequisite: {this.props.prerequisiteDesc.slice(14)}</h4>
+        console.log(this.props)
+        const failPrerequisite = <h4 style={{color:'#ff4d4d'}}>Can not enroll! You probably need to check if you satisfy the prerequisite: {this.props.prerequisiteDesc ? this.props.prerequisiteDesc.slice(14): null}</h4>
         return (
             <tr>
                 <td width="5%"><input type="checkbox" id={this.props.index} name=""  onClick={this.handleClick}/></td>
-                <td width="10%" id="CourseID">{this.props.CourseId}</td>
-                <td width="12%" id="CourseName">{this.props.CourseName}</td>
-                <td width="65%" id="CourseDescription">{this.props.prerequisiteChecked ? this.props.CourseDescription : failPrerequisite}</td>
+                <td width="10%" id="CourseID">{this.props.courseId}</td>
+                <td width="12%" id="CourseName">{this.props.courseName}</td>
+                <td width="65%" id="CourseDescription">{this.props.prerequisiteChecked ? this.props.courseDescription : failPrerequisite}</td>
                 <td width="10%" id="Remove_Course"><input type="button" value="Remove" className="Remove_button" onClick={this.handleDelete}/></td>
             </tr>
         )

@@ -28,15 +28,16 @@ class PendingListForm extends Component {
                 pendingCourseObj : json,
                 toggledCourses : defauleToggledCourses
             })
-            // console.log(this.state); //done
+            console.log(this.state); //done
         })
     }
 
     renderCourses() {
-        return this.state.pendingCourseObj.map((Course) => (
-            <PendingListSingle key={Course.id} index={Course.id} CourseId={Course.CourseId} CourseName={Course.CourseName} 
-            CourseDescription={Course.CourseDescription} prerequisiteChecked={Course.isPre} prerequisiteDesc={Course.Prerequisities_Desc} 
-            handleChangeClick={this.handleChangeClick.bind(this, Course.id)}/>
+        return this.state.pendingCourseObj.map((course) => (
+            <PendingListSingle key={course.id} index={course.id} courseId={course.courseId} courseName={course.courseName} 
+            courseDescription={course.courseDescription} prerequisiteChecked={course.isPre} 
+            prerequisiteDesc={course.prerequisities_Desc} courseTerm = {course.courseTerm}
+            handleChangeClick={this.handleChangeClick.bind(this, course.id)}/>
         ));
     }
 
@@ -53,9 +54,9 @@ class PendingListForm extends Component {
         e.preventDefault();
         var enroll_course_list = [];
         for(var key in this.state.toggledCourses){
-            console.log(this.state.toggledCourses[key], this.state.pendingCourseObj[key-1].CourseId)
+            console.log(this.state.toggledCourses[key], this.state.pendingCourseObj[key-1].courseId)
             if(this.state.toggledCourses[key] === true){
-                enroll_course_list.push({'_id' : '2' + this.state.pendingCourseObj[key-1].CourseId})
+                enroll_course_list.push({'_id' : this.state.pendingCourseObj[key-1].courseTerm + this.state.pendingCourseObj[key-1].courseId})
             }
         }
         var url = `http://127.0.0.1:5000/api/enrollmentinsert/${localStorage.getItem('session-username').slice(1,-1)}`;
@@ -78,7 +79,7 @@ class PendingListForm extends Component {
     }
 
     render() {
-        console.log(this.state)
+        console.log(this.state.pendingCourseObj)
         return (
             <form className="pending_list" action="/studentprofile">
                  <table width="100%" className="zebra pending_table">
