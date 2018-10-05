@@ -50,7 +50,7 @@ class LoginForm extends Component {
           // console.log(auth_bool);
           localStorage.setItem('session-username', JSON.stringify(username));
           localStorage.setItem('session-first_name', JSON.stringify(json.username.first_name));
-          console.log(localStorage);
+          localStorage.setItem('current-semseter', JSON.stringify(json.username.currentTerm));
           this.setState({isAuthenticated : true});
           window.location.href = "/studentprofile"
         }else{

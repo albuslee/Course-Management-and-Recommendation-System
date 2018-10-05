@@ -18,7 +18,6 @@ class ReviewFormDynamic  extends  Component{
 
     getStars(star) {
         this.props.onStar(this.state.CourseCode,star,this.state.CourseTerm);
-        //console.log(this.state.CourseCode, 'u r a silly dog', star);
     }
 
     

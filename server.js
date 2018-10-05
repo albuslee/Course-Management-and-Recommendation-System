@@ -229,34 +229,73 @@ app.get('/api/search/:query', (req, res) => {
 })
 
 // ----------------------------------------------------course recommendations---------------------
-  app.get('/api/recommendation', (req, res) => {
+  app.get('/api/recommendation/:userid', (req, res) => {
     const fakeDescription = 'Operating system organisation and services. Process management: scheduling, synchronisation and communication. Memory management: virtual memory, paging and segmentation. Storage management: Disk scheduling, file systems. Protection and Security. Distributed operating systems and file systems. Case studies drawn from UNIX, MS-DOS, Mach. Lab. programming assignments';
-    //const stuCode = ;
-    //console.log(stuCode)
-    mongoose.connect(url+'coursetest')
-    .then(
-      () => {
-        console.log('Database connect')
-      },
-      err => { console.log(err) }
-    )
-    courseModel
-    .find({},'_id description')
-    .exec(function(err, courses){
-      if (err) {
-        console.log(err);
-      }
-      for (let i = 0; i < courses.length; i++){
-        classifier.addDocument(courses[i].description,courses[i]._id);      
-      }
-      classifier.train();
-      mongoose.disconnect();
-      const classifierResults = classifier.getClassifications(fakeDescription);
-      mongoose.disconnect();
-      console.log(classifierResults);
+    const recomUserId = req.params.userid;
+    const recomInfo = new Promise((resolve, reject) => {
+      mongoose.connect(url+'coursetest')
+      .then(
+        () => {
+          console.log('Database connect')
+        },
+        err => { console.log(err) }
+      )
+
+      enrollmentModel
+      .find({'user': recomUserId}, 'course_list')
+      .exec(function(err, reviewList){
+        if(err){console.log(err)}
+        let stars = [];
+        //reviewList[0].course_list is the list of the history course review from the user
+        for (let i = 0; i < reviewList[0].course_list.length; i ++){
+          stars.push(reviewList[0].course_list[i].star);
+        }
+        let maxStars = Math.max(...stars);
+        let courseId = [];
+        for (let i = 0; i < reviewList[0].course_list.length; i ++){
+          if (maxStars === reviewList[0].course_list[i].star){
+            courseId.push(reviewList[0].course_list[i]._id);
+          }
+        }
+        
+        const courseIdForRecom = courseId;
+        var description = "";
+
+        courseIdForRecom.map((item) => {
+          courseModel
+          .find({_id:item},'description')
+          .exec(function(err, docs){
+            description += ' ';
+            description += docs[0].description;
+            courseModel
+            .find({},'_id description')
+            .exec(function(err, courses){
+              if (err) {
+                console.log(err);
+              }
+              for (let i = 0; i < courses.length; i++){
+                classifier.addDocument(courses[i].description,courses[i]._id);      
+              }
+              classifier.train();
+              const classifierResults = classifier.getClassifications(description);
+              classifierResults.filter(function (sItem){
+                // console.log(item.slice(1), sItem.label.slice(1), item.slice(1) !== sItem.label.slice(1))
+                return item.slice(1) !== sItem.label.slice(1)
+              })
+              resolve(classifierResults)
+              console.log(classifierResults)
+
+            })
+            
+          })
+        })
+      })
+    }) //promise end
+    
+    recomInfo.then(result => {
+      return res.json(result);
     })
   })
-
 // ----------------------------------------------------Pending---------------------
 app.post('/api/pending/:id', function(req, res){
   let course_id = {'_id':req.body._id}
@@ -438,7 +477,6 @@ function prerequisitiesValidator (Prerequisities, Enrollment){
   }
   return canBeEnrolled;
 }
-
 
 
 
