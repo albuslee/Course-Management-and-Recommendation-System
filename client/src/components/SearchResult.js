@@ -90,13 +90,34 @@ class SearchResult extends Component {
 		})
 	}
 
+
+	// ----------------------------------------------------function aaa is a test model for recom---------------------
 	aaa(){
-		fetch('/api/recommendation')
-		.then(console.log('good'))
+		const currentSemester = localStorage['current-semseter'];
+		const userID = localStorage['session-username'].slice(1,-1);
+
+		let resultList = [];
+		let recomList = [];
+		fetch('/api/recommendation/' + userID)
+		.then(res => {
+			let result = res.json();
+			result.then(
+				function(recomList){
+					for (let i = 0; i < recomList.length; i ++){
+						//console.log(recomList[i].label[0]);
+						if (recomList[i].label[0] === currentSemester){
+							resultList.push(recomList[i]);
+						}
+					}
+					console.log(resultList.slice(1,))
+				});
+			return resultList;
+		})
 	}
 
 	// handle header text
 	handleHeader() {
+		//test function aaa
 		this.aaa();
 		if (this.state.recommendation === true) {
 			return (
