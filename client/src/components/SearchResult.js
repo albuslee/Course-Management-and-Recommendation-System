@@ -137,25 +137,23 @@ class SearchResult extends Component {
   render() {
     return (
       <div>
-
-				<SearchBar 
-					filterText={this.state.filterText} 
-					onUserInput={this.handleUserInput.bind(this)} 
-				/>
+		<SearchBar 
+			filterText={this.state.filterText} 
+			onUserInput={this.handleUserInput.bind(this)} 
+		/>
         {this.handleHeader()}
         <div className="search_result">
-					<form className="enroll">
-						{this.renderCourseCard(this.state.start_index, this.state.end_index)}
-						{/* Pagination Sector Start */}
-						<Pagination 
-						nb_of_pages={this.state.nb_of_pages}
-						//current_page={this.state.current_page}
-						onUserClick={this.handlePage.bind(this)}
-						/>
-						{/* Pagination Sector End */}
-					</form>
-				</div>
-
+			<form className="enroll">
+				{this.renderCourseCard(this.state.start_index, this.state.end_index)}
+				{/* Pagination Sector Start */}
+				<Pagination 
+				nb_of_pages={this.state.nb_of_pages}
+				//current_page={this.state.current_page}
+				onUserClick={this.handlePage.bind(this)}
+				/>
+				{/* Pagination Sector End */}
+			</form>
+		</div>
       </div>
     )
   }
