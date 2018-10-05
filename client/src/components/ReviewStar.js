@@ -19,7 +19,7 @@ class ReviewStar  extends  Component{
             let aBstar=aSpan.getElementsByTagName("b");
             let arrBtxt=["Bad","Poor","Normal","Good","Perfect"];
             const CourseStars = this.props['CourseStar'];     
-            aStxt.innerHTML=arrBtxt[CourseStars];
+            aStxt.innerHTML=arrBtxt[CourseStars-1];
                 for(let i=0;i<CourseStars;i++){
                     aBstar[i].style.backgroundPosition="0 0";
                 }                   

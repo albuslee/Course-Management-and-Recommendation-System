@@ -20,7 +20,7 @@ class CourseReview extends Component {
     }
 
     componentWillMount(props){
-      let username = JSON.parse(localStorage.getItem('session-username'))
+      let username = JSON.parse(localStorage.getItem('session-username'));
         fetch('/api/user/' + username)
             .then(res => res.json())
             .then(json => {
@@ -87,7 +87,7 @@ class CourseReview extends Component {
         else{
             
             return this.state.term_2.map((Course) => (
-                <ReviewForm key={Course.code} CourseCode={Course.code} CourseName={Course.name} CourseStar={Course.star} />
+                <ReviewFormDynamic key={Course.code} CourseCode={Course.code} CourseTerm = {Course.term} CourseName={Course.name} CourseStar={Course.star} onStar = {this.getStars.bind(this)} />
             ));
         };
     }
