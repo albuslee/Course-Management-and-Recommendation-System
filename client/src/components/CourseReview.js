@@ -71,7 +71,7 @@ class CourseReview extends Component {
         else{
             
             return this.state.term_1.map((Course) => (
-                <ReviewForm key={Course.code} CourseCode={Course.code} CourseTerm = {Course.term} CourseName={Course.name} CourseStar={Course.star} onStar = {this.getStars.bind(this)} />
+                <ReviewForm key={Course.code} CourseCode={Course.code} CourseName={Course.name} CourseStar={Course.star} />
             ));
         };
     }
@@ -87,7 +87,7 @@ class CourseReview extends Component {
         else{
             
             return this.state.term_2.map((Course) => (
-                <ReviewFormDynamic key={Course.code} CourseCode={Course.code} CourseTerm = {Course.term} CourseName={Course.name} CourseStar={Course.star} onStar = {this.getStars.bind(this)} />
+                <ReviewForm key={Course.code} CourseCode={Course.code} CourseName={Course.name} CourseStar={Course.star} />
             ));
         };
     }
