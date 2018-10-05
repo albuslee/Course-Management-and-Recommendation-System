@@ -44,6 +44,7 @@ class LoginForm extends Component {
       fetch(`/api/user/${username}`)
       .then(res => res.json())
       .then(json => {
+        console.log(this.refs.password.value)
         // console.log(this.state);
         if(json.username.password === this.refs.password.value){
           auth_bool = true;

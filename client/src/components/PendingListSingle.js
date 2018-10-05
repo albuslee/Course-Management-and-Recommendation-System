@@ -37,7 +37,7 @@ class PendingListSingle extends Component {
     handleDelete = () => {
         let delete_course_list = [];
         delete_course_list.push({'_id': '2' + this.props.CourseId})
-        let url = `http://127.0.0.1:5000/api/pendinglistdelete/5198786`;
+        let url = `http://127.0.0.1:5000/api/pendinglistdelete/${localStorage.getItem('session-username').slice(1,-1)}`;
         let data = {pendinglist: delete_course_list};
 
         fetch(url, {

@@ -179,7 +179,7 @@ app.get('/api/pendinglist/:uid', (req, res) => {
       }
       //console.log(enrollment_list);
       pendingListModel
-        .find({'user': parseInt(5198786)})
+        .find({'user': parseInt(req.params.uid)})
         .populate('course_list._id')
         .exec(function(err,docs){
           if(err) return handleError(err);
@@ -284,9 +284,8 @@ app.get('/api/search/:query', (req, res) => {
                 return item.slice(1) !== sItem.label.slice(1)
               })
               resolve(classifierResults)
-              mongoose.disconnect();
-              console.log(classifierResults)
-              
+              // console.log(classifierResults)
+
             })
             
           })
@@ -320,8 +319,9 @@ app.post('/api/pending/:id', function(req, res){
       res.sendStatus(500)
     }
     console.log(docs)
-    return res.status(200).json(docs)
     mongoose.disconnect()
+    return res.status(200).json(docs)
+
   })
 
 })
