@@ -14,7 +14,7 @@ class StudentInfo extends Component {
 
     componentWillMount(props){
       let username = localStorage.getItem('session-username').slice(1,-1)
-        fetch('api/user/' + username)
+        fetch('/api/user/' + username)
         .then(res => res.json())
         .then(json => this.setState({
             name : `${json.username.first_name + ' ' + json.username.last_name}`,
