@@ -263,8 +263,9 @@ app.get('/api/search/:query', (req, res) => {
 
         courseIdForRecom.map((item) => {
           courseModel
-          .find({_id:item},'description')
+          .find({'_id':item})
           .exec(function(err, docs){
+            (err) => {console.log(err)}
             description += ' ';
             description += docs[0].description;
             courseModel
@@ -283,13 +284,14 @@ app.get('/api/search/:query', (req, res) => {
                 return item.slice(1) !== sItem.label.slice(1)
               })
               resolve(classifierResults)
+              mongoose.disconnect();
               console.log(classifierResults)
               
             })
             
           })
         })
-        mongoose.disconnect();
+       
       })
     }) //promise end
     
