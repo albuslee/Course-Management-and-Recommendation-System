@@ -35,10 +35,11 @@ const enrollmentInfo = new Promise((resolve, reject) => {
     err => { console.log(err) }
   )
 
-  enrollmentModel
-    .find({}, 'user course_list')
-    .exec( function(err, docs){
-      console.log(docs);
+  pendingListModel
+    .find({'user': parseInt(5198786)})
+    .exec(function(err,docs){
+      if(err) return handleError(err);
+      const pen_courses = docs[0].course_list
     })
 
   // enrollmentModel
