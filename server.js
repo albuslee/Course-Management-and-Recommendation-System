@@ -185,15 +185,22 @@ app.get('/api/pendinglist/:uid', (req, res) => {
         .populate('course_list._id')
         .exec(function(err,docs){
           if(err) return handleError(err);
+          console.log(docs)
+          if(docs.length === 0){
+            return res.status(404)
+          }
           const pen_courses = docs[0].course_list
+          // console.log("------------------------")
+          // console.log(pen_courses)
+          // console.log("------------------------")
           courses_dto = [];
           var index = 1
           for (const course of pen_courses){
             let prerequisitiesCheck = prerequisitiesValidator(course._id.pre_courses, enrollment_list);
             //pen_courses[index].Prerequisities['isPre'] = prerequisitiesCheck;
-            let course_single_dto = {id: index, CourseId: course._id.code, CourseName: course._id.name, 
-                      CourseDescription:course._id.description, Prerequisities: course._id.pre_courses, 
-                      isPre: prerequisitiesCheck, Prerequisities_Desc: course._id.prerequisites}
+            let course_single_dto = {id: index, courseId: course._id.code, courseName: course._id.name, 
+                      courseDescription:course._id.description, prerequisities: course._id.pre_courses, 
+                      isPre: prerequisitiesCheck, prerequisities_Desc: course._id.prerequisites, courseTerm:course._id.term}
             courses_dto.push(course_single_dto);
             index ++;
           }
@@ -284,13 +291,9 @@ app.get('/api/search/:query', (req, res) => {
               })
               resolve(classifierResults)
               mongoose.disconnect();
-              
-
             })
-            
           })
         })
-       
       })
     }) //promise end
     
