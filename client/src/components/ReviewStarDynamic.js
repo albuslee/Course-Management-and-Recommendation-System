@@ -23,7 +23,7 @@ class ReviewStarDynamic  extends  Component{
             let onOff=true;
             const CourseStars = this.props.CourseStars;
             
-            aStxt.innerHTML=arrBtxt[CourseStars];
+            aStxt.innerHTML=arrBtxt[CourseStars-1];
                 for(let i=0;i<CourseStars;i++){
                     aBstar[i].style.backgroundPosition="0 0";
                 }
@@ -43,7 +43,7 @@ class ReviewStarDynamic  extends  Component{
                 aBstar[i].onmouseout=function(){
                     if(onOff){
                         aStxt.innerHTML="";
-                        for(let i=0;i<=this.index;i++){
+                        for(let i=0;i<=4;i++){
                             aBstar[i].style.backgroundPosition="-39px 0";
                         }
                     }
