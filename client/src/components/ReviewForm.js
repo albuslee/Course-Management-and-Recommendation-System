@@ -26,7 +26,7 @@ class ReviewForm  extends  Component{
     
     render(){
         return(
-            <div>
+            <div className="review_static">
 
                 <tr>
                     <td width="10%" id="CourseID">{this.state.CourseCode}</td>

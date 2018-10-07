@@ -118,7 +118,7 @@ class SearchResult extends Component {
 	// handle header text
 	handleHeader() {
 		//test function aaa
-		this.aaa();
+		//this.aaa();
 		if (this.state.recommendation === true) {
 			return (
 				<div className="section-header">

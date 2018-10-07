@@ -410,14 +410,46 @@ table {
 	color:#fff;
 }
 
+
+
+tbody {
+    width: 100%;
+}
 /*.zebra tr:hover *{
     background: #eeeeee;
 	color:#000;
 }*/
 
-.zebra tr {
+.zebra tbody tr {
+    width: 100%;
     font-size: 20px;
 	background:#404040;
+	color:#fff;
+}
+.zebra tbody .review_static {
+    width: 100%;
+    font-size: 20px;
+	background:#404040;
+	color:#fff;
+}
+
+.zebra tbody .review_static:nth-child(even) tr{
+    width: 100%;
+    font-size: 20px;
+    background: #000 !important;
+	color:#fff;
+}
+.zebra tbody .review_dynamic {
+    width: 100%;
+    font-size: 20px;
+	background:#404040;
+	color:#fff;
+}
+
+.zebra tbody .review_dynamic:nth-child(even) tr{
+    width: 100%;
+    font-size: 20px;
+    background: #000 !important;
 	color:#fff;
 }
 
@@ -559,6 +591,10 @@ h2 {
     margin-top: 50px;
 }
 
+.review_tr {
+    width: 100%;
+}
+
 
 .ct-star {
     display: inline-block;
@@ -659,7 +695,7 @@ h2 {
     border-radius: 20px;
     position: absolute;
     bottom: 0;
-    font-size: 16px;
+    font-size: 10px;
     width: 50%;
     height: 30px;
 }
@@ -688,9 +724,13 @@ h2 {
 }
 
 .course_description {
-    margin-top: 40px;
+    margin-top: 10px;
+    margin-left: 20px;
     font-size: 12px;
     display: block;
+    overflow: hidden;
+    height: 120px;
+    width: 80%;
 }
 
 .proceed_to_enroll {
@@ -704,7 +744,7 @@ h2 {
     border-radius: 20px;
     position: absolute;
     bottom: 0;
-    font-size: 12px;
+    font-size: 8px;
 }
 
 .rank_star {
