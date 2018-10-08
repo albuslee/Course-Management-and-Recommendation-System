@@ -10,12 +10,38 @@ class SearchResult extends Component {
 		super(props)
 		this.state = {
 			filterText: '',
-			course_list: [{_id: '2COMP9024',full_name: 'COMP9024', description: 'fuckkkkkk'}],
+			course_list: [],
 			nb_of_pages: null,
 			start_index: 0,
 			end_index: 8,
 			recommendation: true
 		}
+	}
+
+	componentDidMount(){
+		const currentSemester = localStorage['current-semseter'];
+		const userID = localStorage['session-username'].slice(1,-1);
+		let resultList = [];
+
+		fetch('/api/recommendation/' + userID)
+		.then(res => {
+			let recomList = res.json();
+			recomList.then(
+				//console.log(result))
+				function(recomList){
+					//console.log(recomList)
+					for (let i = 0; i < recomList.length; i ++){
+						//console.log(recomList[i]);
+						if (recomList[i]._id[0] === currentSemester){
+							resultList.push(recomList[i]);
+						}
+					}
+					console.log(resultList)
+					this.setState({
+						course_list: resultList
+					})
+				});
+		})
 	}
 
 	// use fetch method to get courses' result from database according to filtertext
@@ -25,7 +51,7 @@ class SearchResult extends Component {
 			fetch('/api/search/' + filterText)
 			.then(res => {
 				let result = res.json()
-				console.log(result)
+				//console.log(result)
 				return result
 			})
 			.then(json => {
@@ -38,7 +64,7 @@ class SearchResult extends Component {
 			})
 		} else {
 			this.setState({
-				course_list: [{_id: '2COMP9024',full_name: 'COMP9024', description: 'fuckkkkkk'}],
+				course_list: this.getRecommendation(),
 				recommendation: true,
 			})
 		}
@@ -59,6 +85,7 @@ class SearchResult extends Component {
 			end_index = 8;
 		}
 		console.log('start', start_index, 'end', end_index);
+		console.log('state course', this.state.course_list)
 		return this.state.course_list.slice(start_index, end_index).map((course) => 
 			<CourseCard key={course._id} course_id={course._id} full_name={course.full_name} description={course.description}/>
 		)
@@ -92,7 +119,7 @@ class SearchResult extends Component {
 
 
 	// ----------------------------------------------------function aaa is a test model for recom---------------------
-	aaa(){
+	getRecommendation(){
 		const currentSemester = localStorage['current-semseter'];
 		const userID = localStorage['session-username'].slice(1,-1);
 		let resultList = [];
@@ -103,7 +130,7 @@ class SearchResult extends Component {
 			recomList.then(
 				//console.log(result))
 				function(recomList){
-					console.log(recomList)
+					//console.log(recomList)
 					for (let i = 0; i < recomList.length; i ++){
 						//console.log(recomList[i]);
 						if (recomList[i]._id[0] === currentSemester){
@@ -111,15 +138,13 @@ class SearchResult extends Component {
 						}
 					}
 					console.log(resultList)
+					return(resultList)
 				});
-			return resultList;
 		})
 	}
 
 	// handle header text
 	handleHeader() {
-		//test function aaa
-		//this.aaa();
 		if (this.state.recommendation === true) {
 			return (
 				<div className="section-header">
@@ -136,6 +161,7 @@ class SearchResult extends Component {
 	}
 
   render() {
+		if(this.state.course_list.length === 0) return <p>Bitte warten sie ...</p>;
     return (
       <div>
 		<SearchBar 
