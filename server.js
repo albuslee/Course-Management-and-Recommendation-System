@@ -19,7 +19,6 @@ const classifier = new natural.BayesClassifier();
 
 
 
-
 // CSRF pre-fighting
 app.use(function(req, res, next) {
   res.header("Access-Control-Allow-Origin", "*");
@@ -239,7 +238,7 @@ app.get('/api/search/:query', (req, res) => {
 
 // ----------------------------------------------------course recommendations---------------------
   app.get('/api/recommendation/:userid', (req, res) => {
-    const fakeDescription = 'Operating system organisation and services. Process management: scheduling, synchronisation and communication. Memory management: virtual memory, paging and segmentation. Storage management: Disk scheduling, file systems. Protection and Security. Distributed operating systems and file systems. Case studies drawn from UNIX, MS-DOS, Mach. Lab. programming assignments';
+    //const fakeDescription = 'Operating system organisation and services. Process management: scheduling, synchronisation and communication. Memory management: virtual memory, paging and segmentation. Storage management: Disk scheduling, file systems. Protection and Security. Distributed operating systems and file systems. Case studies drawn from UNIX, MS-DOS, Mach. Lab. programming assignments';
     const recomUserId = req.params.userid;
     const recomInfo = new Promise((resolve, reject) => {
       mongoose.connect(url+'coursetest')
@@ -255,6 +254,14 @@ app.get('/api/search/:query', (req, res) => {
       .exec(function(err, reviewList){
         if(err){console.log(err)}
         let stars = [];
+
+        // let courseAll = [];
+        // for (let i = 0; i < reviewList[0].course_list.length; i ++){
+        //   courseAll.push(reviewList[0].course_list[i]._id);
+          
+        // }
+        
+
         //reviewList[0].course_list is the list of the history course review from the user
         for (let i = 0; i < reviewList[0].course_list.length; i ++){
           stars.push(reviewList[0].course_list[i].star);
@@ -268,15 +275,17 @@ app.get('/api/search/:query', (req, res) => {
         }
         const courseIdForRecom = courseId;
         var description = "";
+        var itemList = [];
         courseIdForRecom.map((item) => {
           courseModel
           .find({'_id':item})
           .exec(function(err, docs){
             (err) => {console.log(err)}
+            
             description += ' ';
             description += docs[0].description;
             courseModel
-            .find({},'_id description')
+            .find({},'_id full_name description')
             .exec(function(err, courses){
               if (err) {
                 console.log(err);
@@ -285,12 +294,20 @@ app.get('/api/search/:query', (req, res) => {
                 classifier.addDocument(courses[i].description,courses[i]._id);      
               }
               classifier.train();
+            
               const classifierResults = classifier.getClassifications(description);
               classifierResults.filter(function (sItem){
-                return item.slice(1) !== sItem.label.slice(1)
+                return (item.slice(1) !== sItem.label.slice(1))
               })
-              resolve(classifierResults)
-              mongoose.disconnect();
+              itemList.push(item.slice(1,));
+              let classifierResultsFinal = [];
+              for (let i = 0; i < classifierResults.length;i++){
+                if(itemList.indexOf(classifierResults[i].label.slice(1,)) === -1){
+                  classifierResultsFinal.push(classifierResults[i]);
+                };
+              }    
+              resolve(classifierResultsFinal)
+              //console.log(classifierResultsFinal,'-----')
             })
           })
         })
@@ -298,9 +315,29 @@ app.get('/api/search/:query', (req, res) => {
     }) //promise end
     
     recomInfo.then(result => {
-      return res.json(result);
+      function getResult(result){
+        return Promise.all(result.map((item) => {
+          return new Promise((resolve,reject) => {
+            courseModel
+              .find({_id : item.label}, '_id full_name description')
+              .exec(function(err,docs){
+                if(err) return handleError(err)
+                resolve(docs[0])
+                mongoose.disconnect();
+              })
+          })
+        }))
+      }
+
+      getResult(result)
+      .then(result => {
+        return res.json(result);
+      })
     })
-  })
+})
+
+
+ 
 // ----------------------------------------------------Pending---------------------
 app.post('/api/pending/:id', function(req, res){
   let course_id = {'_id':req.body._id}

@@ -407,7 +407,8 @@ table {
 .zebra tbody tr:nth-child(even) {
     font-size: 20px;
     background: #000 !important;
-	color:#fff;
+    color:#fff;
+    width:100%;
 }
 
 /*.zebra tr:hover *{
@@ -573,7 +574,7 @@ h2 {
     background-position: -39px 0;
 }
 
-.review_table{
+.review_table tr{
     width: 100%;
 }
 
