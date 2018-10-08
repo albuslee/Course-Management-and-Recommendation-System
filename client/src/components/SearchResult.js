@@ -3,7 +3,6 @@ import React, { Component } from 'react'
 import SearchBar from './SearchBar';
 import CourseCard from './CourseCard';
 import Pagination from './Pagination';
-import { SSL_OP_NETSCAPE_CHALLENGE_BUG } from 'constants';
 
 class SearchResult extends Component {
 	constructor(props){
@@ -14,7 +13,8 @@ class SearchResult extends Component {
 			nb_of_pages: null,
 			start_index: 0,
 			end_index: 8,
-			recommendation: true
+			recommendation: true,
+			recomList: []
 		}
 	}
 
@@ -24,24 +24,21 @@ class SearchResult extends Component {
 		let resultList = [];
 
 		fetch('/api/recommendation/' + userID)
-		.then(res => {
-			let recomList = res.json();
-			recomList.then(
-				//console.log(result))
-				function(recomList){
-					//console.log(recomList)
-					for (let i = 0; i < recomList.length; i ++){
-						//console.log(recomList[i]);
-						if (recomList[i]._id[0] === currentSemester){
-							resultList.push(recomList[i]);
-						}
-					}
-					console.log(resultList)
-					this.setState({
-						course_list: resultList
-					})
-				});
-		})
+		.then(res => res.json())
+		.then(recomList => {
+			console.log(recomList)
+			for (let i = 0; i < recomList.length; i ++){
+				//console.log(recomList[i]);
+				if (recomList[i]._id[0] === currentSemester){
+					resultList.push(recomList[i]);
+				}
+			}
+			console.log(resultList);
+			this.setState({
+				course_list: resultList,
+				recomList: resultList
+			})
+		});
 	}
 
 	// use fetch method to get courses' result from database according to filtertext
@@ -64,7 +61,7 @@ class SearchResult extends Component {
 			})
 		} else {
 			this.setState({
-				course_list: this.getRecommendation(),
+				course_list: this.state.recomList,
 				recommendation: true,
 			})
 		}
@@ -161,7 +158,11 @@ class SearchResult extends Component {
 	}
 
   render() {
-		if(this.state.course_list.length === 0) return <p>Bitte warten sie ...</p>;
+		if(this.state.recomList.length === 0) {return (
+			<div className="section-header">
+				<h2 className="notice">Loading Course Recommendations...</h2>
+			</div>
+		)}
     return (
       <div>
 		<SearchBar 
