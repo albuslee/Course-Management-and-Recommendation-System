@@ -35,12 +35,28 @@ const enrollmentInfo = new Promise((resolve, reject) => {
     err => { console.log(err) }
   )
 
-  pendingListModel
-    .find({'user': parseInt(5198786)})
-    .exec(function(err,docs){
-      if(err) return handleError(err);
-      const pen_courses = docs[0].course_list
-    })
+  let course_list = ['3COMP9024', '3COMP9444']
+
+  function getAllCourse(course_list){
+    return Promise.all(course_list.map( course => {
+      return new Promise((resolve, reject) => {
+        courseModel
+          .find({'_id': course})
+          .exec(function(err,docs){
+            if(err) return handleError(err);
+            //console.log(docs[0])
+            resolve(docs[0])
+        })
+      })
+    }))
+  }
+
+  getAllCourse(course_list)
+    .then(res => console.log(res))
+
+  
+  // Promise.all(newL)
+  //   .then(completed => console.log(completed))
 
   // enrollmentModel
   // .findOneAndUpdate(

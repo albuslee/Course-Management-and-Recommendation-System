@@ -323,7 +323,7 @@ app.get('/api/search/:query', (req, res) => {
               .exec(function(err,docs){
                 if(err) return handleError(err)
                 resolve(docs[0])
-                mongoose.disconnect();
+                //mongoose.disconnect();
               })
           })
         }))
@@ -331,6 +331,7 @@ app.get('/api/search/:query', (req, res) => {
 
       getResult(result)
       .then(result => {
+        console.log(result)
         return res.json(result);
       })
     })
