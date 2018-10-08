@@ -95,21 +95,22 @@ class SearchResult extends Component {
 	aaa(){
 		const currentSemester = localStorage['current-semseter'];
 		const userID = localStorage['session-username'].slice(1,-1);
-
 		let resultList = [];
-		let recomList = [];
+
 		fetch('/api/recommendation/' + userID)
 		.then(res => {
-			let result = res.json();
-			result.then(
+			let recomList = res.json();
+			recomList.then(
+				//console.log(result))
 				function(recomList){
+					console.log(recomList)
 					for (let i = 0; i < recomList.length; i ++){
-						//console.log(recomList[i].label[0]);
-						if (recomList[i].label[0] === currentSemester){
+						//console.log(recomList[i]);
+						if (recomList[i]._id[0] === currentSemester){
 							resultList.push(recomList[i]);
 						}
 					}
-					console.log(resultList.slice(1,))
+					console.log(resultList)
 				});
 			return resultList;
 		})
