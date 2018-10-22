@@ -3,7 +3,7 @@ import ReviewStar from './ReviewStar';
 
  
 class ReviewForm  extends  Component{
-
+    // init params
     constructor(props){
         super(props);
         this.state = {
@@ -15,9 +15,9 @@ class ReviewForm  extends  Component{
         }
     }
 
+    // remove the init state when data transmission
     deleteUndefined(){
         if(this.state !== undefined){
-            //console.log(this.state)
             return(<ReviewStar key={this.state.CourseCode} index ={this.state.CourseCode} CourseCode={this.state.CourseCode} CourseStar={this.state.CourseStars} />)
 
         }
