@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-// import { Helmet } from 'react-helmet'; 
 import '../css/style.css';
 import '../css/bootstrap.min.css';
 import '../css/font-awesome.min.css';
@@ -7,6 +6,7 @@ import '../css/font-awesome.min.css';
 import NavigationBar from '../components/NavigationBar';
 import CourseReview from '../components/CourseReview';
 
+// basic page structure  
 const CourseReviewBackground = () => 
     <div className = "Sbody">
         {/* <!-- Contact --> */}

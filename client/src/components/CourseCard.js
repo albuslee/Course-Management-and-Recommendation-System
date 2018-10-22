@@ -5,7 +5,6 @@ class CourseCard extends Component {
 	handleClick() {
 		let course_id = this.props.course_id;
 		let id = JSON.parse(localStorage.getItem('session-username'))
-		console.log(id)
 		var url = `http://127.0.0.1:5000/api/pending/${id}`;
 		var data = {'_id': course_id};
 		fetch(url, {

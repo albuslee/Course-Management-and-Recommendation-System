@@ -33,22 +33,17 @@ class LoginForm extends Component {
       e.preventDefault()
       let auth_bool = false;
       let username = this.refs.username.value;
-      // console.log('username', this.refs.username.value);
-      // console.log('password', this.refs.password.value);
       this.setState({username : this.refs.username.value, password: this.refs.password.value})
 
       if (username.startsWith('z')) {
         username = parseInt(username.slice(1),10).toString();
       }
-      // console.log(username);
       fetch(`/api/user/${username}`)
       .then(res => res.json())
       .then(json => {
-        console.log(this.refs.password.value)
-        // console.log(this.state);
+
         if(json.username.password === this.refs.password.value){
           auth_bool = true;
-          // console.log(auth_bool);
           localStorage.setItem('session-username', JSON.stringify(username));
           localStorage.setItem('session-first_name', JSON.stringify(json.username.first_name));
           localStorage.setItem('current-semseter', JSON.stringify(json.username.currentTerm));
@@ -58,7 +53,6 @@ class LoginForm extends Component {
           window.alert("Incorrect username or password, please input again");
           window.location.href = "/"
         }
-        // TODO: should write by react component ,can be changed later
       })
       .catch((err) => {
         console.log(`Opz, something wrong, the error message is ${err}`);

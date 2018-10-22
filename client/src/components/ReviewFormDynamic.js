@@ -5,6 +5,7 @@ import ReviewStarDynamic from './ReviewStarDynamic';
  
 class ReviewFormDynamic  extends  Component{
 
+    // init params
     constructor(props){
         super(props);
         this.state = {
@@ -16,6 +17,7 @@ class ReviewFormDynamic  extends  Component{
         }
     }
 
+    // transmit updated stars 
     getStars(star) {
         this.props.onStar(this.state.CourseCode,star,this.state.CourseTerm);
     }

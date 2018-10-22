@@ -5,6 +5,7 @@ import ReviewFormDynamic from './ReviewFormDynamic';
 
 class CourseReview extends Component {
 
+    // initial params
     constructor(props){
         super(props);
         this.state = {
@@ -19,7 +20,10 @@ class CourseReview extends Component {
     }
 
     componentWillMount(props){
-      let username = JSON.parse(localStorage.getItem('session-username'));
+        // get usename from session
+        let username = JSON.parse(localStorage.getItem('session-username'));
+
+        // get current term 
         fetch('/api/user/' + username)
             .then(res => res.json())
             .then(json => {
@@ -28,6 +32,7 @@ class CourseReview extends Component {
                 })
             })
         
+        // get review history 
         fetch('/api/review/' + username)
         .then(res => res.json())
         .then(json => {  
@@ -59,7 +64,8 @@ class CourseReview extends Component {
     };
 
     
-
+    // check if it follows dynamic stars dividing by terms
+    // term one 
     semesterTitleDivision_1 = () => {
         if (this.state.currentTerm === 1){
             return this.state.term_1.map((Course) => (
@@ -75,7 +81,7 @@ class CourseReview extends Component {
     }
 
 
-
+    // term two 
     semesterTitleDivision_2 = () => {
         if (this.state.currentTerm === 2){
             return this.state.term_2.map((Course) => (
@@ -90,6 +96,7 @@ class CourseReview extends Component {
         };
     }
 
+    // term three
     semesterTitleDivision_3 = () => {
         if (this.state.currentTerm === 3){
             return this.state.term_3.map((Course) => (
@@ -105,6 +112,7 @@ class CourseReview extends Component {
     }
 
 
+    // update stars fetching to database
     getStars (courseCode,star,courseTerm){
         var data = {'code':courseCode,'star':star,'term':courseTerm};
         let username = JSON.parse(localStorage.getItem('session-username'));
@@ -121,6 +129,7 @@ class CourseReview extends Component {
         
     }
 
+    // switch two types of bottom btn style
     whichBottomStyle = () => {
         if (this.state.currentTerm === 1){
             if(this.state.term_1.length !== 0){
@@ -139,6 +148,7 @@ class CourseReview extends Component {
         }
     }
 
+    // btn style one
     bottomBtn_1 = () => {
         return (
             <div className = "button_part">
@@ -148,6 +158,7 @@ class CourseReview extends Component {
         )
     }
 
+    // btn style two
     bottomBtn_2 = () => {
         return (
             <div className = "button_part">
@@ -164,6 +175,7 @@ class CourseReview extends Component {
         window.location.href='/studentprofile';
     }
 
+    //submit successful
     successSubmit(){
         alert('Successful Submit!');
         window.location.href='/studentprofile';
@@ -171,7 +183,6 @@ class CourseReview extends Component {
 
     
     render() {
-        
         return (
             <div>   
                 
