@@ -14,7 +14,8 @@ class SearchResult extends Component {
 			start_index: 0,
 			end_index: 8,
 			recommendation: true,
-			recomList: []
+			recomList: [],
+			enrollmentList: null,
 		}
 	}
 
@@ -36,7 +37,8 @@ class SearchResult extends Component {
 			console.log(resultList);
 			this.setState({
 				course_list: resultList,
-				recomList: resultList
+				recomList: resultList,
+				nb_of_pages : Math.ceil(resultList.length / 6)
 			})
 		});
 	}
@@ -55,6 +57,7 @@ class SearchResult extends Component {
 				this.setState({
 					course_list: json,
 					recommendation: false,
+					nb_of_pages: Math.ceil(json.length / 6)
 				})
 				console.log(this.state.course_list)
 				this.makePagination();
@@ -63,6 +66,7 @@ class SearchResult extends Component {
 			this.setState({
 				course_list: this.state.recomList,
 				recommendation: true,
+				nb_of_pages: Math.ceil(this.state.recomList / 6)
 			})
 		}
 	}
@@ -162,11 +166,13 @@ class SearchResult extends Component {
 	}
 
   render() {
-		if(this.state.recomList.length === 0) {return (
+		if(this.state.recomList.length === 0) {
+			return (
 			<div className="section-header">
 				<h2 className="notice">Loading Course Recommendations...</h2>
 			</div>
 		)}
+		console.log(this.state)
     return (
       <div>
 		<SearchBar 
