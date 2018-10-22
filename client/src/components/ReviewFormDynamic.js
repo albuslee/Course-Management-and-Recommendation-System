@@ -23,9 +23,7 @@ class ReviewFormDynamic  extends  Component{
     
     render(){
         return(
-            <div className="review_dynamic">
-
-                <tr>
+                <tr className="review_dynamic">
                     <td width="10%" id="CourseID">{this.state.CourseCode}</td>
                     <td width="70%" id="CourseDitails">{this.state.CourseName}</td>
                     <td width="20%" id="Star">
@@ -33,8 +31,6 @@ class ReviewFormDynamic  extends  Component{
                     
                     </td>	
                 </tr> 
-            
-            </div>
         );
 
     }
