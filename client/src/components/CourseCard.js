@@ -33,7 +33,7 @@ class CourseCard extends Component {
 								<span className="course_id">{this.props.full_name}</span>
 								<span className="course_description">{this.props.description}</span>
 								<div className="rank">
-									<span className="course_rank">{this.props.star}</span>
+									<span className="course_rank">{this.props.star === 0 ? 'No mark' : this.props.star}</span>
 									<img src={require("../img/stars.png")} alt='star' className="rank_star"></img>
 								</div>
 								<button type="button" className="proceed_to_enroll" onClick={this.handleClick.bind(this)}>Add to Pending List</button>
