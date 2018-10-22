@@ -341,13 +341,8 @@ app.get('/api/search/:query', (req, res) => {
 
       getResult(result)
       .then(result => {
-<<<<<<< HEAD
-        //console.log(result)
-        return res.json(result);
-=======
         console.log(result)
         return res.json(result.slice(0,8));
->>>>>>> 584ed442cc135e60c295038e4f893096ba085dc0
       })
     })
 })
