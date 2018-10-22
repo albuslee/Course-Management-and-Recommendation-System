@@ -342,7 +342,7 @@ app.get('/api/search/:query', (req, res) => {
       getResult(result)
       .then(result => {
         console.log(result)
-        return res.json(result.slice(0,8));
+        return res.json(result);
       })
     })
 })
