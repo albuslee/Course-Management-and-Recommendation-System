@@ -26,17 +26,13 @@ class ReviewForm  extends  Component{
     
     render(){
         return(
-            <div className="review_static">
-
-                <tr>
+                <tr className="review_static">
                     <td width="10%" id="CourseID">{this.state.CourseCode}</td>
                     <td width="70%" id="CourseDitails">{this.state.CourseName}</td>
                     <td width="20%" id="Star">
                     {this.deleteUndefined()}
                     </td>	
                 </tr> 
-            
-            </div>
         );
 
     }
