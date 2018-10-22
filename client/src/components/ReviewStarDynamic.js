@@ -3,6 +3,7 @@ import React, { Component } from 'react';
  
 class ReviewStarDynamic  extends  Component{
 
+    // init params
     constructor(props){
         super(props);
         this.state = {
@@ -11,7 +12,9 @@ class ReviewStarDynamic  extends  Component{
         }
     }
 
+
     componentDidMount(){
+        // set up star div limited scope
         let scope = document.getElementsByClassName(this.state.review);        
         for (let id = 0; id < scope.length; id++){
             
@@ -23,11 +26,13 @@ class ReviewStarDynamic  extends  Component{
             let onOff=true;
             const CourseStars = this.props.CourseStars;
             
+            // display stars
             aStxt.innerHTML=arrBtxt[CourseStars];
                 for(let i=0;i<CourseStars;i++){
                     aBstar[i].style.backgroundPosition="0 0";
                 }
 
+            // onmouseover function
             for(let i= 0;i<aBstar.length;i++){
                 aBstar[i].index=i;
                 aBstar[i].onmouseover=function(){
@@ -39,7 +44,8 @@ class ReviewStarDynamic  extends  Component{
                         }
                     }
                 };
-
+                
+                // onmouseout function
                 aBstar[i].onmouseout=function(){
                     if(onOff){
                         aStxt.innerHTML="";
@@ -49,6 +55,7 @@ class ReviewStarDynamic  extends  Component{
                     }
                     };
 
+                // onclick function
                 aBstar[i].onclick=function(){
                     onOff=false;
                     aStxt.innerHTML="";
@@ -56,7 +63,6 @@ class ReviewStarDynamic  extends  Component{
                         aBstar[i].style.backgroundPosition="-39px 0";
                     }
                     num = this.index ;
-                    //CountStars = num + 1;
                     aStxt.innerHTML=arrBtxt[num+1];
                     for(let i=0;i<=this.index;i++){
                         aBstar[i].style.backgroundPosition="0 0";
@@ -68,6 +74,7 @@ class ReviewStarDynamic  extends  Component{
         
     }
 
+    // onclick function with flags and update stars by data transminssion
     onClick(type) {
         let countStars = 0;
         if (type === '1'){
