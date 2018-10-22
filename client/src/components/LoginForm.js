@@ -71,6 +71,7 @@ class LoginForm extends Component {
     render() {
       return (
         <div>
+          {/* Login form */}
           <form className="login100-form validate-form " onSubmit={this.Authentication} name="loginform" >
 
             <div className="wrap-input100 validate-input" data-validate = "Enter username">
@@ -82,6 +83,7 @@ class LoginForm extends Component {
                 <input className="input100" type="password" name="password" placeholder="Password" ref="password" required/>
                 <span className="focus-input100"></span>
             </div>
+            {/* Button part */}
             <div className="container-login100-form-btn">
                 <button onClick={this.Authentication} className="login100-form-btn" type="submit" >
                     Login

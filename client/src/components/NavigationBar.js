@@ -43,9 +43,8 @@ class NavigationBar extends Component {
 					         <img src={require("../img/unsw.png")} alt="logo"/>
 				            </a>
 			            </div>
-                    {/* <!-- /Logo --> */}
                     
-				    {/* <!-- Navigation --> */}
+				    {/* Navigation button */}
 			            <nav id="nav">
                             <ul className="main-menu">
                                 <li><Link to="/courseenrolment" target="_parent">Course Enrollment</Link></li>
@@ -55,11 +54,8 @@ class NavigationBar extends Component {
                                 <li><Link to="/" onClick={this.handleLogout} target="_parent">Logout</Link></li>
                             </ul>
 			            </nav>
-					{/* <!-- /Navigation --> */}
 		            </div>
-		
 	            </header>
-                    {/* <!-- </div> --> */}
             </div>
 
         );

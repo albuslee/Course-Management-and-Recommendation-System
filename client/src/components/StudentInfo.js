@@ -29,12 +29,12 @@ class StudentInfo extends Component {
     render() {
       return (
           <div>
+            {/* Below are the detials for the student */}
               <div className="col-md-6">
                   <div className="section-header">
                     <h2>Student Information</h2>
                   </div>
                   <img src={require(`../images/5198410.jpg`)} alt="" className="Student_img"/>
-                  {/* <!-- feature --> */}
                   <div className="student_info"> 
                     <div className="feature">
                       <i className="feature-icon fa fa-flask"></i>
@@ -43,9 +43,6 @@ class StudentInfo extends Component {
                         <h4>{this.state.name}</h4>
                       </div>
                     </div>
-                    {/* <!-- /feature --> */}
-
-                    {/* <!-- feature --> */}
                     <div className="feature">
                       <i className="feature-icon fa fa-users"></i>
                       <div className="feature-content">
@@ -53,9 +50,6 @@ class StudentInfo extends Component {
                         <h4>{this.state.email}</h4>
                       </div>
                     </div>
-                    {/* <!-- /feature --> */}
-
-                    {/* <!-- feature --> */}
                     <div className="feature">
                       <i className="feature-icon fa fa-comments"></i>
                       <div className="feature-content">
@@ -63,7 +57,6 @@ class StudentInfo extends Component {
                         <h4>{this.state.current_sem}</h4>
                       </div>
                   </div>
-                  {/* <!-- /feature --> */}
                 </div>
             </div>
         </div> 

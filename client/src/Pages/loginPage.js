@@ -15,11 +15,13 @@ const Loginbackground = (props) =>
         <link rel="stylesheet" type="css/text" href="./css/login.css" />
     </Helmet>
     {/* Body html begin */}
+    {/* Login part */}
       <div className="container-login100">
           <div className="wrap-login100">
                 <span className="login100-form-title">
                     Course Management System Login
                 </span>
+                {/* Link into component LoginForm */}
                 <LoginForm/>
           </div>
       </div>

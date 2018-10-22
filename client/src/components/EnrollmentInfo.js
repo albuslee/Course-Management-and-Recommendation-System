@@ -34,6 +34,7 @@ class EnrollmentInfo extends Component {
 			console.log(data)
       return (
         <div>
+					{/* Table for the enrollment history which is CourseID and Course Name */}
 					<table  width="50%" className="zebra course_information">
             	<tbody>
                 {
