@@ -177,6 +177,9 @@ class CourseReview extends Component {
                     <button type="submit" className = "button" onClick = {this.successSubmit}>Submit</button>
                     <button onClick = {this.backOnclick} className = "button">Back</button>
                 </div>
+                <div className = "button_part">
+                    <button onClick = {this.backOnclick} className = "button">Back</button>
+                </div>
 
             </div> 
         );
