@@ -4,7 +4,7 @@ let Schema = mongoose.Schema;
 
 let courseSchema = new Schema({
     career: String,
-    code: String,
+    code: {type: String, ref: 'Code'},
     name: String,
     full_name: String,
     prerequisites: String,
