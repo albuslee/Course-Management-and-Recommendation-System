@@ -15,11 +15,14 @@ class EnrollmentInfo extends Component {
 				fetch('/api/enrollment/' + username)
 				.then(res => res.json())
 				.then(json => {
+						console.log(json)
 						for ( let course of json){
 						this.setState({
 								enrollment: [...this.state.enrollment, {'code': course.code, 'name': course.name}],
-						})
+							})
 						}
+						localStorage.setItem('enrollment', JSON.parse(this.state.enrollment))
+						console.log(JSON.parse(localStorage.getItem('enrollment')))
 				})
 				.catch((err) => {
 					console.log(`Opz, something wrong, the error message is ${err}`);
@@ -28,6 +31,7 @@ class EnrollmentInfo extends Component {
 
     render() {
 			const data = this.state.enrollment;
+			console.log(data)
       return (
         <div>
 					<table  width="50%" className="zebra course_information">
