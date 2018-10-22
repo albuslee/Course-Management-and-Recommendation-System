@@ -89,7 +89,7 @@ class ReviewStarDynamic  extends  Component{
 
     render(){
         return(
-            <div className={this.state.review}>
+            <div className={this.state.review} id="review_star_style">
                 <span className="star">
                     <b className="ct-star  ic-star-off" onClick={this.onClick.bind(this, '1')}></b>
                     <b className="ct-star  ic-star-off" onClick={this.onClick.bind(this, '2')}></b> 
