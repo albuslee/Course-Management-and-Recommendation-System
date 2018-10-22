@@ -94,7 +94,7 @@ const dropDB = new Promise((resolve, reject) => {
                 course_list.push(doc.code)
               }
             });
-            console.log(course_list)
+            //console.log(course_list)
             let check_list = []
             course_list.map( course => {
               let newCode = new codeModel({
@@ -136,11 +136,12 @@ const dropDB = new Promise((resolve, reject) => {
                 let mean = 0;
                 mean = (sum/star_list.length).toFixed(1);
                 codeModel
-                .findByIdAndUpdate({'_id': code},
+                .findOneAndUpdate({'_id': code.slice(1,)},
                 {'$set': {'avg_star': mean}},
                 {'new': true})
                 .exec(function(err, docs){
                   if (err) {console.log(err)}
+                  //console.log(docs)
                   check_list.push(0)
                   if(check_list.length === all_course.length){
                     resolve()
