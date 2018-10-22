@@ -43,12 +43,10 @@ class Pagination extends Component {
 		
     return (
       <div>
-
+			{/* Pagination button */}
         <div className="pages">
 					<button type="button" className="previous_page" disabled={this.state.pre_button} onClick={this.handleClick.bind(this, 'previous')}>&lt;</button>
 					<button type="submit" className="page1" disabled="true">{this.state.current_page}</button>
-					{/* <button type="submit" className="page2">2</button>
-					<button type="submit" className="page3">3</button> */}
 					<button type="button" className="next_page" disabled={this.state.next_button} onClick={this.handleClick.bind(this, 'next')}>&gt;</button>
 				</div>
 

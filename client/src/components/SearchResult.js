@@ -175,6 +175,7 @@ class SearchResult extends Component {
 	}
 
   render() {
+	//   If there is nothing in the search bar, We will recommend the course for you and this is the loading part
 		if(this.state.recomList.length === 0) {
 			return (
 			<div className="section-header">
@@ -183,7 +184,8 @@ class SearchResult extends Component {
 		)}
 		console.log(this.state)
     return (
-      <div>
+    <div>
+		{/* Searchbar part */}
 		<SearchBar 
 			filterText={this.state.filterText} 
 			onUserInput={this.handleUserInput.bind(this)} 
@@ -192,16 +194,14 @@ class SearchResult extends Component {
         <div className="search_result">
 			<form className="enroll">
 				{this.renderCourseCard(this.state.start_index, this.state.end_index)}
-				{/* Pagination Sector Start */}
+				{/* Pagination Sector */}
 				<Pagination 
 				nb_of_pages={this.state.nb_of_pages}
-				//current_page={this.state.current_page}
 				onUserClick={this.handlePage.bind(this)}
 				/>
-				{/* Pagination Sector End */}
 			</form>
 		</div>
-      </div>
+    </div>
     )
   }
 }

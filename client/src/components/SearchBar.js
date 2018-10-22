@@ -21,12 +21,11 @@ class SearchBar extends Component {
   render() {
     return (
       <div>
+        {/* Input part for search bar */}
         <form className="search_bar">
           <input type="text" name="" className="search"
           placeholder="Search Course Code or Name..." value={this.props.filterText} ref='filterTextInput' onChange={this.handleChange}/>
-          {/* <button type="submit" className="search_button"><i className="search_icon fa fa-search"></i></button> */}
         </form> 
-        
       </div>
     )
   }

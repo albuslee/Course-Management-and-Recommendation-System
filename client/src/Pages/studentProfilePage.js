@@ -34,31 +34,21 @@ const StudentProfileBackground = () =>
           {/* Write your background code here. */}
 
           <div className="Sbody">
-            {/* <!-- About --> */}
-            
             <div id="about" className="section">
-              <NavigationBar/>
-              {/* <iframe src="../../../public.navigation.html" width="100%" height="110px" frameBorder="0" scrolling="no" name="navigationbar"></iframe> */}
-              {/* <!-- container --> */}
+            {/* Navigationbar part */}
+              <NavigationBar/>     
               <div className="container">
-
-                {/* <!-- row --> */}
                 <div className="row">
-                  
+                {/* Student Information part */}
                   <StudentInfo/>
                   <div className="section-header">
                     <h2>Your Enrollents</h2>
                   </div>
-                      {/* <!-- Enrollment Component Start --> */}
+                      {/* <!-- Enrollment Component --> */}
                       <EnrollmentInfo/>
-                      {/* <!-- Enrollment Component End --> */}
                 </div>
-                {/* <!-- row --> */}
-                
               </div>
-              {/* <!-- container --> */}
             </div>
-            {/* <!-- /About --> */}
           </div>
 
         </div>

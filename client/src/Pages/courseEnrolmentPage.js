@@ -10,29 +10,18 @@ class CourseEnrolmentPage extends Component {
     return (
       <div>
           <div className="Sbody">
-          {/* <!-- Contact --> */}
           <div id="contact" className="section">
+          {/* Navigationbar part */}
             <NavigationBar/>
-            {/* <!-- container --> */}
             <div className="container">
-              {/* <!-- row --> */}
               <div className="row">
-                {/* <!-- contact information --> */}
                 <div className="section-header">
                   <h1>Course Enrollment</h1>
                 </div>
-
-                {/* <!-- Search&Result start --> */}
+                {/* <!-- Search&Result --> */}
                 <SearchResult/>
-                {/* <!-- Search&Result End --> */}
-
-                {/* <!-- contact information --> */}
               </div>
-              {/* <!-- /row --> */}
             </div>
-            {/* <!-- /container --> */}
-          {/* </div>
-          <!-- /Contact --> */}
         </div>
       </div>
       </div>
