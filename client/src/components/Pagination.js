@@ -23,19 +23,15 @@ class Pagination extends Component {
 			pre_button: pre_button,
 			next_button: next_button,
 		})
-		console.log(pre_button, next_button)
 	}
 
 	// get user's click, then change the current_page, finally call the function in parent component <SearchResult/>
 	handleClick(type) {
 		this.setState( prevState => {
-			console.log('pre',prevState.current_page)
 			return {current_page: type==='next'? prevState.current_page + 1 : prevState.current_page - 1}
 		}, () => {
-			console.log('after callback', this.state.current_page)
 			this.props.onUserClick(this.state.current_page);
 		})
-		console.log('after click current page', this.state.current_page)
 		
 	}
 
