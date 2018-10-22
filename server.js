@@ -331,7 +331,7 @@ app.get('/api/search/:query', (req, res) => {
 
       getResult(result)
       .then(result => {
-        console.log(result)
+        //console.log(result)
         return res.json(result);
       })
     })
