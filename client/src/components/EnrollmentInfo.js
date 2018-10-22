@@ -21,7 +21,7 @@ class EnrollmentInfo extends Component {
 								enrollment: [...this.state.enrollment, {'code': course.code, 'name': course.name}],
 							})
 						}
-						localStorage.setItem('enrollment', JSON.parse(this.state.enrollment))
+						localStorage.setItem('enrollment', JSON.stringify(this.state.enrollment))
 						console.log(JSON.parse(localStorage.getItem('enrollment')))
 				})
 				.catch((err) => {
