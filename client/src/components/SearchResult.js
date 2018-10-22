@@ -15,7 +15,7 @@ class SearchResult extends Component {
 			end_index: 8,
 			recommendation: true,
 			recomList: [],
-			enrollmentList: null,
+			enrollment: null,
 		}
 	}
 
@@ -23,6 +23,11 @@ class SearchResult extends Component {
 		const currentSemester = localStorage['current-semseter'];
 		const userID = localStorage['session-username'].slice(1,-1);
 		let resultList = [];
+		let enrollList = [];
+		JSON.parse(localStorage.getItem('enrollment')).forEach(element => {
+			enrollList.push(element['code'])
+		});
+
 
 		fetch('/api/recommendation/' + userID)
 		.then(res => res.json())
@@ -30,17 +35,21 @@ class SearchResult extends Component {
 			console.log(recomList)
 			for (let i = 0; i < recomList.length; i ++){
 				//console.log(recomList[i]);
-				if (recomList[i]._id[0] === currentSemester){
+				if (recomList[i]._id[0] === currentSemester && !enrollList.includes(recomList[i]._id.slice(1))){
 					resultList.push(recomList[i]);
 				}
 			}
-			console.log(resultList);
+			console.log(resultList)
 			this.setState({
 				course_list: resultList,
 				recomList: resultList,
-				nb_of_pages : Math.ceil(resultList.length / 6)
+				nb_of_pages : Math.ceil(resultList.length / 8)
 			})
+		})
+		.catch((err) => {
+			console.log(`Opz, something wrong, the error message is ${err}`);
 		});
+		
 	}
 
 	// use fetch method to get courses' result from database according to filtertext
@@ -57,7 +66,7 @@ class SearchResult extends Component {
 				this.setState({
 					course_list: json,
 					recommendation: false,
-					nb_of_pages: Math.ceil(json.length / 6)
+					nb_of_pages: Math.ceil(json.length / 8)
 				})
 				console.log(this.state.course_list)
 				this.makePagination();
@@ -66,7 +75,7 @@ class SearchResult extends Component {
 			this.setState({
 				course_list: this.state.recomList,
 				recommendation: true,
-				nb_of_pages: Math.ceil(this.state.recomList / 6)
+				nb_of_pages: Math.ceil(this.state.recomList / 8)
 			})
 		}
 	}
@@ -85,8 +94,8 @@ class SearchResult extends Component {
 			start_index = 0;
 			end_index = 8;
 		}
-		console.log('start', start_index, 'end', end_index);
-		console.log('state course', this.state.course_list)
+		// console.log('start', start_index, 'end', end_index);
+		// console.log('state course', this.state.course_list)
 		return this.state.course_list.slice(start_index, end_index).map((course) => 
 			<CourseCard key={course._id} course_id={course._id} full_name={course.full_name} description={course.description} star={this.getRandom(3,5)}/>
 		)
@@ -138,7 +147,7 @@ class SearchResult extends Component {
 							resultList.push(recomList[i]);
 						}
 					}
-					console.log(resultList)
+					// console.log(resultList)
 					return(resultList)
 				});
 		})
