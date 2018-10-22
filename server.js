@@ -135,13 +135,20 @@ app.get('/api/review/:id',(req,res) => {
     .exec(function(err, docs){
       if (err) return handleError(err);
       var reviewList = [];
+      console.log(docs[0])
+      if (docs[0] === undefined){
+      
+        reviewList = [];    
+        
+      }
+      else{
       docs[0].course_list.forEach(course => {
         reviewList.push({'code' : course._id.code, 'name': course._id.name, 'star':course.star,'term': course._id.term});    
       });
       resolve(reviewList);
       mongoose.disconnect();
     
-    })
+    }})
   })
   courseReview
     .then( reviewList => {
@@ -370,7 +377,6 @@ app.post('/api/pending/:id', function(req, res){
 // ----------------------------------------------------Insert the pending courses into the database ---------------------
 
 app.post('/api/enrollmentinsert/:uid', function(req, res){
-  //console.log(req.body.pendinglist[0])
   let courseList = req.body.pendinglist
   console.log("------------------------------------------")
   console.log(courseList);
@@ -379,7 +385,7 @@ app.post('/api/enrollmentinsert/:uid', function(req, res){
   // res.send(req.body);
 
   courseList.forEach(course => {
-    console.log(course)
+    //console.log(course)
     enrollmentModel
     .findOneAndUpdate({'user': parseInt(req.params.uid)}, 
       {'$push': {'course_list': course }},

@@ -33,9 +33,9 @@ class EnrollmentInfo extends Component {
 					<table  width="50%" className="zebra course_information">
             	<tbody>
                 {
-									data.map( item => {
+									data.map(item => {
 										return(
-											<tr>
+											<tr key={item.code}>
 												<td width="20%" id="CourseID">{item.code}</td>
 												<td width="80%" id="CourseDitails">{item.name}</td>     
                 			</tr>

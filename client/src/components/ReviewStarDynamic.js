@@ -18,12 +18,12 @@ class ReviewStarDynamic  extends  Component{
             let aSpan=scope[id].getElementsByClassName("star")[0];
             let aStxt=scope[id].getElementsByClassName("star-txt")[0];
             let aBstar=aSpan.getElementsByTagName("b");
-            let arrBtxt=["Bad","Poor","Normal","Good","Perfect"];
+            let arrBtxt=["No Mark","Bad","Poor","Normal","Good","Perfect"];
             let num=0;
             let onOff=true;
             const CourseStars = this.props.CourseStars;
             
-            aStxt.innerHTML=arrBtxt[CourseStars-1];
+            aStxt.innerHTML=arrBtxt[CourseStars];
                 for(let i=0;i<CourseStars;i++){
                     aBstar[i].style.backgroundPosition="0 0";
                 }
@@ -33,7 +33,7 @@ class ReviewStarDynamic  extends  Component{
                 aBstar[i].onmouseover=function(){
                     if(onOff) {
                         num = this.index;
-                        aStxt.innerHTML = arrBtxt[num];
+                        aStxt.innerHTML = arrBtxt[num+1];
                         for (let i = 0; i <=this.index; i++) {
                             aBstar[i].style.backgroundPosition = "0 0";
                         }
@@ -57,7 +57,7 @@ class ReviewStarDynamic  extends  Component{
                     }
                     num = this.index ;
                     //CountStars = num + 1;
-                    aStxt.innerHTML=arrBtxt[num];
+                    aStxt.innerHTML=arrBtxt[num+1];
                     for(let i=0;i<=this.index;i++){
                         aBstar[i].style.backgroundPosition="0 0";
                     }
