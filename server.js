@@ -13,6 +13,7 @@ const courseModel = require('./DataModel/models/course.js');
 const userModel = require('./DataModel/models/user.js');
 const enrollmentModel = require('./DataModel/models/enrollment.js');
 const pendingListModel = require('./DataModel/models/pendingList.js');
+const codeModel = require('./DataModel/models/code.js');
 
 const natural = require('natural');
 const classifier = new natural.BayesClassifier();
@@ -228,7 +229,8 @@ app.get('/api/search/:query', (req, res) => {
     )
 
     courseModel
-    .find({'full_name': new RegExp(req.params.query, 'i'), 'term': 3}, 'full_name description _id')
+    .find({'full_name': new RegExp(req.params.query, 'i'), 'term': 3}, 'full_name description _id code')
+    .populate('code')
     .exec(function(err, docs){
       if (err) {
         console.log(err);
@@ -236,7 +238,7 @@ app.get('/api/search/:query', (req, res) => {
       //console.log('docs', docs);
       mongoose.disconnect();
       resolve(docs)
-    })
+      })
     }) // promise end
   searchInfo.then(result => {
     return res.json(result);
@@ -326,7 +328,8 @@ app.get('/api/search/:query', (req, res) => {
         return Promise.all(result.map((item) => {
           return new Promise((resolve,reject) => {
             courseModel
-              .find({_id : item.label}, '_id full_name description')
+              .find({_id : item.label}, '_id full_name description code')
+              .populate('code')
               .exec(function(err,docs){
                 if(err) return handleError(err)
                 resolve(docs[0])
@@ -339,7 +342,7 @@ app.get('/api/search/:query', (req, res) => {
       getResult(result)
       .then(result => {
         console.log(result)
-        return res.json(result);
+        return res.json(result.slice(0,8));
       })
     })
 })
