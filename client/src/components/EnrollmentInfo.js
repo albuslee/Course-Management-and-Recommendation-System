@@ -15,7 +15,6 @@ class EnrollmentInfo extends Component {
 				fetch('/api/enrollment/' + username)
 				.then(res => res.json())
 				.then(json => {
-						console.log(json)
 						for ( let course of json){
 						this.setState({
 								enrollment: [...this.state.enrollment, {'code': course.code, 'name': course.name}],
@@ -31,7 +30,6 @@ class EnrollmentInfo extends Component {
 
     render() {
 			const data = this.state.enrollment;
-			console.log(data)
       return (
         <div>
 					{/* Table for the enrollment history which is CourseID and Course Name */}

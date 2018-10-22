@@ -36,6 +36,11 @@ app.get('/endpoint', function (req, res, next) {
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended : true}));
 
+function getSum(array) {
+  return array.reduce(function (r, a) {
+      return r + a;
+  }, 0);
+}
 
 // ----------------------------------------------------get the user infomation for display in studentprofile ---------------------
 
@@ -115,7 +120,7 @@ app.get('/api/enrollment/:id', (req, res) => {
 // ----------------------------------------------------get the course review info ---------------------
 app.get('/api/review/:id',(req,res) => {
   // connect database
-  //by data schema provided by mongoose
+  // by data schema provided by mongoose
   const courseReview = new Promise((resolve,reject) => {
     mongoose.connect(url + 'coursetest')
     .then(
@@ -127,7 +132,7 @@ app.get('/api/review/:id',(req,res) => {
       }
     )
 
-  //get user-course-star information from enrollment table
+  // get user-course-star information from enrollment table
     enrollmentModel
     .find({
       'user': parseInt(req.params.id)
@@ -136,21 +141,24 @@ app.get('/api/review/:id',(req,res) => {
     .exec(function(err, docs){
       if (err) return handleError(err);
       var reviewList = [];
-      console.log(docs[0])
+
+      // no data searched
       if (docs[0] === undefined){
-      
-        reviewList = [];    
-        
+        reviewList = [];      
       }
+
+      // searching data success
       else{
-      docs[0].course_list.forEach(course => {
-        reviewList.push({'code' : course._id.code, 'name': course._id.name, 'star':course.star,'term': course._id.term});    
-      });
-      resolve(reviewList);
-      mongoose.disconnect();
+        docs[0].course_list.forEach(course => {
+          reviewList.push({'code' : course._id.code, 'name': course._id.name, 'star':course.star,'term': course._id.term});    
+        });
+        resolve(reviewList);
+        mongoose.disconnect();
     
-    }})
+      }})
   })
+
+  // send json data to frontend 
   courseReview
     .then( reviewList => {
       return res.json(reviewList
@@ -247,9 +255,11 @@ app.get('/api/search/:query', (req, res) => {
 
 // ----------------------------------------------------course recommendations---------------------
   app.get('/api/recommendation/:userid', (req, res) => {
-    //const fakeDescription = 'Operating system organisation and services. Process management: scheduling, synchronisation and communication. Memory management: virtual memory, paging and segmentation. Storage management: Disk scheduling, file systems. Protection and Security. Distributed operating systems and file systems. Case studies drawn from UNIX, MS-DOS, Mach. Lab. programming assignments';
+    // get parameters from frontend
     const recomUserId = req.params.userid;
     const recomInfo = new Promise((resolve, reject) => {
+
+      // connect coursetest table
       mongoose.connect(url+'coursetest')
       .then(
         () => {
@@ -257,21 +267,14 @@ app.get('/api/search/:query', (req, res) => {
         },
         err => { console.log(err) }
       )
+      
 
+      // find data in enrollment table with same user id
       enrollmentModel
       .find({'user': recomUserId}, 'course_list')
       .exec(function(err, reviewList){
         if(err){console.log(err)}
         let stars = [];
-
-        // let courseAll = [];
-        // for (let i = 0; i < reviewList[0].course_list.length; i ++){
-        //   courseAll.push(reviewList[0].course_list[i]._id);
-          
-        // }
-        
-
-        //reviewList[0].course_list is the list of the history course review from the user
         for (let i = 0; i < reviewList[0].course_list.length; i ++){
           stars.push(reviewList[0].course_list[i].star);
         }
@@ -286,15 +289,18 @@ app.get('/api/search/:query', (req, res) => {
         var description = "";
         var itemList = [];
         courseIdForRecom.map((item) => {
+
+          // search the data with same course id from the data found before
           courseModel
           .find({'_id':item})
           .exec(function(err, docs){
             (err) => {console.log(err)}
-            
             description += ' ';
             description += docs[0].description;
             courseModel
             .find({},'_id full_name description')
+
+            // set up training model 
             .exec(function(err, courses){
               if (err) {
                 console.log(err);
@@ -303,12 +309,15 @@ app.get('/api/search/:query', (req, res) => {
                 classifier.addDocument(courses[i].description,courses[i]._id);      
               }
               classifier.train();
-            
+              
+              // get the result from classifier 
               const classifierResults = classifier.getClassifications(description);
               classifierResults.filter(function (sItem){
                 return (item.slice(1) !== sItem.label.slice(1))
               })
               itemList.push(item.slice(1,));
+
+              // remove the duplicate element of result list
               let classifierResultsFinal = [];
               for (let i = 0; i < classifierResults.length;i++){
                 if(itemList.indexOf(classifierResults[i].label.slice(1,)) === -1){
@@ -316,13 +325,14 @@ app.get('/api/search/:query', (req, res) => {
                 };
               }    
               resolve(classifierResultsFinal)
-              //console.log(classifierResultsFinal,'-----')
             })
           })
         })
       })
     }) //promise end
     
+
+    // find all the realated information of data we need
     recomInfo.then(result => {
       function getResult(result){
         return Promise.all(result.map((item) => {
@@ -333,22 +343,20 @@ app.get('/api/search/:query', (req, res) => {
               .exec(function(err,docs){
                 if(err) return handleError(err)
                 resolve(docs[0])
-                //mongoose.disconnect();
               })
           })
         }))
       }
 
+      // send json data to front end
       getResult(result)
       .then(result => {
-        console.log(result)
         return res.json(result);
       })
     })
 })
 
 
- 
 // ----------------------------------------------------Pending---------------------
 app.post('/api/pending/:id', function(req, res){
   let course_id = {'_id':req.body._id}
@@ -420,12 +428,13 @@ app.post('/api/enrollmentinsert/:uid', function(req, res){
 // ----------------------------------------------------Insert the Review Courses Star into the database ---------------------
 
 app.post('/api/reviewinsert/:id', function(req, res){
+  
+  // get parameters from frontend
    var term = req.body.term;
    var star = req.body.star;
    var code = term + req.body.code;
-  //res.send(req.body);
-  //console.log(req.body.star,'u r a silly dog', req.body.code);
   
+  // connect coursetest table
   mongoose.connect(url+'coursetest')
     .then(
       () => {
@@ -433,6 +442,9 @@ app.post('/api/reviewinsert/:id', function(req, res){
       },
       err => { console.log(err) }
     )
+  
+  // search elemnet with same course code from enrollment table
+  // update stars from subtable --- courselist  
   enrollmentModel
   .findOneAndUpdate(
     {'user': parseInt(req.params.id), 'course_list._id': code},
@@ -442,9 +454,30 @@ app.post('/api/reviewinsert/:id', function(req, res){
       if (err){
         console.log(err)
       }
-      mongoose.disconnect();
-      //console.log(raw)
       
+      enrollmentModel
+        .find({'course_list._id': {$in: [code, '2'+req.body.code]} })
+        .exec(function(err, docs){
+          let star_list = []
+          let sum = 0
+          docs.filter(doc => {
+            doc.course_list.filter(course => {
+              if(course._id === code || course._id === '2'+req.body.code){
+                star_list.push(course.star)
+              }
+            })
+          })
+          sum = getSum(star_list)
+          let mean = 0;
+          mean = (sum/star_list.length).toFixed(1);
+          codeModel
+          .findOneAndUpdate({'_id': code.slice(1,)},
+          {'$set': {'avg_star': mean}},
+          {'new': true})
+          .exec(function(err, docs){
+            if (err) {console.log(err)}
+          })
+        })
     })
 
 });
