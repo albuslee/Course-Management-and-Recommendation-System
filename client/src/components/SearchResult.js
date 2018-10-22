@@ -84,7 +84,7 @@ class SearchResult extends Component {
 		console.log('start', start_index, 'end', end_index);
 		console.log('state course', this.state.course_list)
 		return this.state.course_list.slice(start_index, end_index).map((course) => 
-			<CourseCard key={course._id} course_id={course._id} full_name={course.full_name} description={course.description} star={this.getRandom(1,5)}/>
+			<CourseCard key={course._id} course_id={course._id} full_name={course.full_name} description={course.description} star={this.getRandom(3,5)}/>
 		)
 	}
 
@@ -141,7 +141,7 @@ class SearchResult extends Component {
 	}
 
 	getRandom(min, max) {
-		return (Math.random() * (max-min) + min).toPrecision(2);
+		return (Math.random() * (max-min) + min).toPrecision(3);
 	}
 
 	// handle header text
