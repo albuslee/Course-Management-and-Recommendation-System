@@ -36,6 +36,11 @@ app.get('/endpoint', function (req, res, next) {
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended : true}));
 
+function getSum(array) {
+  return array.reduce(function (r, a) {
+      return r + a;
+  }, 0);
+}
 
 // ----------------------------------------------------get the user infomation for display in studentprofile ---------------------
 
@@ -442,9 +447,32 @@ app.post('/api/reviewinsert/:id', function(req, res){
       if (err){
         console.log(err)
       }
-      mongoose.disconnect();
-      //console.log(raw)
-      
+      enrollmentModel
+        .find({'course_list._id': {$in: [code, '2'+req.body.code]} })
+        .exec(function(err, docs){
+          let star_list = []
+          let sum = 0
+          docs.filter(doc => {
+            doc.course_list.filter(course => {
+              if(course._id === code || course._id === '2'+req.body.code){
+                star_list.push(course.star)
+              }
+            })
+          })
+          console.log(code,star_list)
+          sum = getSum(star_list)
+          let mean = 0;
+          mean = (sum/star_list.length).toFixed(1);
+          console.log('mean', mean)
+          codeModel
+          .findOneAndUpdate({'_id': code.slice(1,)},
+          {'$set': {'avg_star': mean}},
+          {'new': true})
+          .exec(function(err, docs){
+            if (err) {console.log(err)}
+            console.log(docs)
+          })
+        })
     })
 
 });
