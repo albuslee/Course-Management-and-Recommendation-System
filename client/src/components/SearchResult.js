@@ -32,7 +32,6 @@ class SearchResult extends Component {
 		fetch('/api/recommendation/' + userID)
 		.then(res => res.json())
 		.then(recomList => {
-			console.log(recomList)
 			for (let i = 0; i < recomList.length; i ++){
 				//console.log(recomList[i]);
 				if (recomList[i]._id[0] === currentSemester && !enrollList.includes(recomList[i]._id.slice(1))){
@@ -68,7 +67,6 @@ class SearchResult extends Component {
 					recommendation: false,
 					nb_of_pages: Math.ceil(json.length / 8)
 				})
-				console.log(this.state.course_list)
 				this.makePagination();
 			})
 		} else {
@@ -108,7 +106,6 @@ class SearchResult extends Component {
 			this.setState({nb_of_pages: 1})
 		} else {
 			let nb_of_pages = Math.ceil(course_list.length / 8)
-			console.log('nb_of_pages',nb_of_pages);
 			this.setState({nb_of_pages: nb_of_pages});
 		}
 		//this.renderCourseCard(0, 8)

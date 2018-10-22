@@ -51,7 +51,6 @@ class PendingListSingle extends Component {
         .then(res => res.json())
         .then(response => console.log('Success:', JSON.stringify(response)))
         .catch(error => console.error('Error:', error));
-        console.log(delete_course_list);
         window.location.href="./pendinglist";
 
     }
@@ -59,7 +58,6 @@ class PendingListSingle extends Component {
 
 
     render() {
-        console.log(this.props)
         const failPrerequisite = <h4 style={{color:'#ff4d4d'}}>Can not enroll! You probably need to check if you satisfy the prerequisite: {this.props.prerequisiteDesc ? this.props.prerequisiteDesc.slice(14): null}</h4>
         return (
             <tr>

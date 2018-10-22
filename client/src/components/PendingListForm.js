@@ -28,7 +28,6 @@ class PendingListForm extends Component {
                 pendingCourseObj : json,
                 toggledCourses : defauleToggledCourses
             })
-            console.log(this.state); //done
         })
     }
 
@@ -61,9 +60,6 @@ class PendingListForm extends Component {
         }
         var url = `http://127.0.0.1:5000/api/enrollmentinsert/${localStorage.getItem('session-username').slice(1,-1)}`;
         var data = {pendinglist: enroll_course_list};
-        console.log('----------------------------------')
-        console.log(data);
-        console.log('----------------------------------')
 
         fetch(url, {
             method: 'POST', // or 'PUT'
@@ -74,12 +70,10 @@ class PendingListForm extends Component {
         }).then(res => res.json())
         .then(response => console.log('Success:', JSON.stringify(response)))
         .catch(error => console.error('Error:', error));
-        console.log(enroll_course_list);
         window.location.href="./studentprofile"
     }
 
     render() {
-        console.log(this.state.pendingCourseObj)
         return (
             <form className="pending_list" action="/studentprofile">
                  <table width="100%" className="zebra pending_table">
