@@ -84,7 +84,7 @@ class SearchResult extends Component {
 		console.log('start', start_index, 'end', end_index);
 		console.log('state course', this.state.course_list)
 		return this.state.course_list.slice(start_index, end_index).map((course) => 
-			<CourseCard key={course._id} course_id={course._id} full_name={course.full_name} description={course.description} star={this.getRandom(3,5)}/>
+			<CourseCard key={course._id} course_id={course._id} full_name={course.full_name} description={course.description} star={course.code.avg_star}/>
 		)
 	}
 
