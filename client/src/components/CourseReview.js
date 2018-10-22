@@ -8,7 +8,6 @@ class CourseReview extends Component {
     constructor(props){
         super(props);
         this.state = {
-            
             currentTerm : this.props.currentTerm,
             seme_1: '',
             seme_2: '',
@@ -62,7 +61,6 @@ class CourseReview extends Component {
     
 
     semesterTitleDivision_1 = () => {
-        console.log(this.state)
         if (this.state.currentTerm === 1){
             return this.state.term_1.map((Course) => (
                 <ReviewFormDynamic key={Course.code} CourseCode={Course.code} CourseTerm = {Course.term} CourseName={Course.name} CourseStar={Course.star} onStar = {this.getStars.bind(this)} />
@@ -120,9 +118,46 @@ class CourseReview extends Component {
         }).then(res => res.json())
         .then(response => console.log('Success:', JSON.stringify(response)))
         .catch(error => console.error('Error:', error));
-        //console.log(courseCode,star);
         
     }
+
+    whichBottomStyle = () => {
+        if (this.state.currentTerm === 1){
+            if(this.state.term_1.length !== 0){
+                return false;
+            }
+        }
+        if (this.state.currentTerm === 2){
+            if(this.state.term_2.length !== 0){
+                return false;
+            }
+        }
+        if (this.state.currentTerm === 3){
+            if(this.state.term_3.length !== 0){  
+                return true;
+            }
+        }
+    }
+
+    bottomBtn_1 = () => {
+        return (
+            <div className = "button_part">
+                <button type="submit" className = "button" onClick = {this.successSubmit}>Submit</button>
+                <button onClick = {this.backOnclick} className = "button">Back</button>
+            </div>
+        )
+    }
+
+    bottomBtn_2 = () => {
+        return (
+            <div className = "button_part">
+                <button onClick = {this.backOnclick} className = "button">Back</button>
+            </div>
+        )
+    }
+
+
+
 
     //back to StudentProfile
     backOnclick(){
@@ -173,13 +208,7 @@ class CourseReview extends Component {
                     </table>
                 </form>
 
-                <div className = "button_part">
-                    <button type="submit" className = "button" onClick = {this.successSubmit}>Submit</button>
-                    <button onClick = {this.backOnclick} className = "button">Back</button>
-                </div>
-                <div className = "button_part">
-                    <button onClick = {this.backOnclick} className = "button">Back</button>
-                </div>
+                {this.whichBottomStyle() ? this.bottomBtn_1() : this.bottomBtn_2()}
 
             </div> 
         );
