@@ -17,7 +17,6 @@ class CourseCard extends Component {
 		.then(response => {
 			console.log('Success:', JSON.stringify(response))
 			alert(course_id.slice(1,)+' has been added to pendinglist')
-			window.location.href = "/pendinglist"
 		})
 		.catch(error => console.error('Error:', error));
 }
