@@ -9,7 +9,7 @@ class EnrollmentInfo extends Component {
             enrollment: [],
         }
     }
-
+		// get student's enrollment information
     componentWillMount(props){
       let username = JSON.parse(localStorage.getItem('session-username'))
 				fetch('/api/enrollment/' + username)

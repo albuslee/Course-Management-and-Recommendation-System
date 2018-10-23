@@ -19,6 +19,7 @@ class SearchResult extends Component {
 		}
 	}
 
+	// get recommendation courses
 	componentDidMount(){
 		const currentSemester = localStorage['current-semseter'];
 		const userID = localStorage['session-username'].slice(1,-1);

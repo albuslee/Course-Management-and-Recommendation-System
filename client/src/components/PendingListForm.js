@@ -59,8 +59,11 @@ class PendingListForm extends Component {
                 enroll_course_list.push({'_id' : this.state.pendingCourseObj[key-1].courseTerm + this.state.pendingCourseObj[key-1].courseId})
             }
         }
-        var url = `http://127.0.0.1:5000/api/enrollmentinsert/${localStorage.getItem('session-username').slice(1,-1)}`;
-        var data = {pendinglist: enroll_course_list};
+        var url = `http://127.0.0.1:5000/api/enrollmentinsert`;
+        var data = {
+            pendinglist: enroll_course_list,
+            user: localStorage.getItem('session-username').slice(1,-1)
+        };
 
         fetch(url, {
             method: 'POST', // or 'PUT'

@@ -114,9 +114,14 @@ class CourseReview extends Component {
 
     // update stars fetching to database
     getStars (courseCode,star,courseTerm){
-        var data = {'code':courseCode,'star':star,'term':courseTerm};
         let username = JSON.parse(localStorage.getItem('session-username'));
-        var url = '/api/reviewinsert/' + username;
+        var data = {
+            'code':courseCode,
+            'star':star,
+            'term':courseTerm,
+            'user':username
+        };
+        var url = '/api/reviewinsert';
         fetch(url, {
             method: 'POST', 
             body: JSON.stringify(data),
