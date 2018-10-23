@@ -1,3 +1,4 @@
+/* Body for all pages */
 html body{
     height: 100%;
     width: 100%;
@@ -6,12 +7,14 @@ html body{
     background-size: cover;
     background-repeat: round;
 }
+
+/* Login page */
 .limiter {
     height: 100%;
     width: 100%;
     margin: 0 auto;
 }
-  
+
 .container-login100 {
     width: 100%;  
     min-height: 100vh;
@@ -419,10 +422,6 @@ table {
 tbody {
     width: 100%;
 }
-/*.zebra tr:hover *{
-    background: #eeeeee;
-	color:#000;
-}*/
 
 .zebra tbody tr {
     width: 100%;
