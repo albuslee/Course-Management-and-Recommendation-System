@@ -61,8 +61,8 @@ class PendingListForm extends Component {
         }
         var url = `http://127.0.0.1:5000/api/enrollmentinsert`;
         var data = {
-            pendinglist: enroll_course_list,
-            user: localStorage.getItem('session-username').slice(1,-1)
+            'pendinglist': enroll_course_list,
+            'user': localStorage.getItem('session-username').slice(1,-1)
         };
 
         fetch(url, {
