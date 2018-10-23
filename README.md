@@ -1,43 +1,44 @@
-# React Express Starter Pack
+## How to build and setup dependencies for running our project: 
 
-> Create full stack apps with React and Express. Run your client and server with a single command. 
+### Preparation: 
 
-### Redux Version
-This version does not include Redux
-[Click Here For Redux Version](https://github.com/bradtraversy/react_redux_express_starter) 
+Before running the website, you need to install MongoDB and Node.js at first. 
 
-## Quick Start
+1. Install MongoDB 
+Please click the following link to install MongoDB Community Edition and there are three editions: Windows, Linux and macOS.  
+If you are using macOS, please strictly follow the instructions in this link. We strongly recommend you install MongoDB with Homebrew and remember to set permissions.  
+After MongoDB is installed, please run `mongod` to start the server (if permission denied, you can run `sudo mongod`). Then, open another terminal and run `mongo` to ensure MongoDB can be successfully connected. 
 
-``` bash
-# Install dependencies for server
-npm install
+Please ENSURE the MongoDB successfully installed and it can work properly! 
 
-# Install dependencies for client
-npm run client-install
+2. Install npm & Node 
+Since npm is installed with Node.js, please click this link to download Node.js and npm package. In addition, you can use the following command to check that you have node and npm installed. 
+  
 
-# Run the client & server with concurrently
-npm run dev
+Setup and Run project on localhost: 
 
-# Run the Express server only
-npm run server
+1. Type `mongod` in your Terminal to ensure you open the MongoDB.   
 
-# Run the React client only
-npm run client
+2. Please open another Terminal in your own laptop and type: 
+`git clone https://git@bitbucket.org/fiveangrymen/comp9323-react-express-mongodb.git `  
+to download our project repository. 
 
-# Server runs on http://localhost:5000 and client on http://localhost:3000
-```
+3. Then, type `cd comp9323-react-express-mongodb/` to enter the folder.  
 
-## App Info
+4. Type: `npm install` to install our server-side dependencies. 
 
-### Author
+5. Type: `npm run client-install` to install our client-side dependencies. 
 
-Brad Traversy
-[Traversy Media](http://www.traversymedia.com)
+6. Type: `cd Datamodel` to enter the folder `comp9323-react-express-mongodb/Datamodel/`. 
 
-### Version
+7. Type `node plz_run_me_only.js`, it will insert the dummy data into the database. If there is no error shown in the terminal, this means success. 
 
-1.0.0
+8. Type `cd ..` to go back to the upper folder comp9323-react-express-mongodb. 
 
-### License
+9. If you use macOS, type `pwd` to ensure you are under this path `<YOUR_PATH>/comp9323-react-express-mongodb/` 
 
-This project is licensed under the MIT License
+10. Type: `npm run dev` to run the client & server with concurrently. 
+
+11. If the chrome window does not pop up, please open your own browser and type `http://127.0.0.1:3000` in the address bar. 
+
+12. If you want to stop running our project, please press Ctrl + C to interrupt the program. 
