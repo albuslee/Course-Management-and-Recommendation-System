@@ -26,6 +26,7 @@ class ReviewForm  extends  Component{
     
     render(){
         return(
+            //  Review form for previous semenster
                 <tr className="review_static">
                     <td width="10%" id="CourseID">{this.state.CourseCode}</td>
                     <td width="70%" id="CourseDitails">{this.state.CourseName}</td>

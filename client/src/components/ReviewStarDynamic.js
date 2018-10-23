@@ -95,6 +95,7 @@ class ReviewStarDynamic  extends  Component{
     
 
     render(){
+        // Review star part for current semenster
         return(
             <div className={this.state.review} id="review_star_style_dynamic">
                 <span className="star">

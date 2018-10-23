@@ -25,7 +25,7 @@ class CourseCard extends Component {
   render() {
     return (
       <div>
-        
+        {/* Course Brief Detail and Add button part */}
         <ul>
 						<li>
 							<div className="course_detail">

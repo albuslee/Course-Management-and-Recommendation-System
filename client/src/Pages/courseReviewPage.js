@@ -9,30 +9,19 @@ import CourseReview from '../components/CourseReview';
 // basic page structure  
 const CourseReviewBackground = () => 
     <div className = "Sbody">
-        {/* <!-- Contact --> */}
           <div id = "contact" className = "section">
+          {/* Navigationbar part */}
             <NavigationBar/>
-            {/* <!-- container --> */}
             <div className = "container">
-                {/* <!-- row --> */}
                 <div className = "row">
-                    {/* <!-- contact information --> */}
                     <div className="section-header">
                         <h1>Course Review</h1>
                     </div>
-                    
+                    {/* Course review part */}
                     <CourseReview />
-
-                    {/* <!-- contact information --> */}
-                    
                 </div>
-                {/* <!-- /row --> */}
-
             </div>
-            {/* <!-- /container --> */}
-
         </div>
-        {/* <!-- /Contact --> */}
     </div>
 
 class CourseReviewPage extends Component {
