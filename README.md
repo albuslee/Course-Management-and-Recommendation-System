@@ -10,15 +10,15 @@
 
   
 
-1. Install MongoDB
-- Please click the following link to install [MongoDB Community Edition](https://docs.mongodb.com/manual/administration/install-community/) and there are three editions: Windows, Linux and macOS.
-- If you are using **macOS**, please strictly follow the instructions in this [link](https://docs.mongodb.com/manual/tutorial/install-mongodb-on-os-x/). We **strongly recommend** you **install MongoDB with Homebrew** and remember to **set permissions**.
-- After MongoDB is installed, please run **`mongod`** to start the server (if permission denied, you can run **`sudo mongod`**). Then, open another terminal and run **`mongo`** to ensure MongoDB can be successfully connected.
+1. Install MongoDB  
+- Please click the following link to install [MongoDB Community Edition](https://docs.mongodb.com/manual/administration/install-community/) and there are three editions: Windows, Linux and macOS.  
+- If you are using **macOS**, please strictly follow the instructions in this [link](https://docs.mongodb.com/manual/tutorial/install-mongodb-on-os-x/). We **strongly recommend** you **install MongoDB with Homebrew** and remember to **set permissions**.  
+- After MongoDB is installed, please run **`mongod`** to start the server (if permission denied, you can run **`sudo mongod`**). Then, open another terminal and run **`mongo`** to ensure MongoDB can be successfully connected.  
 - Please **ENSURE** the MongoDB successfully installed and it can work properly!
 
   
 
-2. Install npm & Node
+2. Install npm & Node  
 - Since npm is installed with Node.js, please click this [link](https://www.npmjs.com/get-npm) to download Node.js and npm package.
   
 
