@@ -190,11 +190,12 @@ app.get('/api/pendinglist/:uid', (req, res) => {
       if(docs.length === 0){
         return res.status(404)
       }
-      const enr_courses = docs[0].course_list
+      const enr_courses = docs[0].course_list;
       for (const course of enr_courses){
-        enrollment_list.push(course._id.code);
+        if (parseInt(course._id.term)!==3){
+          enrollment_list.push(course._id.code);
+        }
       }
-      //console.log(enrollment_list);
       pendingListModel
         .find({'user': parseInt(req.params.uid)})
         .populate('course_list._id')
@@ -393,7 +394,7 @@ app.post('/api/enrollmentinsert', function(req, res){
   console.log(courseList);
   console.log("------------------------------------------")
   // console.log(`req.body is`,courseList)
-  // res.send(req.body);
+  console.log(req.body)
 
   courseList.forEach(course => {
     //console.log(course)
@@ -409,7 +410,7 @@ app.post('/api/enrollmentinsert', function(req, res){
         console.log(raw)
         //delete the enrolled course from pending list:
         pendingListModel
-        .findOneAndUpdate({'user': parseInt(req.params.uid)},
+        .findOneAndUpdate({'user': parseInt(req.body.user)},
         {'$pull': {'course_list': course}},
         {'new': true, "upsert": true })
         .exec(function(err,raw){
