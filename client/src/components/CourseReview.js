@@ -185,7 +185,7 @@ class CourseReview extends Component {
     render() {
         return (
             <div>   
-                
+                {/* Table for Semenster 1 */}
                 <form action = "/" method = "POST" className = "course_review">
                     <div className="section-header">
                         <h2>{this.state.seme_1}</h2>
@@ -196,7 +196,7 @@ class CourseReview extends Component {
                     </tbody>
                     </table>
                 </form> 
-
+                {/* Table for Semenster 2 */}
                 <form action = "/" method = "POST" className = "course_review">
                     <div className="section-header">
                         <h2>{this.state.seme_2}</h2>
@@ -207,7 +207,7 @@ class CourseReview extends Component {
                     </tbody>
                     </table>
                 </form>
-
+                {/* Table for Semenster 3 */}
                 <form action = "/" method = "POST" className = "course_review">
                     <div className="section-header">
                         <h2>{this.state.seme_3}</h2>
@@ -218,7 +218,7 @@ class CourseReview extends Component {
                     </tbody>
                     </table>
                 </form>
-
+                {/* Button part */}
                 {this.whichBottomStyle() ? this.bottomBtn_1() : this.bottomBtn_2()}
 
             </div> 

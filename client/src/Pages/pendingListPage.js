@@ -53,24 +53,17 @@ render() {
           <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
           <meta name="viewport" content="width=device-width, initial-scale=1"/>
           {/* <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags --> */}
-
           <title>Pending List</title>
-
-          {/* <!-- Google font --> */}
-          <link href="https://fonts.googleapis.com/css?family=Lato:700%7CMontserrat:400,600" rel="stylesheet"/>
-
           {/* <!-- Bootstrap --> */}
           <link type="css" rel="stylesheet" href="css/bootstrap.min.css"/>
-
           {/* <!-- Font Awesome Icon --> */}
           <link rel="font" href="css/font-awesome.min.css"/>
-
           {/* <!-- Custom stlylesheet --> */}
           <link type="css" rel="stylesheet" href="css/style.css"/>
-
       </Helmet>
-
+      {/* Navigationbar part */}
         <NavigationBar/>
+        {/* Pending list part */}
         <PendingListBackground/>     
       </div>
   );

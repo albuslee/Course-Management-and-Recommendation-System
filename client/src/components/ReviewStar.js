@@ -30,7 +30,7 @@ class ReviewStar  extends  Component{
     }
 
     render(){
-
+        // Review star for previous semenster
         return(
             <div className={this.state.review} id="review_star_style">
                 <span className="star">

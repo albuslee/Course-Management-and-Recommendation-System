@@ -58,8 +58,10 @@ class PendingListSingle extends Component {
 
 
     render() {
+        // judge whether can enroll the course
         const failPrerequisite = <h4 style={{color:'#ff4d4d'}}>Can not enroll! You probably need to check if you satisfy the prerequisite: {this.props.prerequisiteDesc ? this.props.prerequisiteDesc.slice(14): null}</h4>
         return (
+            // single row of pending list
             <tr>
                 <td width="5%"><input type="checkbox" id={this.props.index} name=""  onClick={this.handleClick}/></td>
                 <td width="10%" id="CourseID">{this.props.courseId}</td>

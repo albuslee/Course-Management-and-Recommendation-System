@@ -32,6 +32,7 @@ class PendingListForm extends Component {
     }
 
     renderCourses() {
+        // Single row of pending list
         return this.state.pendingCourseObj.map((course) => (
             <PendingListSingle key={course.id} index={course.id} courseId={course.courseId} courseName={course.courseName} 
             courseDescription={course.courseDescription} prerequisiteChecked={course.isPre} 
@@ -75,13 +76,14 @@ class PendingListForm extends Component {
 
     render() {
         return (
+            // Pending list form
             <form className="pending_list" action="/studentprofile">
                  <table width="100%" className="zebra pending_table">
                     <tbody>
                         {this.renderCourses()}
                     </tbody>                  
                 </table>
-                        
+            {/* Button part */}
                 <div className="button_part">
 					<button onClick={this.handleSubmit} className="button">Proceed to Enroll</button>
 						<a href="/studentprofile" className="button">Back</a>
