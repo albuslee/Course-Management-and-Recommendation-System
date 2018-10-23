@@ -358,7 +358,7 @@ app.get('/api/search/:query', (req, res) => {
 
 
 // ----------------------------------------------------Pending---------------------
-app.post('/api/pending/:id', function(req, res){
+app.post('/api/pending', function(req, res){
   let course_id = {'_id':req.body._id}
   console.log(course_id)
   mongoose.connect(url+'coursetest')
@@ -369,7 +369,7 @@ app.post('/api/pending/:id', function(req, res){
       err => { console.log(err) }
     )
   pendingListModel
-  .findOneAndUpdate({'user': parseInt(req.params.id)},
+  .findOneAndUpdate({'user': parseInt(req.body.user)},
     {'$push': {'course_list': course_id}},
     {'new': true, "upsert": true})
   .exec(function(err, docs){
@@ -387,7 +387,7 @@ app.post('/api/pending/:id', function(req, res){
 
 // ----------------------------------------------------Insert the pending courses into the database ---------------------
 
-app.post('/api/enrollmentinsert/:uid', function(req, res){
+app.post('/api/enrollmentinsert', function(req, res){
   let courseList = req.body.pendinglist
   console.log("------------------------------------------")
   console.log(courseList);
@@ -398,7 +398,7 @@ app.post('/api/enrollmentinsert/:uid', function(req, res){
   courseList.forEach(course => {
     //console.log(course)
     enrollmentModel
-    .findOneAndUpdate({'user': parseInt(req.params.uid)}, 
+    .findOneAndUpdate({'user': parseInt(req.body.user)}, 
       {'$push': {'course_list': course }},
       { "new": true, "upsert": true })
       .exec(function(err, raw){
@@ -427,13 +427,13 @@ app.post('/api/enrollmentinsert/:uid', function(req, res){
 
 // ----------------------------------------------------Insert the Review Courses Star into the database ---------------------
 
-app.post('/api/reviewinsert/:id', function(req, res){
+app.post('/api/reviewinsert', function(req, res){
   
   // get parameters from frontend
-   var term = req.body.term;
-   var star = req.body.star;
-   var code = term + req.body.code;
-  
+  var term = req.body.term;
+  var star = req.body.star;
+  var code = term + req.body.code;
+  let user = req.body.user;
   // connect coursetest table
   mongoose.connect(url+'coursetest')
     .then(
@@ -447,7 +447,7 @@ app.post('/api/reviewinsert/:id', function(req, res){
   // update stars from subtable --- courselist  
   enrollmentModel
   .findOneAndUpdate(
-    {'user': parseInt(req.params.id), 'course_list._id': code},
+    {'user': parseInt(user), 'course_list._id': code},
     {'$set':{ 'course_list.$.star': star } },
     {'new': true, "upsert": true})
     .exec(function(err, raw){
